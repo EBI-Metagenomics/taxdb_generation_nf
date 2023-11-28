@@ -1,0 +1,28 @@
+#get tax file and remove only taxids and taxonomy - in real time this will have to be taxid and empty up to species
+#run format for itsonedb
+# get .taxid output and uplift
+#paste back original IDs to uplift
+#remove any completely empt tax lines from uplift
+#paste IDs from new uplift to replace first column of taxids
+#remove empty ;p__;c__;o__; from new uplift
+#run make otu
+#run clean fasta
+
+#run mapseq clustering
+#rename files
+
+#Chris changes
+
+# sed -n "1~3p" ITSoneDB_ITS1_ENA.fasta | cut -d"|" -f2 > ITSoneDB.sliced_taxids
+# python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/old_scripts_taxdb/get_lineage.py
+
+#perl /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/old_scripts_taxdb/format_ITSone_for_mapseq.pl -i ./ITSoneDB.taxmap  --out /hps/nobackup/rdf/metagenomics/service-team/users/chrisata/ITSoneDB-20200214-recreation/
+#cut -f2 uplift > taxonomic_clades.txt
+#cut -d"|" -f1-3 ITSoneDB_ITS1_ENA.fasta | sed -n "1~3p" | sed "s/>//" > its_ids.txt
+#paste its_ids.txt taxonomic_clades.txt > ITSoneDB-tax.txt
+#grep -v ";p__;" ITSoneDB-tax.txt > ITSoneDB-tax_final.txt
+#add header lines to ITSoneDB-tax.txt
+#cut -f2 itsonedb.taxid > itsonedb.taxid.slice
+#paste its_ids.txt itsonedb.taxid.slice > itsonedb.taxid.final
+
+
