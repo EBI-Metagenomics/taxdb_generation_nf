@@ -1,0 +1,3 @@
+#cutoff: 0.00:0.08 0.00:0.08 0.70:0.35 0.70:0.35 0.70:0.35 0.80:0.25 0.92:0.08 0.95:0.05
+#levels: Superkingdom Kingdom Phylum Class Order Family Genus Species
+#name: UNITE
