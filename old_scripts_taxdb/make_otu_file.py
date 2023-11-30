@@ -1,5 +1,5 @@
-taxfile = open("ITSoneDB-tax.txt", "r")
-taxidfile = open("itsonedb.taxid.final", "r")
+taxfile = open("uplift.final.filt.txt", "r")
+taxidfile = open("itsonedb.final.taxid", "r")
 otufile = open("itsonedb.otu", "w")
 oust = ["sk__", "k__", "p__", "c__", "o__", "f__", "g__", "s__"]
 taxids = {}
@@ -28,7 +28,6 @@ for line in taxfile:
             joint_lineage = ";".join(lineage[0:X])
             last_lineage = joint_lineage.split(";")[-1]
             if last_lineage not in oust:
-                print(ID)
                 tax_id = tax_num[-1]
                 tax_num.pop()
                 otus.add(joint_lineage + "\t" + tax_id + "\n")

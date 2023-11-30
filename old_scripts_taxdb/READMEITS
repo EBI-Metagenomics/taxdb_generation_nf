@@ -12,11 +12,16 @@
 #rename files
 
 #Chris changes
-
-# sed -n "1~3p" ITSoneDB_ITS1_ENA.fasta | cut -d"|" -f2 > ITSoneDB.sliced_taxids
 # python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/old_scripts_taxdb/get_lineage.py
+# perl /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/old_scripts_taxdb/format_ITSone_for_mapseq.pl -i ./itsone_tax.txt  --out /hps/nobackup/rdf/metagenomics/service-team/users/chrisata/ITSoneDB-20200214-recreation/
+# python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/old_scripts_taxdb/get_itsoneid.py
+# awk 'BEGIN {FS=OFS="\t"}NR == FNR {a[FNR] = $B;next}{$A = a[FNR];print $0}' B=1 A=1 uplift.final.txt itsonedb.taxid > itsonedb.final.taxid
+# grep -v ";p__;" uplift.final.txt > uplift.final.filt.txt
+# add in three line header to uplift.final.filt.txt
+# python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/old_scripts_taxdb/make_otu_file.py
 
-#perl /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/old_scripts_taxdb/format_ITSone_for_mapseq.pl -i ./ITSoneDB.taxmap  --out /hps/nobackup/rdf/metagenomics/service-team/users/chrisata/ITSoneDB-20200214-recreation/
+
+
 #cut -f2 uplift > taxonomic_clades.txt
 #cut -d"|" -f1-3 ITSoneDB_ITS1_ENA.fasta | sed -n "1~3p" | sed "s/>//" > its_ids.txt
 #paste its_ids.txt taxonomic_clades.txt > ITSoneDB-tax.txt
