@@ -5,7 +5,6 @@ process CLEAN_FASTA {
     container = '/hps/nobackup/rdf/metagenomics/service-team/singularity-cache/quay.io_biocontainers_seqtk:1.3.sif'
     publishDir "${params.outdir}/${label}/${version}/", mode: 'copy'
 
-
     input:
     path fasta
     path uplift

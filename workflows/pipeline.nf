@@ -4,6 +4,7 @@
 
 include { SILVA_GENERATION as SILVA_SSU_GENERATION } from '../subworkflows/silva_generation.nf'
 include { SILVA_GENERATION as SILVA_LSU_GENERATION } from '../subworkflows/silva_generation.nf'
+include { PR2_GENERATION } from "../subworkflows/pr2_generation.nf"
 
 workflow TAXDB_GENERATION_PIPELINE_V6 {
 
@@ -19,5 +20,9 @@ workflow TAXDB_GENERATION_PIPELINE_V6 {
         params.silva_lsu_label
     )
     
+    PR2_GENERATION(
+        params.pr2_version,
+        params.pr2_label
+    )
 
 }

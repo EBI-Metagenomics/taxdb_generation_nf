@@ -5,7 +5,7 @@ process MAKE_OTU_FILE {
     publishDir "${params.outdir}/${label}/${version}/", mode: 'copy'
 
     input:
-    path uplift
+    path tax
     path taxid
     val version
     val label
@@ -14,7 +14,26 @@ process MAKE_OTU_FILE {
     path("*.otu"), emit: otu
 
     """
-    python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/bin/make_otu_file.py -u $uplift -t $taxid -l $label
+    case $label in
+
+        UNITE)
+            python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/bin/make_otu_file.py -tx $tax -l $label
+        ;;
+        
+        PR2)
+            python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/bin/make_otu_file.py -tx $tax -l $label --ext_ranks
+        ;;
+
+        SILVA-SSU | SILVA-LSU | ITSONEdb)
+            python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/bin/make_otu_file.py -tx $tax -t $taxid -l $label
+        ;;
+
+        *)
+            echo "Incorrect reference db label"
+            exit 1
+        ;;
+        
+    esac
     """
 
 }
