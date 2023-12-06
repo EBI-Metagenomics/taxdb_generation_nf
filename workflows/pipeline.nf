@@ -11,21 +11,14 @@ include { RFAM_GENERATION } from "../subworkflows/rfam_generation.nf"
 workflow TAXDB_GENERATION_PIPELINE_V6 {
 
     SILVA_SSU_GENERATION(
-        "SSU",
-        params.silva_version,
-        params.silva_ssu_label
+        "SSU"
     )
 
     SILVA_LSU_GENERATION(
-        "LSU",
-        params.silva_version,
-        params.silva_lsu_label
+        "LSU"
     )
     
-    PR2_GENERATION(
-        params.pr2_version,
-        params.pr2_label
-    )
+    PR2_GENERATION()
 
     RFAM_GENERATION()
 

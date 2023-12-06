@@ -9,44 +9,42 @@ workflow SILVA_GENERATION {
 
     take:
         subunit
-        silva_version
-        label
     main:
 
         dummy_fasta = file(params.dummy_fasta)
 
         SILVA_REFORMAT(
             subunit,
-            silva_version,
-            label
+            params.silva_version,
+            params.silva_ssu_label
         )
 
         REMOVE_EMPTY_PHYLA(
             SILVA_REFORMAT.out.uplift,
-            silva_version,
-            label
+            params.silva_version,
+            params.silva_ssu_label
         )
 
         MAKE_OTU_FILE(
             REMOVE_EMPTY_PHYLA.out.tax,
             SILVA_REFORMAT.out.taxid,
-            silva_version,
-            label
+            params.silva_version,
+            params.silva_ssu_label
         )
 
         CLEAN_FASTA(
             SILVA_REFORMAT.out.fasta,
             REMOVE_EMPTY_PHYLA.out.tax,
-            silva_version,
-            label
+            params.silva_version,
+            params.silva_ssu_label
         )
 
         // GENERATE_MSCLUSTER(
         //     dummy_fasta,
         //     CLEAN_FASTA.out.cleaned_fasta,
         //     REMOVE_EMPTY_PHYLA.out.tax,
-        //     silva_version,
-        //     label
+        //     params.silva_version,
+        //     params.silva_ssu_label
         // )
 
 
