@@ -1,8 +1,5 @@
-# python bin/extract_rfam_subset.py -ci /hps/nobackup/rdf/metagenomics/service-team/users/chrisata/rfam/ribo.claninfo -cm /hps/nobackup/rdf/metagenomics/service-team/users/chrisata/rfam/ribo.cm
 
 import argparse
-import subprocess
-
 
 def parse_args():
 
@@ -35,10 +32,12 @@ def parse_clan_info(_CLAN_INFO):
 
     return cm_names
 
-def extract_cm(cm_names, _COVAR_MODEL, fw):
+def extract_cm(cm_names, _COVAR_MODEL, _OUTPUT):
+
+    fw = open(_OUTPUT, "w")
+    fr = open(_COVAR_MODEL, "r")
 
     curr_header = ''
-    fr = open(_COVAR_MODEL)
     write_bool = False
 
     for line in fr:
@@ -62,15 +61,15 @@ def extract_cm(cm_names, _COVAR_MODEL, fw):
             write_bool = False
             curr_header = ''
 
+    fw.close()
+
 
 def main():
     
     _CLAN_INFO, _COVAR_MODEL, _OUTPUT = parse_args()
-    cm_names = parse_clan_info(_CLAN_INFO)
 
-    fw = open(_OUTPUT, "w")
-    extract_cm(cm_names, _COVAR_MODEL, fw)
-    fw.close()
+    cm_names = parse_clan_info(_CLAN_INFO)
+    extract_cm(cm_names, _COVAR_MODEL, _OUTPUT)
 
 if __name__ == "__main__":
     main()
