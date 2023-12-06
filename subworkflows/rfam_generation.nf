@@ -20,7 +20,4 @@ workflow RFAM_GENERATION {
             params.rfam_label
         )
 
-        EXTRACT_RFAM_SUBSET.out.ribo_cm.view()
-        EXTRACT_RFAM_SUBSET.out.ribo_claninfo.view()
-
 }

@@ -2,13 +2,14 @@
 include { SILVA_REFORMAT } from '../modules/silva_reformat.nf'
 include { REMOVE_EMPTY_PHYLA } from '../modules/remove_empty_phyla.nf'
 include { MAKE_OTU_FILE } from '../modules/make_otu_file.nf'
-include { CLEAN_FASTA } from '../modules/clean_fasta.nf'
+include { CLEAN_FASTA_SILVA } from '../modules/clean_fasta_silva.nf'
 include { GENERATE_MSCLUSTER } from '../modules/generate_mscluster.nf'
 
 workflow SILVA_GENERATION {
 
     take:
         subunit
+        label
     main:
 
         dummy_fasta = file(params.dummy_fasta)
@@ -16,27 +17,27 @@ workflow SILVA_GENERATION {
         SILVA_REFORMAT(
             subunit,
             params.silva_version,
-            params.silva_ssu_label
+            label
         )
 
         REMOVE_EMPTY_PHYLA(
             SILVA_REFORMAT.out.uplift,
             params.silva_version,
-            params.silva_ssu_label
+            label
         )
 
         MAKE_OTU_FILE(
             REMOVE_EMPTY_PHYLA.out.tax,
             SILVA_REFORMAT.out.taxid,
             params.silva_version,
-            params.silva_ssu_label
+            label
         )
 
-        CLEAN_FASTA(
+        CLEAN_FASTA_SILVA(
             SILVA_REFORMAT.out.fasta,
             REMOVE_EMPTY_PHYLA.out.tax,
             params.silva_version,
-            params.silva_ssu_label
+            label
         )
 
         // GENERATE_MSCLUSTER(
@@ -44,7 +45,7 @@ workflow SILVA_GENERATION {
         //     CLEAN_FASTA.out.cleaned_fasta,
         //     REMOVE_EMPTY_PHYLA.out.tax,
         //     params.silva_version,
-        //     params.silva_ssu_label
+        //     label
         // )
 
 
