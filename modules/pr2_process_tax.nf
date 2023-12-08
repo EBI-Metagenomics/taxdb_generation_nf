@@ -16,7 +16,7 @@ process PR2_PROCESS_TAX {
 
     """
     sed 's/;/\t/g' $tax > tab-tax.txt
-    python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/bin/pr2_process_tax.py -t tab-tax.txt -o processed_tax.txt
+    pr2_process_tax.py -t tab-tax.txt -o processed_tax.txt
     cat $tax_header processed_tax.txt > ${label}-tax.txt
     """
 

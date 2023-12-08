@@ -13,7 +13,7 @@ process ITSONEDB_REFORMAT {
     path("itsonedb.taxid"), emit: taxid
 
     """
-    perl /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/old_scripts_taxdb/format_ITSone_for_mapseq.pl -i $tax_lineage  --out ./
+    format_ITSone_for_mapseq.pl -i $tax_lineage  --out ./
     """
 
 }

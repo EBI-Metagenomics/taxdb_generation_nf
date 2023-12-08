@@ -17,15 +17,15 @@ process MAKE_OTU_FILE {
     case $label in
 
         UNITE)
-            python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/bin/make_otu_file.py -tx $tax -l $label
+            make_otu_file.py -tx $tax -l $label
         ;;
         
         PR2)
-            python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/bin/make_otu_file.py -tx $tax -l $label --ext_ranks
+            make_otu_file.py -tx $tax -l $label --ext_ranks
         ;;
 
         SILVA-SSU | SILVA-LSU | ITSone)
-            python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/bin/make_otu_file.py -tx $tax -t $taxid -l $label
+            make_otu_file.py -tx $tax -t $taxid -l $label
         ;;
 
         *)

@@ -14,7 +14,7 @@ process SILVA_REFORMAT {
     path("SILVA_${version}_${subunit}Ref_tax_silva_trunc.fasta.taxid"), emit: taxid
 
     """
-    perl /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/bin/silva-reformat.pl -v $version -s $subunit --out ./
+    silva-reformat.pl -v $version -s $subunit --out ./
     """
 
 }
