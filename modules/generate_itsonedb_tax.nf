@@ -10,7 +10,7 @@ process GENERATE_ITSONEDB_TAX {
     val label
 
     output:
-    path("*uplift_final.txt"), emit: uplift_final
+    path("*uplift.final.txt"), emit: uplift_final
 
     """
     generate_itsonedb_tax.py -f $fasta -u $uplift -o ./uplift.final.txt
