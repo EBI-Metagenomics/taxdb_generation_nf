@@ -41,10 +41,10 @@ workflow UNITE_GENERATION {
 
         // GENERATE_MSCLUSTER(
         //     dummy_fasta,
-        //     UNCOMPRESS_PR2_FILES.out.fasta,
-        //     PR2_PROCESS_TAX.out.tax,
-        //     params.pr2_version,
-        //     params.pr2_label
+        //     UNCOMPRESS_UNITE_FILE.out.fasta,
+        //     GENERATE_UNITE_TAX.out.tax,
+        //     params.unite_version,
+        //     params.unite_label
         // )
 
 }

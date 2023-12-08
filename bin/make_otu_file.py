@@ -64,6 +64,8 @@ def main():
 
                 if last_lineage not in oust:
                     if _TAXID != None:
+                        print(last_lineage)
+                        print(tax_num)
                         tax_id = tax_num[-1]
                         tax_num.pop()
                         otus.append(joint_lineage + "\t" + tax_id + "\n")

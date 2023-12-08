@@ -24,7 +24,7 @@ process MAKE_OTU_FILE {
             python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/bin/make_otu_file.py -tx $tax -l $label --ext_ranks
         ;;
 
-        SILVA-SSU | SILVA-LSU | ITSONEdb)
+        SILVA-SSU | SILVA-LSU | ITSone)
             python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/bin/make_otu_file.py -tx $tax -t $taxid -l $label
         ;;
 

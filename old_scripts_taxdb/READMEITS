@@ -20,8 +20,6 @@
 # add in three line header to uplift.final.filt.txt
 # python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/old_scripts_taxdb/make_otu_file.py
 
-
-
 #cut -f2 uplift > taxonomic_clades.txt
 #cut -d"|" -f1-3 ITSoneDB_ITS1_ENA.fasta | sed -n "1~3p" | sed "s/>//" > its_ids.txt
 #paste its_ids.txt taxonomic_clades.txt > ITSoneDB-tax.txt
