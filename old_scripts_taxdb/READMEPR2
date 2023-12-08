@@ -1,5 +1,0 @@
-# download PR2 mothur files (.fasta and .tax)
-# sed 's/;/\t/g' pr2_version_5.0.0_SSU_mothur.tax > pr2_version_5.0.0_SSU_mothur.tax.tab
-# python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/old_scripts_taxdb/pr2_process_tax.py -t pr2_version_5.0.0_SSU_mothur.tax.tab -o pr2-tax.txt
-# add three-line-header to pr2-tax.txt
-# python /hps/software/users/rdf/metagenomics/service-team/users/chrisata/scripts_taxdb_nf/old_scripts_taxdb/make_otu_file_pr2.py 
