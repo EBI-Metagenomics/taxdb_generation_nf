@@ -14,7 +14,7 @@ Nextflow workflow used to generate various taxonomic reference database files in
 
 Simply run this command:
 
-`nextflow run -main.nf`
+`nextflow run main.nf`
 
 The script will generate output like this, one subdirectory for each database:
 
