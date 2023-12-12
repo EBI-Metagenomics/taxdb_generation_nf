@@ -1,0 +1,34 @@
+nextflow_process {
+
+    name "Test Process GET_TAX_LINEAGE"
+    script "modules/get_tax_lineage/main.nf"
+    process "GET_TAX_LINEAGE"
+    tag "modules"
+    tag "get_tax_lineage"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('${projectDir}/modules/get_tax_lineage/tests/data/test.fasta', checkIfExists: true)
+                input[1] = file('${projectDir}/modules/get_tax_lineage/tests/data/taxa.zip', checkIfExists: true)
+                input[2] = params.itsonedb_version
+                input[3] = params.itsonedb_label
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.tax_lineage).match("tax_lineage") }
+            )
+        }
+
+    }
+
+}
