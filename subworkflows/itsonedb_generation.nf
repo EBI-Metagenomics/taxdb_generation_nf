@@ -1,5 +1,5 @@
 
-include { UNCOMPRESS_ITSONEDB_FILE } from '../modules/uncompress_itsonedb_file.nf'
+include { UNCOMPRESS_FILE } from '../modules/uncompress_file.nf'
 include { GET_TAX_LINEAGE } from '../modules/get_tax_lineage.nf'
 include { ITSONEDB_REFORMAT } from '../modules/itsonedb_reformat.nf'
 include { GENERATE_ITSONEDB_TAX } from '../modules/generate_itsonedb_tax.nf'
@@ -17,14 +17,13 @@ workflow ITSONEBD_GENERATION {
         itsonedb_fasta = file(params.itsonedb_download_fasta)
         itsonedb_download_taxdump = file(params.itsonedb_download_taxdump)
 
-        UNCOMPRESS_ITSONEDB_FILE(
+        UNCOMPRESS_FILE(
             itsonedb_fasta,
-            params.itsonedb_version,
-            params.itsonedb_label
+            "itsonedb.fasta"
         )
 
         GET_TAX_LINEAGE(
-            UNCOMPRESS_ITSONEDB_FILE.out.fasta,
+            UNCOMPRESS_FILE.out.uncmp_file,
             itsonedb_download_taxdump,
             params.itsonedb_version,
             params.itsonedb_label
@@ -37,7 +36,7 @@ workflow ITSONEBD_GENERATION {
         )
 
         GENERATE_ITSONEDB_TAX(
-            UNCOMPRESS_ITSONEDB_FILE.out.fasta,
+            UNCOMPRESS_FILE.out.uncmp_file,
             ITSONEDB_REFORMAT.out.uplift,
             params.itsonedb_version,
             params.itsonedb_label
@@ -52,7 +51,7 @@ workflow ITSONEBD_GENERATION {
         )
 
         CLEAN_FASTA_ITSONEDB(
-            UNCOMPRESS_ITSONEDB_FILE.out.fasta,
+            UNCOMPRESS_FILE.out.uncmp_file,
             ITSONEDB_COLUMN_REPLACEMENT.out.tax,
             params.itsonedb_version,
             params.itsonedb_label

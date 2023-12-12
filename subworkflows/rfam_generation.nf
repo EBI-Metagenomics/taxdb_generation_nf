@@ -1,5 +1,5 @@
 
-include { UNCOMPRESS_RFAM } from '../modules/uncompress_rfam.nf'
+include { UNCOMPRESS_FILE } from '../modules/uncompress_file.nf'
 include { EXTRACT_RFAM_SUBSET } from '../modules/extract_rfam_subset.nf'
 
 workflow RFAM_GENERATION {
@@ -9,12 +9,13 @@ workflow RFAM_GENERATION {
         rfam_cm = file(params.rfam_download_cm)
         rfam_claninfo = file(params.rfam_claninfo)
 
-        UNCOMPRESS_RFAM(
-            rfam_cm
+        UNCOMPRESS_FILE(
+            rfam_cm,
+            "full_ribo.cm"
         )
 
         EXTRACT_RFAM_SUBSET(
-            UNCOMPRESS_RFAM.out.full_ribo,
+            UNCOMPRESS_FILE.out.uncmp_file,
             rfam_claninfo,
             params.rfam_version,
             params.rfam_label
