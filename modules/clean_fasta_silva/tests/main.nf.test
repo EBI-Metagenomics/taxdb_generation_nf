@@ -1,0 +1,34 @@
+nextflow_process {
+
+    name "Test Process CLEAN_FASTA_SILVA"
+    script "modules/clean_fasta_silva/main.nf"
+    process "CLEAN_FASTA_SILVA"
+    tag "modules"
+    tag "clean_fasta_silva"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('${projectDir}/modules/clean_fasta_silva/tests/data/test.fasta', checkIfExists: true)
+                input[1] = file('${projectDir}/modules/clean_fasta_silva/tests/data/test-tax.txt', checkIfExists: true)
+                input[2] = params.silva_version
+                input[3] = params.silva_ssu_label
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.cleaned_fasta).match("cleaned_fasta") }
+            )
+        }
+
+    }
+
+}

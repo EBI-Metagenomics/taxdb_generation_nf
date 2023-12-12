@@ -1,0 +1,13 @@
+#cutoff: 0.00:0.08 0.00:0.08 0.70:0.35 0.70:0.35 0.70:0.35 0.80:0.25 0.92:0.08 0.95:0.05
+#name: SILVA
+#levels: Superkingdom Kingdom Phylum Class Order Family Genus Species
+BD359735.3.2145	sk__Eukaryota;k__;p__Apicomplexa;c__Aconoidasida;o__Haemosporida;f__Plasmodiidae;g__Plasmodium;s__Plasmodium_malariae
+FW343016.1.1511	sk__Bacteria;k__;p__Bacillota;c__Bacilli;o__Lactobacillales;f__Carnobacteriaceae;g__Atopostipes;s__
+FW369114.1.1462	sk__Bacteria;k__;p__Pseudomonadota;c__Alphaproteobacteria;o__Hyphomicrobiales;f__Nitrobacteraceae;g__Bradyrhizobium;s__
+AY846372.1.1779	sk__Eukaryota;k__Viridiplantae;p__Chlorophyta;c__Chlorophyceae;o__Sphaeropleales;f__Selenastraceae;g__Ankistrodesmus;s__Ankistrodesmus_sp._Mary_8/18_T-2w
+FW369795.1.1413	sk__Bacteria;k__;p__Pseudomonadota;c__Alphaproteobacteria;o__Rhodospirillales;f__Acetobacteraceae;g__Gluconacetobacter;s__
+AY846383.1.1790	sk__Eukaryota;k__Viridiplantae;p__Chlorophyta;c__Chlorophyceae;o__Sphaeropleales;f__Selenastraceae;g__Monoraphidium;s__Monoraphidium_pusillum
+AB001440.1.1538	sk__Bacteria;k__;p__Pseudomonadota;c__Gammaproteobacteria;o__Pseudomonadales;f__Pseudomonadaceae;g__Pseudomonas;s__Pseudomonas_coronafaciens
+HG529995.1.1433	sk__Bacteria;k__;p__Pseudomonadota;c__Alphaproteobacteria;o__Rhodobacterales;f__Paracoccaceae;g__Rhodobacter;s__Rhodobacter_sp._AK39
+AC136838.69231.70825	sk__Eukaryota;k__Viridiplantae;p__Streptophyta;c__Magnoliopsida;o__Fabales;f__Fabaceae;g__Medicago;s__
+HG529997.1.1373	sk__Bacteria;k__;p__Pseudomonadota;c__Gammaproteobacteria;o__Alteromonadales;f__Pseudoalteromonadaceae;g__Pseudoalteromonas;s__Pseudoalteromonas_sp._AK46
