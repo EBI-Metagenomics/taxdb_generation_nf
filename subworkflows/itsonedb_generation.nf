@@ -6,6 +6,7 @@ include { GENERATE_ITSONEDB_TAX } from '../modules/generate_itsonedb_tax.nf'
 include { ITSONEDB_COLUMN_REPLACEMENT } from '../modules/itsonedb_column_replacement.nf'
 include { CLEAN_FASTA_ITSONEDB } from '../modules/clean_fasta_itsonedb.nf'
 include { MAKE_OTU_FILE } from '../modules/make_otu_file/main.nf'
+include { GENERATE_MSCLUSTER } from '../modules/generate_mscluster/main.nf'
 
 
 workflow ITSONEBD_GENERATION {

@@ -2,8 +2,8 @@
 include { UNCOMPRESS_UNITE_FILE } from '../modules/uncompress_unite_file.nf'
 include { GENERATE_UNITE_TAX } from '../modules/generate_unite_tax.nf'
 include { CLEAN_FASTA_UNITE } from '../modules/clean_fasta_unite.nf'
-include { GENERATE_MSCLUSTER } from '../modules/generate_mscluster.nf'
 include { MAKE_OTU_FILE } from '../modules/make_otu_file/main.nf'
+include { GENERATE_MSCLUSTER } from '../modules/generate_mscluster/main.nf'
 
 workflow UNITE_GENERATION {
 
