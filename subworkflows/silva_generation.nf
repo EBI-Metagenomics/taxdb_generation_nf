@@ -1,7 +1,7 @@
 
 include { SILVA_REFORMAT } from '../modules/silva_reformat/main.nf'
 include { REMOVE_EMPTY_PHYLA } from '../modules/remove_empty_phyla/main.nf'
-include { MAKE_OTU_FILE } from '../modules/make_otu_file.nf'
+include { MAKE_OTU_FILE } from '../modules/make_otu_file/main.nf'
 include { CLEAN_FASTA_SILVA } from '../modules/clean_fasta_silva.nf'
 include { GENERATE_MSCLUSTER } from '../modules/generate_mscluster.nf'
 

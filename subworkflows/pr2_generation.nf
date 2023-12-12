@@ -2,7 +2,7 @@
 include { UNCOMPRESS_PR2_FILES } from '../modules/uncompress_pr2_files.nf'
 include { GENERATE_MSCLUSTER } from '../modules/generate_mscluster.nf'
 include { PR2_PROCESS_TAX } from '../modules/pr2_process_tax.nf'
-include { MAKE_OTU_FILE } from '../modules/make_otu_file.nf'
+include { MAKE_OTU_FILE } from '../modules/make_otu_file/main.nf'
 
 workflow PR2_GENERATION {
 

@@ -1,0 +1,10 @@
+#cutoff: 0.00:0.08 0.00:0.08 0.70:0.35 0.70:0.35 0.70:0.35 0.70:0.35 0.80:0.25 0.92:0.08 0.95:0.05	
+#levels: Domain Supergroup Division Subdivision Class Order Family Genus Species	
+#name: PR2
+AB353770.1.1740_U	d__Eukaryota;sg__TSAR;dv__Alveolata;sdv__Dinoflagellata;c__Dinophyceae;o__Peridiniales;f__Kryptoperidiniaceae;g__Unruhdinium;s__Unruhdinium_kevei
+AB284159.1.1765_U	d__Eukaryota;sg__TSAR;dv__Alveolata;sdv__Dinoflagellata;c__Dinophyceae;o__Peridiniales;f__Protoperidiniaceae;g__Protoperidinium;s__Protoperidinium_bipes
+AY123745.1.924_UC	d__Eukaryota;sg__Obazoa;dv__Opisthokonta;sdv__Fungi;c__Ascomycota;o__Pezizomycotina;f__Sordariomycetes;g__Sordariomycetes_X;s__Sordariomycetes_X_sp.
+FJ355953.1.1907_U	d__Eukaryota;sg__Obazoa;dv__Opisthokonta;sdv__Fungi;c__Ascomycota;o__Pezizomycotina;f__Eurotiomycetes;g__Knufia;s__Knufia_epidermidis
+EU174976.1.853_U	d__Eukaryota;sg__Obazoa;dv__Opisthokonta;sdv__Fungi;c__Ascomycota;o__Pezizomycotina;f__Sordariomycetes;g__Sordariomycetes_X;s__Sordariomycetes_X_sp.
+AJ875130.1.1731_U	d__Eukaryota;sg__Obazoa;dv__Opisthokonta;sdv__Metazoa;c__Nematoda;o__Enoplea;f__Enoplea_X;g__Enoplea_XX;s__Enoplea_XX_sp.
+AM235536.1.1627_U	d__Eukaryota;sg__Archaeplastida;dv__Streptophyta;sdv__Streptophyta_X;c__Embryophyceae;o__Embryophyceae_X;f__Embryophyceae_XX;g__Uromyrtus;s__Uromyrtus_metrosideros

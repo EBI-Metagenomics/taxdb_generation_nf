@@ -1,0 +1,26 @@
+{
+    "unite_otu": {
+        "content": [
+            [
+                "UNITE.otu:md5,db9a79644972538f49b9e4cf38fae24f"
+            ]
+        ],
+        "timestamp": "2023-12-12T09:57:10.013618152"
+    },
+    "silva-itsone_otu": {
+        "content": [
+            [
+                "SILVA-SSU.otu:md5,62e5702a8aec344230c44d08a39d6257"
+            ]
+        ],
+        "timestamp": "2023-12-12T09:52:44.452627697"
+    },
+    "pr2_otu": {
+        "content": [
+            [
+                "PR2.otu:md5,670cabf6f22e416bb885fea312efb177"
+            ]
+        ],
+        "timestamp": "2023-12-12T09:52:54.491946408"
+    }
+}
