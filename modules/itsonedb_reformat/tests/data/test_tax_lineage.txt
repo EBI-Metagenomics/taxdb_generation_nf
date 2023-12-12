@@ -1,0 +1,10 @@
+72897	Eukaryota; Viridiplantae; Streptophyta; Streptophytina; Magnoliopsida; Asterales; Asteraceae; Asteroideae; Astereae; Asterinae; Aster
+455281	Eukaryota; Viridiplantae; Streptophyta; Streptophytina; Bryopsida; Bryidae; Hypnanae; Hypnales; Stereodontaceae; Stereodon
+199510	Eukaryota; Viridiplantae; Streptophyta; Streptophytina; Magnoliopsida; Asterales; Asteraceae; Asteroideae; Astereae; Conyzinae; Erigeron
+199508	Eukaryota; Viridiplantae; Streptophyta; Streptophytina; Magnoliopsida; Asterales; Asteraceae; Asteroideae; Astereae; Conyzinae; Erigeron
+325898	Eukaryota; Fungi; Chytridiomycota; Neocallimastigomycetes; Neocallimastigales
+325898	Eukaryota; Fungi; Chytridiomycota; Neocallimastigomycetes; Neocallimastigales
+147879	Eukaryota; Fungi; Dikarya; Ascomycota; Pezizomycotina; Sordariomycetes; Hypocreomycetidae; Hypocreales; Nectriaceae; Cylindrocladiella
+325898	Eukaryota; Fungi; Chytridiomycota; Neocallimastigomycetes; Neocallimastigales
+1032954	Eukaryota; Viridiplantae; Streptophyta; Streptophytina; Magnoliopsida; Lamiales; Gesneriaceae; Didymocarpoideae; Trichosporeae; Didymocarpinae; Oreocharis
+1078106	Eukaryota; Fungi; Dikarya; Ascomycota; Pezizomycotina; Sordariomycetes; Hypocreomycetidae; Hypocreales; Nectriaceae; Cylindrocladiella

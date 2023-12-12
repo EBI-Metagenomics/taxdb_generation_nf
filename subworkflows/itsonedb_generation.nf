@@ -1,7 +1,7 @@
 
 include { UNCOMPRESS_FILE } from '../modules/uncompress_file/main.nf'
-include { GET_TAX_LINEAGE } from '../modules/get_tax_lineage.nf'
-include { ITSONEDB_REFORMAT } from '../modules/itsonedb_reformat.nf'
+include { GET_TAX_LINEAGE } from '../modules/get_tax_lineage/main.nf'
+include { ITSONEDB_REFORMAT } from '../modules/itsonedb_reformat/main.nf'
 include { GENERATE_ITSONEDB_TAX } from '../modules/generate_itsonedb_tax.nf'
 include { ITSONEDB_COLUMN_REPLACEMENT } from '../modules/itsonedb_column_replacement.nf'
 include { CLEAN_FASTA } from '../modules/clean_fasta/main.nf'
