@@ -1,5 +1,5 @@
 
-include { UNCOMPRESS_FILE } from '../modules/uncompress_file.nf'
+include { UNCOMPRESS_FILE } from '../modules/uncompress_file/main.nf'
 include { GET_TAX_LINEAGE } from '../modules/get_tax_lineage.nf'
 include { ITSONEDB_REFORMAT } from '../modules/itsonedb_reformat.nf'
 include { GENERATE_ITSONEDB_TAX } from '../modules/generate_itsonedb_tax.nf'

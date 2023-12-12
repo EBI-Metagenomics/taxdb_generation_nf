@@ -1,5 +1,5 @@
 
-include { UNCOMPRESS_FILE } from '../modules/uncompress_file.nf'
+include { UNCOMPRESS_FILE } from '../modules/uncompress_file/main.nf'
 include { GENERATE_UNITE_TAX } from '../modules/generate_unite_tax.nf'
 include { CLEAN_FASTA } from '../modules/clean_fasta/main.nf'
 include { MAKE_OTU_FILE } from '../modules/make_otu_file/main.nf'

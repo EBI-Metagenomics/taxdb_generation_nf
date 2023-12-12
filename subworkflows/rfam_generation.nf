@@ -1,5 +1,5 @@
 
-include { UNCOMPRESS_FILE } from '../modules/uncompress_file.nf'
+include { UNCOMPRESS_FILE } from '../modules/uncompress_file/main.nf'
 include { EXTRACT_RFAM_SUBSET } from '../modules/extract_rfam_subset.nf'
 
 workflow RFAM_GENERATION {

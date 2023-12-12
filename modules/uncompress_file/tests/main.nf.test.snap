@@ -1,0 +1,18 @@
+{
+    "uncmp_file": {
+        "content": [
+            [
+                "test.fasta:md5,68c60c9c9b78c0244f05e78fac9926a6"
+            ]
+        ],
+        "timestamp": "2023-12-12T14:11:23.570462108"
+    },
+    "remote_uncmp_file": {
+        "content": [
+            [
+                "test.fasta:md5,dafd38f5454b54fbea38245d773062a5"
+            ]
+        ],
+        "timestamp": "2023-12-12T14:18:14.059557772"
+    }
+}
