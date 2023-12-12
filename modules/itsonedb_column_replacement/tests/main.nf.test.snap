@@ -1,0 +1,18 @@
+{
+    "taxid": {
+        "content": [
+            [
+                "itsonedb.final.taxid:md5,2e61109b60b605dae074b1aee0c54d9c"
+            ]
+        ],
+        "timestamp": "2023-12-12T16:12:00.701436373"
+    },
+    "tax": {
+        "content": [
+            [
+                "ITSone-tax.txt:md5,96b014a28b10d6ae5a5f69a00fb94c61"
+            ]
+        ],
+        "timestamp": "2023-12-12T16:12:00.652849734"
+    }
+}
