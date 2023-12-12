@@ -1,0 +1,26 @@
+{
+    "unite_cleaned_fasta": {
+        "content": [
+            [
+                "UNITE.fasta:md5,e948ac7dd52ed9374b99fe0071a404bc"
+            ]
+        ],
+        "timestamp": "2023-12-12T12:17:03.447478493"
+    },
+    "itsonedb_cleaned_fasta": {
+        "content": [
+            [
+                "ITSone.fasta:md5,3674a76b631981ae2cfc7ef456951db7"
+            ]
+        ],
+        "timestamp": "2023-12-12T12:17:13.221527134"
+    },
+    "silva_cleaned_fasta": {
+        "content": [
+            [
+                "SILVA-SSU.fasta:md5,68c60c9c9b78c0244f05e78fac9926a6"
+            ]
+        ],
+        "timestamp": "2023-12-12T12:16:23.566759315"
+    }
+}

@@ -4,7 +4,7 @@ include { GET_TAX_LINEAGE } from '../modules/get_tax_lineage.nf'
 include { ITSONEDB_REFORMAT } from '../modules/itsonedb_reformat.nf'
 include { GENERATE_ITSONEDB_TAX } from '../modules/generate_itsonedb_tax.nf'
 include { ITSONEDB_COLUMN_REPLACEMENT } from '../modules/itsonedb_column_replacement.nf'
-include { CLEAN_FASTA_ITSONEDB } from '../modules/clean_fasta_itsonedb.nf'
+include { CLEAN_FASTA } from '../modules/clean_fasta/main.nf'
 include { MAKE_OTU_FILE } from '../modules/make_otu_file/main.nf'
 include { GENERATE_MSCLUSTER } from '../modules/generate_mscluster/main.nf'
 
@@ -50,7 +50,7 @@ workflow ITSONEBD_GENERATION {
             params.itsonedb_label
         )
 
-        CLEAN_FASTA_ITSONEDB(
+        CLEAN_FASTA(
             UNCOMPRESS_FILE.out.uncmp_file,
             ITSONEDB_COLUMN_REPLACEMENT.out.tax,
             params.itsonedb_version,
@@ -66,7 +66,7 @@ workflow ITSONEBD_GENERATION {
 
         // GENERATE_MSCLUSTER(
         //     dummy_fasta,
-        //     CLEAN_FASTA_ITSONEDB.out.cleaned_fasta,
+        //     CLEAN_FASTA.out.cleaned_fasta,
         //     ITSONEDB_COLUMN_REPLACEMENT.out.tax,
         //     params.itsonedb_version,
         //     params.itsonedb_label

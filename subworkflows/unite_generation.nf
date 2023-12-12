@@ -1,7 +1,7 @@
 
 include { UNCOMPRESS_FILE } from '../modules/uncompress_file.nf'
 include { GENERATE_UNITE_TAX } from '../modules/generate_unite_tax.nf'
-include { CLEAN_FASTA_UNITE } from '../modules/clean_fasta_unite.nf'
+include { CLEAN_FASTA } from '../modules/clean_fasta/main.nf'
 include { MAKE_OTU_FILE } from '../modules/make_otu_file/main.nf'
 include { GENERATE_MSCLUSTER } from '../modules/generate_mscluster/main.nf'
 
@@ -24,7 +24,7 @@ workflow UNITE_GENERATION {
             params.unite_label
         )
 
-        CLEAN_FASTA_UNITE(
+        CLEAN_FASTA(
             UNCOMPRESS_FILE.out.uncmp_file,
             GENERATE_UNITE_TAX.out.tax,
             params.unite_version,
@@ -40,7 +40,7 @@ workflow UNITE_GENERATION {
 
         // GENERATE_MSCLUSTER(
         //     dummy_fasta,
-        //     CLEAN_FASTA_UNITE.out.cleaned_fasta,
+        //     CLEAN_FASTA.out.cleaned_fasta,
         //     GENERATE_UNITE_TAX.out.tax,
         //     params.unite_version,
         //     params.unite_label
