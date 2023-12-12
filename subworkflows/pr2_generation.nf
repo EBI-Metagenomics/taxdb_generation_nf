@@ -1,7 +1,7 @@
 
-include { UNCOMPRESS_FILE as UNCOMPRESS_FASTA} from '../modules/uncompress_file.nf'
+include { UNCOMPRESS_FILE as UNCOMPRESS_FASTA} from '../modules/uncompress_file/main.nf'
 include { UNCOMPRESS_FILE as UNCOMPRESS_TAX} from '../modules/uncompress_file/main.nf'
-include { PR2_PROCESS_TAX } from '../modules/pr2_process_tax.nf'
+include { PR2_PROCESS_TAX } from '../modules/pr2_process_tax/main.nf'
 include { MAKE_OTU_FILE } from '../modules/make_otu_file/main.nf'
 include { GENERATE_MSCLUSTER } from '../modules/generate_mscluster/main.nf'
 
