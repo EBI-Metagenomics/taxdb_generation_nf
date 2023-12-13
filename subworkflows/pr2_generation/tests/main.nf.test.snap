@@ -1,0 +1,26 @@
+{
+    "otu": {
+        "content": [
+            [
+                "PR2.otu:md5,6e18763fa9f024468b991facdfa96e84"
+            ]
+        ],
+        "timestamp": "2023-12-13T12:01:35.20565948"
+    },
+    "tax": {
+        "content": [
+            [
+                "PR2-tax.txt:md5,2876308bd972a9e1247c9070ce3c578e"
+            ]
+        ],
+        "timestamp": "2023-12-13T12:01:31.747721292"
+    },
+    "fasta": {
+        "content": [
+            [
+                "PR2.fasta:md5,458948f0f6697ef7cefe770b0dd1b27d"
+            ]
+        ],
+        "timestamp": "2023-12-13T12:01:28.101122999"
+    }
+}

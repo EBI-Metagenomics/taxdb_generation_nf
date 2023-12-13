@@ -1,0 +1,33 @@
+nextflow_workflow {
+
+    name "Test Workflow PR2_GENERATION"
+    script "subworkflows/pr2_generation/main.nf"
+    workflow "PR2_GENERATION"
+    tag "subworkflow"
+    tag "pr2_generation"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                pr2_version = "5.0.0"
+                pr2_label = "PR2"
+                pr2_download_fasta = "https://github.com/pr2database/pr2database/releases/download/v${pr2_version}/pr2_version_${pr2_version}_SSU_mothur.fasta.gz"
+                pr2_download_tax = "https://github.com/pr2database/pr2database/releases/download/v${pr2_version}/pr2_version_${pr2_version}_SSU_mothur.tax.gz"
+                pr2_tax_header = "${projectDir}/subworkflows/pr2_generation/tests/data/pr2_tax_header.txt"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.fasta).match("fasta") },
+                { assert snapshot(workflow.out.tax).match("tax") },
+                { assert snapshot(workflow.out.otu).match("otu") }
+            )
+        }
+
+    }
+
+}
