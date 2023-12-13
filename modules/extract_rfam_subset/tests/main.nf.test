@@ -27,7 +27,6 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(process.out.ribo_cm).match("ribo_cm") },
                 { assert snapshot(process.out.ribo_claninfo).match("ribo_claninfo") }
-
             )
         }
 

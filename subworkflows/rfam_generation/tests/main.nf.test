@@ -1,0 +1,32 @@
+nextflow_workflow {
+
+    name "Test Workflow RFAM_GENERATION"
+    script "subworkflows/rfam_generation/main.nf"
+    workflow "RFAM_GENERATION"
+    tag "subworkflows"
+    tag "rfam_generation"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                rfam_version = "14.10"
+                rfam_label = "RFAM"
+                rfam_claninfo = "${projectDir}/subworkflows/rfam_generation/tests/data/temp_ribo.claninfo"
+                rfam_download_cm = "${projectDir}/subworkflows/rfam_generation/tests/data/Rfam.cm.gz"
+            }
+
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.ribo_cm).match("ribo_cm") },
+                { assert snapshot(workflow.out.ribo_claninfo).match("ribo_claninfo") }
+            )
+        }
+
+    }
+
+}
