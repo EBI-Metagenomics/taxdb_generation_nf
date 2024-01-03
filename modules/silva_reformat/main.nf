@@ -4,6 +4,8 @@ process SILVA_REFORMAT {
     label 'heavy'
 
     input:
+    path fasta
+    path taxdump
     val subunit
     val version
     val label
@@ -14,7 +16,7 @@ process SILVA_REFORMAT {
     path("SILVA_${version}_${subunit}Ref_tax_silva_trunc.fasta.taxid"), emit: taxid
 
     """
-    silva-reformat.pl -v $version -s $subunit --out ./
+    silva-reformat.pl -f $fasta -t $taxdump -v $version -s $subunit --out ./
     """
 
 }

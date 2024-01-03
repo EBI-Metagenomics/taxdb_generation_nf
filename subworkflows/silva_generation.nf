@@ -9,12 +9,18 @@ workflow SILVA_GENERATION {
 
     take:
         subunit
+        download_taxdump
+        download_fasta
         label
     main:
 
-        dummy_fasta = file(params.dummy_fasta)
+        dummy_fasta = file(params.dummy_fasta, checkIfExists: true)
+        silva_taxdump = file(download_taxdump, checkIfExists: true)
+        silva_fasta = file(download_fasta, checkIfExists: true)
 
         SILVA_REFORMAT(
+            silva_fasta,
+            silva_taxdump,
             subunit,
             params.silva_version,
             label

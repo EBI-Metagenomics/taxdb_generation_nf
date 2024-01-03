@@ -13,11 +13,15 @@ workflow TAXDB_GENERATION_PIPELINE_V6 {
 
     SILVA_SSU_GENERATION(
         "SSU",
+        params.silva_download_taxdump,
+        params.silva_ssu_download_fasta,
         params.silva_ssu_label
     )
 
     SILVA_LSU_GENERATION(
         "LSU",
+        params.silva_download_taxdump,
+        params.silva_lsu_download_fasta,
         params.silva_lsu_label
 
     )

@@ -26,34 +26,25 @@ use Archive::Tar;
 use Archive::Zip;
 use DDP;
 
-my ($outDir, $force, $version, $mapseqLoc, $help, $subunit, $lower_case_subunit, @files);
+my ($outDir, $fasta, $taxdump, $force, $version, $help, $subunit, @files);
 
 
 GetOptions( "out=s"               => \$outDir,
             "force=i"             => \$force,
 			"s|subunit=s"         => \$subunit, #SSU or LSU
-            "m|mapseq_loaction=s" => \$mapseqLoc, 
+            "f=s"                => \$fasta,
+            "t=s"                => \$taxdump,
             "h|help"              => \$help,
             "v|version=s"         => \$version  )  or die "Error with options, try $0 --help\n";
 
 help() if($help);
-# if(!$version or $version !~ /^\.*$/){
-#     die "--version is a required parameter, and expected to be a integer\n";
-# }
-
-my $URL = "https://www.arb-silva.de/fileadmin/silva_databases/release_$version/Exports/";
-
 
 $outDir = "." if(!$outDir);
-$lower_case_subunit = lc($subunit);
-
-# my @files = qw(SILVA_138.1_SSURef_tax_silva_trunc.fasta.gz taxmap_slv_ssu_ref_138.1.txt.gz);
-@files = ("SILVA_${version}_${subunit}Ref_tax_silva_trunc.fasta.gz", "taxmap_slv_${lower_case_subunit}_ref_${version}.txt.gz");
+@files = ($fasta);
 
 my $taxmaps = fetchFiles($version, \@files); 
-my $treeData = fetchNCBI($outDir, $force);
+my $treeData = fetchNCBI($taxdump, $outDir, $force);
 process_taxmap($taxmaps, $treeData);
-#cluster_files($taxmaps, $mapseqLoc);
 
 
 #------------------------------------------------------------------------------
@@ -62,10 +53,10 @@ process_taxmap($taxmaps, $treeData);
 
 # Get the taxonomy data from NCBI
 sub fetchNCBI {
-    my($outDir, $force) = @_;
-    print STDERR "Getting ncbi data\n";
+    my($taxdump, $outDir, $force) = @_;
+    # print STDERR "Getting ncbi data\n";
 
-    my $outDirTax = $outDir.'/taxonomy';
+    my $outDirTax = $outDir.'/taxonomy/';
 
   #Store the taxonomy file for future reference.
     unless ( -d $outDirTax ) {
@@ -73,61 +64,17 @@ sub fetchNCBI {
         or die "Could not make the directory $outDirTax because: [$!]\n";
     }
 
-    foreach my $f (qw(taxdump.tar.gz)){
-	my $thisFile = $outDirTax."/".$f;
-	if($force){
-	    if(-e $thisFile){
-		unlink($thisFile) or die "Failed to remove $thisFile: [$!]\n";  
-	    }
-	}
-
-    # foreach my $f (qw(taxdmp_2019-01-01.zip)){
-	# my $thisFile = $outDirTax."/".$f;
-	# if($force){
-	#     if(-e $thisFile){
-	# 	unlink($thisFile) or die "Failed to remove $thisFile: [$!]\n";  
-	#     }
-	# }
-
-
-	if(!-e $thisFile){
-      my $rc = getstore(
-	  'ftp://ftp.ncbi.nih.gov/pub/taxonomy/'.$f, $thisFile); 
-      die 'Failed to get the file ncbi taxdump' unless ( is_success($rc) );
-	}
-    }
-
-
-	# if(!-e $thisFile){
-    #   my $rc = getstore(
-	#   'ftp://ftp.ncbi.nih.gov/pub/taxonomy/taxdump_archive/'.$f, $thisFile); 
-    #   die 'Failed to get the file ncbi taxdump' unless ( is_success($rc) );
-	# }
-    # }
-
     print "Extracting ncbi data\n";
-    my $tar = Archive::Tar->new;
-    $tar->read( $outDirTax. '/taxdump.tar.gz' );
-    if(!-e $outDirTax.'/nodes.dmp' or $force){
-	$tar->extract_file( 'nodes.dmp', $outDirTax .'/nodes.dmp' );
+    my $zip = Archive::Zip->new;
+    $zip->read( $taxdump );
+    if(!-e $outDirTax.'nodes.dmp' or $force){
+	$zip->extractMember( 'nodes.dmp', $outDirTax .'nodes.dmp' );
     }
-    if(!-e $outDirTax.'/names.dmp' or $force){
-	$tar->extract_file( 'names.dmp', $outDirTax.'/names.dmp' );
+    if(!-e $outDirTax.'names.dmp' or $force){
+	$zip->extractMember( 'names.dmp', $outDirTax.'names.dmp' );
     }
     my $treeData = startBuildTree($outDirTax);
 }
-
-#     print "Extracting ncbi data\n";
-#     my $tar = Archive::Zip->new;
-#     $tar->read( $outDirTax. '/taxdmp_2019-01-01.zip' );
-#     if(!-e $outDirTax.'/nodes.dmp' or $force){
-# 	$tar->extractMember( 'nodes.dmp', $outDirTax .'/nodes.dmp' );
-#     }
-#     if(!-e $outDirTax.'/names.dmp' or $force){
-# 	$tar->extractMember( 'names.dmp', $outDirTax.'/names.dmp' );
-#     }
-#     my $treeData = startBuildTree($outDirTax);
-# }
 
 
 sub startBuildTree {
@@ -305,25 +252,6 @@ sub fetchFiles {
     my @taxmap;
     foreach my $f (@$files){
 	$f =~ s/VERSION/$version/;
-	if(! -e $f){
-	    if($f =~ /^taxmap/){
-		system("wget $URL"."taxonomy/".$f) and die "Failed to fetch $URL"."taxonomy/$f\n";
-		system("wget $URL"."taxonomy/".$f.".md5") and die "Failed to fetch $URL$f.md5\n";
-        
-	    }else{
-		system("wget $URL".$f) and die "Failed to fetch $URL$f\n";
-		system("wget $URL".$f.".md5") and die "Failed to fetch $URL$f.md5\n";
-	    }
-	}
-       
-    #Check against MD5 checksum 
-	my $data = read_file($f);
-	my $digest = md5_hex($data);
-	my $remote = read_file("$f.md5");
-	my ($remote_digest) = split(/\s+/, $remote);
-	if($remote_digest ne $digest){
-	    die "The md5 checksums for $f do not match: got |$digest|, expected |$remote_digest|. Please remove file and re-run.\n";
-	}
     #Going to be lazy and gunzip via system call.
 	my $unzip = $f;
     $unzip =~ s/(\.gz)$//;
@@ -555,98 +483,4 @@ sub write_otu {
     push(@otuFile, "$otu_count\tUnclassified\n");
   
     write_file($file, @otuFile);
-}
-
-
-
-sub cluster_files {
-    ($taxmaps, $mapseqLoc) = @_;
-  
-    print STDERR "Going to index files\n";
-    foreach my $file (@$taxmaps){
-	my $dummy = "/tmp/dummy.fasta";
-
-	if($file =~ /LSU/){
-	    writeLSU($dummy);
-	}elsif($file =~ /SSU/){
-	    writeSSU($dummy);
-	}else{
-	    die "Do not know which dummy sequence to write out\n";
-	}
-	system("$mapseqLoc/mapseq -nthreads 1 -tophits 80 -topotus 40 -outfmt simple $dummy $file.clean $file.uplift > /dev/null") and die "Error running mapseq\n";
-
-    }
-}  
-
-
-sub writeSSU {
-    my ($file) = @_;
-  
-    open F, ">", $file or die "Failed to open $file:[$!]\n";
-  print F ">TESTSSU
-AGAGUUUGAUCCUGGCUCAGGACGAACGCUGGCGGCGUGCCUAAUACAUGCAAGUAGAACGCUGAGGUUUGGUGUUUACA
-CUAGACUGAUGAGUUGCGAACGGGUGAGUAACGCGUAGGUAACCUGCCUCAUAGCGGGGGAUAACUAUUGGAAACGAUAG
-CUAAUACCGCAUAAGAGUAAUUAACACAUGUUAGUUAUUUAAAAGGAGCAAUUGCUUCACUGUGAGAUGGACCUGCGUUG
-UAUUAGCUAGUUGGUGAGGUAAAGGCUCACCAAGGCGACGAUACAUAGCCGACCUGAGAGGGUGAUCGGCCACACUGGGA
-CUGAGACACGGCCCAGACUCCUACGGGAGGCAGCAGUAGGGAAUCUUCGGCAAUGGACGGAAGUCUGACCGAGCAACGCC
-GCGUGAGUGAAGAAGGUUUUCGGAUCGUAAAGCUCUGUUGUUAGAGAAGAACGUUGGUAGGAGUGGAAAAUCUACCAAGU
-GACGGUAACUAACCAGAAAGGGACGGCUAACUACGUGCCAGCAGCCGCGGUAAUACGUAGGUCCCGAGCGUUGUCCGGAU
-UUAUUGGGCGUAAAGCGAGCGCAGGCGGUUCUUUAAGUCUGAAGUUAAAGGCAGUGGCUUAACCAUUGUACGCUUUGGAA
-ACUGGAGGACUUGAGUGCAGAAGGGGAGAGUGGAAUUCCAUGUGUAGCGGUGAAAUGCGUAGAUAUAUGGAGGAACACCG
-GUGGCGAAAGCGGCUCUCUGGUCUGUAACUGACGCUGAGGCUCGAAAGCGUGGGGAGCAAACAGGAUUAGAUACCCUGGU
-AGUCCACGCCGUAAACGAUGAGUGCUAGGUGUUAGGCCCUUUCCGGGGCUUAGUGCCGCAGCUAACGCAUUAAGCACUCC
-GCCUGGGGAGUACGACCGCAAGGUUGAAACUCAAAGGAAUUGACGGGGGCCCGCACAAGCGGUGGAGCAUGUGGUUUAAU
-UCGAAGCAACGCGAAGAACCUUACCAGGUCUUGACAUCCUUCUGACCGGCCUAGAGAUAGGCUUUCUCUUCGGAGCAGAA
-GUGACAGGUGGUGCAUGGUUGUCGUCAGCUCGUGUCGUGAGAUGUUGGGUUAAGUCCCGCAACGAGCGCAACCCCUAUUG
-UUAGUUGCCAUCAUUAAGUUGGGCACUCUAGCGAGACUGCCGGUAAUAAACCGGAGGAAGGUGGGGAUGACGUCAAAUCA
-UCAUGCCCCUUAUGACCUGGGCUACACACGUGCUACAAUGGUUGGUACAACGAGUCGCAAGCCGGUGACGGCAAGCUAAU
-CUCUUAAAGCCAAUCUCAGUUCGGAUUGUAGGCUGCAACUCGCCUACAUGAAGUCGGAAUCGCUAGUAAUCGCGGAUCAG
-CACGCCGCGGUGAAUACGUUCCCGGGCCUUGUACACACCGCCCGUCACACCACGAGAGUUUGUAACACCCGAAGUCGGUG
-AGGUAACCUUUUAGGAGCCAGCCGCCUAAGGUGGGAUAGAUGAUUGGGGUGAAGUCGUAACAAGGUAGCCGUAUCGGAAG
-GUGCGGCUG\n"; 
-    close(F);
-}
-sub writeLSU {
-    my ($file) = @_;
-  
-    open F, ">", $file or die "Failed to open $file:[$!]\n";
-  print F ">TESTLSU
-GGUUAAGUUAGAAAGGGCGCACGGUGGAUGCCUUGACACUAGGAGUCGAUGAAGGACGGGACUAACGCCGAUAUGCUUCG
-GGGAGCUGUAAGUAAGCUUUGAUCCGAAGAUUUCCGAAUGGGGAAACCCACCAUACGUAAUGGUAUGGUAUCCUUAUCUG
-AAUACAUAGGGUAAGGAAGACAGACCCAGGGAACUGAAACAUCUAAGUACCUGGAGGAAGAGAAAGCAAAUGCGAUUUCC
-UGAGUAGCGGCGAGCGAAACGGAACAUAGCCCAAACCAAGAGGCUUGCCUCUUGGGGUUGUAGGACAUUCUAUACGGAGU
-UACAAAGGAACGAGGUAGACGAAGCGACCUGGAAAGGUCCGUCGUAGAGGGUAACAACCCCGUAGUCGAAACUUCGUUCU
-CUCUUGAAUGUAUCCUGAGUACGGCGGAACACGUGAAAUUCCGUCGGAAUCUGGGAGGACCAUCUCCCAAGGCUAAAUAC
-UCCCUAGUGAUCGAUAGUGAACCAGUACCGUGAGGGAAAGGUGAAAAGCACCCCGGAAGGGGAGUGAAAGAGAUCCUGAA
-ACCGUGUGCCUACAAAUAGUCAGAGCCCGUUAACGGGUGAUGGCGUGCCUUUUGUAGAAUGAACCGGCGAGUUACGAUCC
-CGUGCGAGGUUAAGCUGAAGAGGCGGAGCCGCAGCGAAAGCGAGUCUGAAUAGGGCGUUUAGUACGUGGUCGUAGACCCG
-AAACCAGGUGAUCUACCCAUGUCCAGGGUGAAGUUCAGGUAACACUGAAUGGAGGCCCGAACCCACGCACGUUGAAAAGU
-GCGGGGAUGAGGUGUGGGUAGCGGAGAAAUUCCAAUCGAACCUGGAGAUAGCUGGUUCUCCCCGAAAUAGCUUUAGGGCU
-AGCCUUAAGUGUAAGAGUCUUGGAGGUAGAGCACUGAUUGGACUAGGGGUCCUCAUCGGAUUACCGAAUUCAGUCAAACU
-CCGAAUGCCAAUGACUUAUCCUUAGGAGUCAGACUGCGAGUGAUAAGAUCCGUAGUCAAAAGGGAAACAGCCCAGACCGC
-CAGCUAAGGUCCCAAAGUGUGUAUUAAGUGGAAAAGGAUGUGGAGUUGCUUAGACAACUAGGAUGUUGGCUUAGAAGCAG
-CCACCAUUUAAAGAGUGCGUAAUAGCUCACUAGUCGAGUGACUCUGCGCCGAAAAUGUACCGGGGCUAAAUACACCACCG
-AAGCUGCGGAUUGAUACCAAUGGUAUCAGUGGUAGGGGAGCGUUCUAAGGACAGUGAAGUCAGACCGGAAGGACUGGUGG
-AGUGCUUAGAAGUGAGAAUGCCGGUAUGAGUAGCGAAAGACGGGUGAGAAUCCCGUCCACCGAAUGCCUAAGGUUUCCUG
-AGGAAGGCUCGUCCGCUCAGGGUUAGUCAGGACCUAAGCCGAGGCCGACAGGCGUAGGCGAUGGACAACAGGUUGAUAUU
-CCUGUACCACCUCUUUAUCGUUUGAGCAAUGGAGGGACGCAGAAGGAUAGAAGAAGCGUGCGAUUGGUUGUGCACGUCCA
-AGCAGUUAGGCUGAUAAGUAGGCAAAUCCGCUUAUCGUGAAGGCUGAGCUGUGAUGGGGAAGCUCCUUAUGGAGCGAAGU
-CUUUGAUUCCCCGCUGCCAAGAAAAGCUUCUAGCGAGAUAAAAGGUGCCUGUACCGCAAACCGACACAGGUAGGCGAGGA
-GAGAAUCCUAAGGUGUGCGAGAGAACUCUGGUUAAGGAACUCGGCAAAAUGACCCCGUAACUUCGGGAGAAGGGGUGCUU
-UCUUAACGGAAAGCCGCAGUGAAUAGGCCCAAGCGACUGUUUAGCAAAAACACAGCUCUCUGCGAAGCCGUAAGGCGAAG
-UAUAGGGGGUGACACCUGCCCGGUGCUGGAAGGUUAAGGAGAGGGGUUAGCGUAAGCGAAGCUCUGAACUGAAGCCCCAG
-UAAACGGCGGCCGUAACUAUAACGGUCCUAAGGUAGCGAAAUUCCUUGUCGGGUAAGUUCCGACCCGCACGAAAGGUGUA
-ACGAUUUGGGCACUGUCUCAACCAGAGACUCGGUGAAAUUAUAGUACCUGUGAAGAUGCAGGUUACCCGCGACAGGACGG
-AAAGACCCCGUGGAGCUUUACUGUAGCCUGAUAUUGAAUUUUGGUACAGUUUGUACAGGAUAGGCGGGAGCCAUUGAAAC
-CGGAGCGCUAGCUUCGGUGGAGGCGCUGGUGGGAUACCGCCCUGACUGUAUUGAAAUUCUAACCUACGGGUCUUAUCGAC
-CCGGGAGACAGUGUCAGGUGGGCAGUUUGACUGGGGCGGUCGCCUCCUAAAGUGUAACGGAGGCGCCCAAAGGUUCCCUC
-AGAAUGGUUGGAAAUCAUUCGUAGAGUGCAAAGGCAUAAGGGAGCUUGACUGCGAGACCUACAAGUCGAGCAGGGACGAA
-AGUCGGGCUUAGUGAUCCGGUGGUUCCGCAUGGAAGGGCCAUCGCUCAACGGAUAAAAGCUACCCCGGGGAUAACAGGCU
-UAUCUCCCCCAAGAGUCCACAUCGACGGGGAGGUUUGGCACCUCGAUGUCGGCUCAUCGCAUCCUGGGGCUGUAGUCGGU
-CCCAAGGGUUGGGCUGUUCGCCCAUUAAAGCGGUACGCGAGCUGGGUUCAGAACGUCGUGAGACAGUUCGGUCCCUAUCC
-GUCGUGGGCGUAGGAAAUUUGAGAGGAGCUGUCCUUAGUACGAGAGGACCGGGAUGGACGCACCGCUGGUGUACCAGUUG
-UUCUGCCAAGGGCAUAGCUGGGUAGCUAUGUGCGGAAGGGAUAAGUGCUGAAAGCAUCUAAGCAUGAAGCCCCCCUCAAG
-AUGAGAUUUCCCAUAGCGUAAGCUAGUAAGAUCCCUGAAAGAUGAUCAGGUUGAUAGGUUCGAGGUGGAAGCAUGGUGAC
-AUGUGGAGCUGACGAAUACUAAUAGAUCGAGGACUUAACCAU\n"; 
-    close F;
 }
