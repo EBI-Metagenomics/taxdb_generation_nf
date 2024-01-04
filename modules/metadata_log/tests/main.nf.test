@@ -1,0 +1,27 @@
+nextflow_process {
+
+    name "Test Process METADATA_LOG"
+    script "modules/metadata_log/main.nf"
+    process "METADATA_LOG"
+    tag "modules"
+    tag "metadata_log"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                test_param = "test_param"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(path(process.out.log.get(0)).readLines().first().contains("test_param")).match("test_param") }
+            )
+        }
+
+    }
+
+}
