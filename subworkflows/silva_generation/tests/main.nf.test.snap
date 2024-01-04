@@ -1,0 +1,50 @@
+{
+    "ssu_otu": {
+        "content": [
+            [
+                "SILVA-SSU.otu:md5,5e9204767114219849c18bbe2a1c7013"
+            ]
+        ],
+        "timestamp": "2024-01-04T10:41:19.713285359"
+    },
+    "lsu_tax": {
+        "content": [
+            [
+                "SILVA-LSU-tax.txt:md5,792ff27421ffe3152b3cdea6c48dd8f6"
+            ]
+        ],
+        "timestamp": "2024-01-04T10:44:28.822536006"
+    },
+    "lsu_fasta": {
+        "content": [
+            [
+                "SILVA-LSU.fasta:md5,efe4a0ee53c4620bbc365aacb351d828"
+            ]
+        ],
+        "timestamp": "2024-01-04T10:44:28.724528153"
+    },
+    "lsu_otu": {
+        "content": [
+            [
+                "SILVA-LSU.otu:md5,667ba8ac67bc84dc60936cd4d34490ce"
+            ]
+        ],
+        "timestamp": "2024-01-04T10:44:28.870885353"
+    },
+    "ssu_tax": {
+        "content": [
+            [
+                "SILVA-SSU-tax.txt:md5,f7e95c1b79ed6034b1a04e52c6355486"
+            ]
+        ],
+        "timestamp": "2024-01-04T10:41:19.689362938"
+    },
+    "ssu_fasta": {
+        "content": [
+            [
+                "SILVA-SSU.fasta:md5,48d03de1ea1b1c38ffeec0e00b0061ff"
+            ]
+        ],
+        "timestamp": "2024-01-04T10:41:19.614252074"
+    }
+}

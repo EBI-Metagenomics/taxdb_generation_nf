@@ -1,0 +1,65 @@
+nextflow_workflow {
+
+    name "Test Workflow SILVA_GENERATION"
+    script "subworkflows/silva_generation/main.nf"
+    workflow "SILVA_GENERATION"
+    tag "subworkflow"
+    tag "silva_generation"
+
+    test("SSU test") {
+        tag "silva_generation_ssu"
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            workflow {
+                """
+                input[0] = "SSU"
+                input[1] = "${projectDir}/subworkflows/silva_generation/tests/data/taxdmp_2024-01-01.zip"
+                input[2] = "${projectDir}/subworkflows/silva_generation/tests/data/test_ssu.fasta.gz"
+                input[3] = "SILVA-SSU"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.fasta).match("ssu_fasta") },
+                { assert snapshot(workflow.out.tax).match("ssu_tax") },
+                { assert snapshot(workflow.out.otu).match("ssu_otu") }
+            )
+        }
+
+    }
+
+    test("LSU test") {
+        tag "silva_generation_lsu"
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            workflow {
+                """
+                input[0] = "LSU"
+                input[1] = "${projectDir}/subworkflows/silva_generation/tests/data/taxdmp_2024-01-01.zip"
+                input[2] = "${projectDir}/subworkflows/silva_generation/tests/data/test_lsu.fasta.gz"
+                input[3] = "SILVA-LSU"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.fasta).match("lsu_fasta") },
+                { assert snapshot(workflow.out.tax).match("lsu_tax") },
+                { assert snapshot(workflow.out.otu).match("lsu_otu") }
+            )
+        }
+
+    }
+
+}
