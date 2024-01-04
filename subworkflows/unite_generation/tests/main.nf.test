@@ -1,0 +1,32 @@
+nextflow_workflow {
+
+    name "Test Workflow UNITE_GENERATION"
+    script "subworkflows/unite_generation/main.nf"
+    workflow "UNITE_GENERATION"
+    tag "subworkflows"
+    tag "unite_generation"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                unite_version = "9.0"
+                unite_label = "UNITE"
+                unite_download_fasta = "${projectDir}/subworkflows/unite_generation/tests/data/test.fasta.gz"
+                unite_tax_header = "${projectDir}/subworkflows/unite_generation/tests/data/unite_tax_header.txt"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.fasta).match("fasta") },
+                { assert snapshot(workflow.out.tax).match("tax") },
+                { assert snapshot(workflow.out.otu).match("otu") }
+            )
+        }
+
+    }
+
+}

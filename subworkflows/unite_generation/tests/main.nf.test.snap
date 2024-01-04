@@ -1,0 +1,26 @@
+{
+    "otu": {
+        "content": [
+            [
+                "UNITE.otu:md5,c81986c182c1d771d42b9dd3ecb3ed90"
+            ]
+        ],
+        "timestamp": "2024-01-04T11:36:58.70948944"
+    },
+    "tax": {
+        "content": [
+            [
+                "UNITE-tax.txt:md5,79406418c313fe710d5101faa9000a90"
+            ]
+        ],
+        "timestamp": "2024-01-04T11:36:58.683052616"
+    },
+    "fasta": {
+        "content": [
+            [
+                "UNITE.fasta:md5,f82eaa0cfa64a100d0c3fb7579e7eca2"
+            ]
+        ],
+        "timestamp": "2024-01-04T11:36:58.621614861"
+    }
+}
