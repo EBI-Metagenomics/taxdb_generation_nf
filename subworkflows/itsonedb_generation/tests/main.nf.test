@@ -1,0 +1,33 @@
+nextflow_workflow {
+
+    name "Test Workflow ITSONEBD_GENERATION"
+    script "subworkflows/itsonedb_generation/main.nf"
+    workflow "ITSONEBD_GENERATION"
+    tag "subworkflows"
+    tag "itsonedb_generation"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                itsonedb_version = "1.141"
+                itsonedb_label = "ITSone"
+                itsonedb_download_fasta = "${projectDir}/subworkflows/itsonedb_generation/tests/data/test.fasta.gz"
+                itsonedb_download_taxdump = "${projectDir}/subworkflows/itsonedb_generation/tests/data/sdwca.zip"
+                itsonedb_tax_header = "${projectDir}/subworkflows/itsonedb_generation/tests/data/itsonedb_tax_header.txt"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.fasta).match("fasta") },
+                { assert snapshot(workflow.out.tax).match("tax") },
+                { assert snapshot(workflow.out.otu).match("otu") }
+            )
+        }
+
+    }
+
+}
