@@ -15,33 +15,28 @@ workflow TAXDB_GENERATION_PIPELINE_V6 {
 
     silva_taxdump = file(params.silva_download_taxdump, checkIfExists: true)
 
-    // SILVA_SSU_GENERATION(
-    //     "SSU",
-    //     silva_taxdump,
-    //     params.silva_ssu_download_fasta,
-    //     params.silva_ssu_label
-    // )
+    SILVA_SSU_GENERATION(
+        "SSU",
+        silva_taxdump,
+        params.silva_ssu_download_fasta,
+        params.silva_ssu_label
+    )
 
-    // SILVA_LSU_GENERATION(
-    //     "LSU",
-    //     silva_taxdump,
-    //     params.silva_lsu_download_fasta,
-    //     params.silva_lsu_label
-
-    // )
+    SILVA_LSU_GENERATION(
+        "LSU",
+        silva_taxdump,
+        params.silva_lsu_download_fasta,
+        params.silva_lsu_label
+    )
     
-    // PR2_GENERATION()
+    PR2_GENERATION()
 
-    // UNITE_GENERATION()
+    UNITE_GENERATION()
 
-    // ITSONEBD_GENERATION()
+    ITSONEBD_GENERATION()
 
-    // RFAM_GENERATION()
+    RFAM_GENERATION()
 
-    METADATA_LOG()
-
-    METADATA_LOG.out.log.view()
-
-    
+    METADATA_LOG()    
 
 }

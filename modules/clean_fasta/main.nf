@@ -21,7 +21,8 @@ process CLEAN_FASTA {
         UNITE)
             sed 's/|.*//g' $fasta > ${fasta}.clean
             grep -v '^#' $tax | cut -f1 > ${label}.idlst
-            seqtk subseq ${fasta}.clean ${label}.idlst > ${label}.fasta
+            seqtk subseq ${fasta}.clean ${label}.idlst > ${label}_subseq.fasta
+            sed 's/NN*/N/g' ${label}_subseq.fasta > ${label}.fasta
         ;;
         
         ITSone)
