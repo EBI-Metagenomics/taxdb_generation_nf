@@ -3,6 +3,7 @@ include { UNCOMPRESS_FILE as UNCOMPRESS_FASTA} from '../../modules/uncompress_fi
 include { UNCOMPRESS_FILE as UNCOMPRESS_TAX} from '../../modules/uncompress_file/main.nf'
 include { PR2_PROCESS_TAX } from '../../modules/pr2_process_tax/main.nf'
 include { MAKE_OTU_FILE } from '../../modules/make_otu_file/main.nf'
+include { CLEAN_FASTA } from '../../modules/clean_fasta/main.nf'
 include { GENERATE_MSCLUSTER } from '../../modules/generate_mscluster/main.nf'
 
 workflow PR2_GENERATION {
@@ -37,18 +38,24 @@ workflow PR2_GENERATION {
             params.pr2_label
         )
 
-        // GENERATE_MSCLUSTER(
-        //     dummy_fasta,
-        //     UNCOMPRESS_FASTA.out.uncmp_file,
-        //     PR2_PROCESS_TAX.out.tax,
-        //     params.pr2_version,
-        //     params.pr2_label
-        // )
+        CLEAN_FASTA(
+            UNCOMPRESS_FASTA.out.uncmp_file,
+            PR2_PROCESS_TAX.out.tax,
+            params.pr2_version,
+            params.pr2_label
+        )
+
+        GENERATE_MSCLUSTER(
+            dummy_fasta,
+            UNCOMPRESS_FASTA.out.uncmp_file,
+            PR2_PROCESS_TAX.out.tax,
+            params.pr2_version,
+            params.pr2_label
+        )
 
     emit:
         fasta = UNCOMPRESS_FASTA.out.uncmp_file
         tax = PR2_PROCESS_TAX.out.tax
         otu = MAKE_OTU_FILE.out.otu
-
 
 }

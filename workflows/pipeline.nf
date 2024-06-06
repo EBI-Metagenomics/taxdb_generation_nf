@@ -1,6 +1,5 @@
 
-// nextflow run -resume main.nf 
-// nextflow run -resume -profile lsf main.nf 
+// nextflow run -resume -profile slurm main.nf
 
 include { SILVA_GENERATION as SILVA_SSU_GENERATION } from '../subworkflows/silva_generation/main.nf'
 include { SILVA_GENERATION as SILVA_LSU_GENERATION } from '../subworkflows/silva_generation/main.nf'

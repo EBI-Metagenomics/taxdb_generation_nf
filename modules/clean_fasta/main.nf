@@ -12,10 +12,9 @@ process CLEAN_FASTA {
     val label
 
     output:
-    path("${label}.fasta"), emit: cleaned_fasta
+    path("${label}.fasta"), includeInputs: true, emit: cleaned_fasta
 
     """
-
     case $label in
 
         UNITE)
@@ -26,14 +25,21 @@ process CLEAN_FASTA {
         ;;
         
         ITSone)
-            sed "s/|ITS1 located by ENA annotation,.*//g" $fasta > ${fasta}.clean
+            sed "s/|ITS1 located by ENA annotation,.*//g" $fasta > ${fasta}_temp.clean
+            sed 's/ /_/g' ${fasta}_temp.clean > ${fasta}.clean
             grep -v '^#' $tax | cut -f1 > ${label}.idlst
-            seqtk subseq ${fasta}.clean ${label}.idlst > ${label}.fasta
+            seqtk subseq ${fasta}.clean ${label}.idlst > ${label}_temp.fasta
+            sed 's/ /_/g' ${label}_temp.fasta > ${label}.fasta
+
         ;;
 
         SILVA-SSU | SILVA-LSU)
             grep -v '^#' $tax | cut -f1 > ${label}.idlst
             seqtk subseq $fasta ${label}.idlst > ${label}.fasta
+        ;;
+
+        PR2)
+            echo "No cleaning necessary."
         ;;
 
         *)

@@ -38,13 +38,13 @@ workflow UNITE_GENERATION {
             params.unite_label
         )
 
-        // GENERATE_MSCLUSTER(
-        //     dummy_fasta,
-        //     CLEAN_FASTA.out.cleaned_fasta,
-        //     GENERATE_UNITE_TAX.out.tax,
-        //     params.unite_version,
-        //     params.unite_label
-        // )
+        GENERATE_MSCLUSTER(
+            dummy_fasta,
+            CLEAN_FASTA.out.cleaned_fasta,
+            GENERATE_UNITE_TAX.out.tax,
+            params.unite_version,
+            params.unite_label
+        )
 
     emit:
         fasta = CLEAN_FASTA.out.cleaned_fasta

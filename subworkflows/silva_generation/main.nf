@@ -45,13 +45,13 @@ workflow SILVA_GENERATION {
             label
         )
 
-        // GENERATE_MSCLUSTER(
-        //     dummy_fasta,
-        //     CLEAN_FASTA.out.cleaned_fasta,
-        //     REMOVE_EMPTY_PHYLA.out.tax,
-        //     params.silva_version,
-        //     label
-        // )
+        GENERATE_MSCLUSTER(
+            dummy_fasta,
+            CLEAN_FASTA.out.cleaned_fasta,
+            REMOVE_EMPTY_PHYLA.out.tax,
+            params.silva_version,
+            label
+        )
 
     emit:
         fasta = CLEAN_FASTA.out.cleaned_fasta

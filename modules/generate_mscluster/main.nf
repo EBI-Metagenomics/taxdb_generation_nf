@@ -1,8 +1,10 @@
 
 process GENERATE_MSCLUSTER {
 
-    label 'light'
-    container = '/hps/nobackup/rdf/metagenomics/service-team/singularity-cache/quay.io-biocontainers-mapseq-2.1.1--ha34dc8c_0.img'
+    label 'mscluster'
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/mapseq:2.1.1a--h3ab3c3b_0':
+        'biocontainers/mapseq:2.1.1a--h3ab3c3b_0' }"
     publishDir "${params.outdir}/${label}/${version}/", mode: 'copy'
 
     input:
@@ -16,7 +18,7 @@ process GENERATE_MSCLUSTER {
     path("*.mscluster"), emit: mscluster
 
     """
-    mapseq -nthreads $task.cpus -tophits 80 -topotus 40 -outfmt simple $dummy $fasta $tax
+    mapseq -nthreads $task.cpus -seed 12 -tophits 80 -topotus 40 -outfmt simple $dummy $fasta $tax
     """
 
 }

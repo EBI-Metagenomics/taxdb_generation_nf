@@ -64,13 +64,13 @@ workflow ITSONEBD_GENERATION {
             params.itsonedb_label
         )
 
-        // GENERATE_MSCLUSTER(
-        //     dummy_fasta,
-        //     CLEAN_FASTA.out.cleaned_fasta,
-        //     ITSONEDB_COLUMN_REPLACEMENT.out.tax,
-        //     params.itsonedb_version,
-        //     params.itsonedb_label
-        // )
+        GENERATE_MSCLUSTER(
+            dummy_fasta,
+            CLEAN_FASTA.out.cleaned_fasta,
+            ITSONEDB_COLUMN_REPLACEMENT.out.tax,
+            params.itsonedb_version,
+            params.itsonedb_label
+        )
 
     emit:
         fasta = CLEAN_FASTA.out.cleaned_fasta

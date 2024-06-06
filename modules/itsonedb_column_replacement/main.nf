@@ -16,9 +16,11 @@ process ITSONEDB_COLUMN_REPLACEMENT {
     path("itsonedb.final.taxid"), emit: taxid
 
     """
-    awk 'BEGIN {FS=OFS="\t"}NR == FNR {a[FNR] = \$B;next}{\$A = a[FNR];print \$0}' B=1 A=1 $uplift $taxid > itsonedb.final.taxid
+    awk 'BEGIN {FS=OFS="\t"}NR == FNR {a[FNR] = \$B;next}{\$A = a[FNR];print \$0}' B=1 A=1 $uplift $taxid > itsonedb.final.temp.taxid
     grep -v ";p__;" $uplift > uplift.final.filt.txt
-    cat $tax_header uplift.final.filt.txt > ${label}-tax.txt
+    sed 's/ /_/g' itsonedb.final.temp.taxid > itsonedb.final.taxid
+    sed 's/ /_/g' uplift.final.filt.txt > uplift.final.filt.cleanedspaces.txt
+    cat $tax_header uplift.final.filt.cleanedspaces.txt > ${label}-tax.txt
     """
 
 }
