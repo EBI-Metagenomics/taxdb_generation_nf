@@ -49,7 +49,7 @@ def filter_fasta(in_handle, out_handle, err_handle):
         except Exception as e:
             err_handle.write(f"Error while processing {tax_id}: {e}")
 
-def main(input_fasta, output_fasta):
+def processing_handle(input_fasta, output_fasta):
     with open(output_fasta, 'w') as out_handle, open("failed.txt", "w") as err_handle:
         if input_fasta.endswith('.gz'):
             with gzip.open(input_fasta, 'rt') as in_handle:
@@ -64,7 +64,7 @@ def main():
     
     args = parser.parse_args()
     
-    main(args.input_fasta, args.output_fasta)
+    processing_handle(args.input_fasta, args.output_fasta)
 
 if __name__ == '__main__':
     main()
