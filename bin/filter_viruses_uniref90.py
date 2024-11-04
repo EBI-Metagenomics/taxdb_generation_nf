@@ -11,10 +11,10 @@ def is_virus_taxoniq(tax_id):
     taxon = taxoniq.Taxon(tax_id)
     if taxon.ranked_lineage:
         for t in taxon.ranked_lineage:
-            if t.rank.name == "superkingdom" and t.scientific_name == "Viruses":
-                return True
-    else:
-        return False
+            if t.rank.name == "superkingdom":
+                if t.scientific_name == "Viruses":
+                    return True
+                return False
 
 
 def is_virus_entrez(taxid):
@@ -23,13 +23,10 @@ def is_virus_entrez(taxid):
     handle.close()
 
     lineage = records[0]["Lineage"]
-    try:
-        if lineage.split("; ")[0] == "Viruses":
-            return True
-        else:
-            return False
-    except:
-        print(f"Error while processing {taxid} with Entrez!")
+    if lineage.split("; ")[0] == "Viruses":
+        return True
+    else:
+        return False
 
 
 def filter_fasta(in_handle, out_handle, err_handle):
@@ -45,6 +42,8 @@ def filter_fasta(in_handle, out_handle, err_handle):
             except KeyError:
                 kingdom_name = is_virus_entrez(tax_id)
             if not kingdom_name:
+                raise ValueError("Kingdom name cannot be empty")
+            if kingdom_name is False:
                 SeqIO.write(record, out_handle, "fasta")
         except Exception as e:
             err_handle.write(f"Error while processing {tax_id}: {e}")
