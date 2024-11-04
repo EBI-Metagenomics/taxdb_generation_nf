@@ -10,11 +10,10 @@ Entrez.email = "sofia@ebi.ac.uk"
 def is_virus_taxoniq(tax_id):
     taxon = taxoniq.Taxon(tax_id)
     if taxon.ranked_lineage:
-        for t in taxon.ranked_lineage:
-            if t.rank.name == "superkingdom":
-                if t.scientific_name == "Viruses":
-                    return True
-                return False
+        highest_taxon = taxon.ranked_lineage[-1]
+        if highest_taxon.rank.name == "superkingdom":
+            return highest_taxon.scientific_name == "Viruses"
+    raise ValueError("No information about the lineage in taxoniq")
 
 
 def is_virus_entrez(taxid):
@@ -23,10 +22,8 @@ def is_virus_entrez(taxid):
     handle.close()
 
     lineage = records[0]["Lineage"]
-    if lineage.split("; ")[0] == "Viruses":
-        return True
-    else:
-        return False
+    highest_taxon = lineage.split("; ")[0]
+    return highest_taxon == "Viruses"
 
 
 def filter_fasta(in_handle, out_handle, err_handle):
@@ -38,15 +35,14 @@ def filter_fasta(in_handle, out_handle, err_handle):
         tax_id = record.description.split("TaxID=")[1].split()[0]
         try:
             try:
-                kingdom_name = is_virus_taxoniq(tax_id)
-            except KeyError:
-                kingdom_name = is_virus_entrez(tax_id)
-            if not kingdom_name:
-                raise ValueError("Kingdom name cannot be empty")
-            if kingdom_name is False:
+                is_viral_protein = is_virus_taxoniq(tax_id)
+            except (KeyError, ValueError):
+                is_viral_protein = is_virus_entrez(tax_id)
+            if is_viral_protein is False:
                 SeqIO.write(record, out_handle, "fasta")
         except Exception as e:
-            err_handle.write(f"Error while processing {tax_id}: {e}")
+            err_handle.write(f"Error while processing {tax_id}: {e}\n")
+
 
 def processing_handle(input_fasta, output_fasta):
     with open(output_fasta, 'w') as out_handle, open("failed.txt", "w") as err_handle:
