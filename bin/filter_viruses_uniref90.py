@@ -64,7 +64,7 @@ def main():
     
     args = parser.parse_args()
     
-    filter_fasta(args.input_fasta, args.output_fasta)
+    main(args.input_fasta, args.output_fasta)
 
 if __name__ == '__main__':
     main()
