@@ -1,11 +1,12 @@
 process REFORMAT_RHEA_CHEBI_FILE {
     label 'light'
+    container ''
 
     input:
-    rhea_rheactions_gz
+    path rhea_rheactions_gz
 
     output:
-    rhea_chebi_mapping
+    path 'rhea_chebi_mapping.tsv', emit: tsv_rhea_chebi_mapping
 
-    "python3 reformat_rhea_chebi_mapping.py $rhea_rheactions_gz"
+    "python3 reformat_rhea_chebi_mapping.py ${rhea_rheactions_gz} "
 }

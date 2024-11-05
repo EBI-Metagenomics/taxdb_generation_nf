@@ -2,6 +2,7 @@
 
 import argparse
 import gzip
+
 from Bio import SeqIO
 
 def load_mapping(tsv_file):

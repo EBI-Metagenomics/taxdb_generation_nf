@@ -1,11 +1,12 @@
 process UNIREF90_NON_VIRAL_FILTER {
-    label ''
+    label 'light'
+    container ''
 
     input:
-    uniref90_fasta
+    path uniref90_fasta
 
     output:
-    filtered_fasta
+    path 'uniref90_non_viral.fasta', emit: filtered_fasta
 
-    "unifer90_non_viral_filter.py $uniref90_fasta"
+    "unifer90_non_viral_filter.py ${uniref90_fasta} uniref90_non_viral.fasta"
 }

@@ -1,12 +1,13 @@
 process UNIREF90_RHEA_FILTER {
     label 'light'
+    container 'quay.io/biocontainers/biopython:1.78'
 
     input:
-    uniref90_fasta
-    uniprot_rhea_mapping
+    path uniref90_fasta
+    path uniprot_rhea_mapping
 
     output:
-    filtered_fasta
+    path 'uniref90_with_rhea.fasta', emit: filtered_fasta
 
-    "unifer90_rhea_filter.py ${uniref90_fasta} ${uniprot_rhea_mapping}"
+    "unifer90_rhea_filter.py ${uniref90_fasta} ${uniprot_rhea_mapping} uniref90_with_rhea.fasta"
 }
