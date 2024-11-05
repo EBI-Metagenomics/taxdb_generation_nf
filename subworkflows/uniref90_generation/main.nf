@@ -16,9 +16,9 @@ workflow UNIREF90_GENERATION {
             uniprot_rhea_mapping
         )
 
-        UNIREF90_NON_VIRAL_FILTER(
-            uniref90_fasta.splitFasta(),
-        )
+        // UNIREF90_NON_VIRAL_FILTER(
+        //     uniref90_fasta.splitFasta(by: 1000000, file: 'uniref90'),
+        // )
 
         REFORMAT_RHEA_CHEBI(
             rhea_chebi_mapping
@@ -27,7 +27,7 @@ workflow UNIREF90_GENERATION {
         diamond_rhea_input = tuple(["id": params.uniref90_version], UNIREF90_RHEA_FILTER.out.filtered_fasta)
         DIAMOND_MAKEDB_RHEA(diamond_rhea_input, false, false, false)
 
-        diamond_taxa_input = tuple(["id": params.uniref90_version], UNIREF90_NON_VIRAL_FILTER.out.filtered_fasta)
+        diamond_taxa_input = tuple(["id": params.uniref90_version], UNIREF90_NON_VIRAL_FILTER.out.filtered_fasta.collect())
         DIAMOND_MAKEDB_TAXA(diamond_taxa_input, false, false, false)
 
     emit:
