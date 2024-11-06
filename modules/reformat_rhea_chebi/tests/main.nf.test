@@ -1,0 +1,24 @@
+nextflow_process {
+
+    name "Test Process REFORMAT_RHEA_CHEBI_FILE"
+    script "../main.nf"
+    process "REFORMAT_RHEA_CHEBI_FILE"
+
+    test("Convert test file to TSV format") {
+
+        when {
+            process {
+                """
+                input[0] = Channel.fromPath("${moduleDir}/tests/data/rhea-reactions.txt.gz", checkIfExists: true)
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}
