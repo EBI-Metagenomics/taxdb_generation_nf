@@ -1,0 +1,19 @@
+{
+    "Remove viral proteins from protein fasta using TaxID field": {
+        "content": [
+            {
+                "0": [
+                    "uniref90_non_viral.fasta:md5,e5ee4d75d12e9dd95fd7f7ffe9f32208"
+                ],
+                "filtered_fasta": [
+                    "uniref90_non_viral.fasta:md5,e5ee4d75d12e9dd95fd7f7ffe9f32208"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-11-06T12:08:11.280031"
+    }
+}
