@@ -9,5 +9,5 @@ process UNIREF90_RHEA_FILTER {
     output:
     path 'uniref90_with_rhea.fasta', emit: filtered_fasta
 
-    "unifer90_rhea_filter.py ${uniref90_fasta} ${uniprot_rhea_mapping} uniref90_with_rhea.fasta"
+    "uniref90_rhea_filter.py ${uniref90_fasta} ${uniprot_rhea_mapping} uniref90_with_rhea.fasta"
 }
