@@ -20,9 +20,9 @@ nextflow_workflow {
         then {
             assertAll(
             { assert workflow.success },
-            { assert snapshot(workflow.out.rhea_db).match() },
-            { assert snapshot(workflow.out.taxonomy_db).match() },
-            { assert snapshot(workflow.out.rhea_chebi_mapping).match() }
+            { assert snapshot(workflow.out.rhea_db).match("rhea_db") },
+            { assert snapshot(workflow.out.taxonomy_db).match("taxonomy_db") },
+            { assert snapshot(workflow.out.rhea_chebi_mapping).match("rhea_chebi_mapping") }
             )
         }
     }
