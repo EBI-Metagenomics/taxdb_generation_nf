@@ -1,4 +1,4 @@
-process REFORMAT_RHEA_CHEBI_FILE {
+process REFORMAT_RHEA_CHEBI {
     label 'light'
     container ''
 
