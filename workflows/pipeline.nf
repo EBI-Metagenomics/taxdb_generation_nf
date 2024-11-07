@@ -7,6 +7,7 @@ include { PR2_GENERATION } from "../subworkflows/pr2_generation/main.nf"
 include { UNITE_GENERATION } from "../subworkflows/unite_generation/main.nf"
 include { ITSONEBD_GENERATION } from "../subworkflows/itsonedb_generation/main.nf"
 include { RFAM_GENERATION } from "../subworkflows/rfam_generation/main.nf"
+include { UNIREF90_GENERATION } from "../subworkflows/uniref90_generation/main.nf"
 
 include { METADATA_LOG } from '../modules/metadata_log/main.nf'
 
