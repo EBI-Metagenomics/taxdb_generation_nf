@@ -34,7 +34,7 @@ def filter_fasta(input_fasta, output_fasta, mapping):
                         SeqIO.write(record, out_handle, "fasta")
         else:
             for record in SeqIO.parse(input_fasta, "fasta"):
-                rep_id = record.description.split("RepID=")[1].split()[0]
+                rep_id = record.id.split("_")[1]
                 if rep_id in mapping:
                     rhea_id = mapping[rep_id]
                     record.description += f' RheaID="{rhea_id}"'
