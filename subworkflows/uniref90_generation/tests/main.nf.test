@@ -1,0 +1,29 @@
+nextflow_workflow {
+
+    name "Test workflow UNIREF90_GENERATION"
+    script "../main.nf"
+    workflow "UNIREF90_GENERATION"
+
+    test("Run the workflow on the test dataset") {
+
+        when {
+            workflow {
+
+            }
+            params {
+                    uniref90_download_fasta     = "${moduleDir}/tests/data/uniref90.test.fasta"
+                    uniprot_rhea_mapping        = "${moduleDir}/tests/data/uniprot_rhea_mapping.test.tsv"
+                    rhea_chebi_download_mapping = "${moduleDir}/tests/data/rhea-reactions.txt.gz"
+            }
+        }
+
+        then {
+            assertAll(
+            { assert workflow.success },
+            { assert snapshot(workflow.out.rhea_db).match() },
+            { assert snapshot(workflow.out.taxonomy_db).match() },
+            { assert snapshot(workflow.out.rhea_chebi_mapping).match() }
+            )
+        }
+    }
+}
