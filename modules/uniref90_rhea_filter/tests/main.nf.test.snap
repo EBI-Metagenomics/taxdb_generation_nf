@@ -3,17 +3,17 @@
         "content": [
             {
                 "0": [
-                    "uniref90_with_rhea.fasta:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    "uniref90_with_rhea.fasta:md5,e0be31822a0d13f2a5dc1fb2afb59bd1"
                 ],
                 "filtered_fasta": [
-                    "uniref90_with_rhea.fasta:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    "uniref90_with_rhea.fasta:md5,e0be31822a0d13f2a5dc1fb2afb59bd1"
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.04.4"
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T11:45:08.180244"
+        "timestamp": "2024-11-07T13:10:18.637478"
     }
 }
