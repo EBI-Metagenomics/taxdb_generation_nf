@@ -15,17 +15,26 @@ workflow UNIREF90_GENERATION {
             uniref90_fasta,
             uniprot_rhea_mapping
         )
-        DIAMOND_MAKEDB_RHEA(tuple(["id": params.uniref90_version], UNIREF90_RHEA_FILTER.out.filtered_fasta), [], [], [])
 
-        // UNIREF90_NON_VIRAL_FILTER(
-        //     uniref90_fasta.splitFasta(by: 1000000, file: 'uniref90'),
-        // )
-        // DIAMOND_MAKEDB_TAXA(tuple(["id": params.uniref90_version], UNIREF90_NON_VIRAL_FILTER.out.filtered_fasta.collectFile(name: 'uniref90_non_viral.fasta')), [], [], [])
+        UNIREF90_RHEA_FILTER.out.filtered_fasta
+            .map { filepath -> 
+                [[id: params.uniref90_version], filepath]
+            }
+            .set { diamond_makedb_rhea_ch }
+        DIAMOND_MAKEDB_RHEA(diamond_makedb_rhea_ch, [], [], [])
 
+        uniref90_batches_ch = Channel.fromPath(uniref90_fasta).splitFasta(by: 1000000, file: 'uniref90')
         UNIREF90_NON_VIRAL_FILTER(
-            uniref90_fasta
+            uniref90_batches_ch,
         )
-        DIAMOND_MAKEDB_TAXA(tuple(["id": params.uniref90_version], UNIREF90_NON_VIRAL_FILTER.out.filtered_fasta), [], [], [])
+
+        UNIREF90_NON_VIRAL_FILTER.out.filtered_fasta
+            .collectFile(name: 'uniref90_non_viral.fasta')
+            .map { filepath ->
+                [[id: params.uniref90_version], filepath]
+            }
+            .set { diamond_makedb_taxa_ch }
+        DIAMOND_MAKEDB_TAXA(diamond_makedb_taxa_ch, [], [], [])
 
         REFORMAT_RHEA_CHEBI(
             rhea_chebi_mapping
