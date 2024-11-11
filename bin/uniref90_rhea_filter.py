@@ -5,6 +5,7 @@ import gzip
 
 from Bio import SeqIO
 
+
 def load_mapping(tsv_file):
     """
     Load mapping of UniRef90 proteins to Rhea IDs from a TSV file.
@@ -18,27 +19,29 @@ def load_mapping(tsv_file):
             mapping[rep_id] = rhea_id
     return mapping
 
-def filter_fasta(input_fasta, output_fasta, mapping):
+
+def filter_fasta(in_handle, out_handle, mapping):
     """
     Filter the FASTA file based on the mapping and add RheaID to the header.
-    Supports both regular and gzipped FASTA files.
+    """
+    for record in SeqIO.parse(in_handle, "fasta"):
+        rep_id = record.id.split("_")[1]
+        if rep_id in mapping:
+            rhea_id = mapping[rep_id]
+            record.description += f' RheaID="{rhea_id}"'
+            SeqIO.write(record, out_handle, "fasta")
+
+
+def processing_handle(input_fasta, output_fasta, mapping):
+    """
+    Enable processing of both regular and gzipped FASTA files.
     """
     with open(output_fasta, 'w') as out_handle:
         if input_fasta.endswith('.gz'):
             with gzip.open(input_fasta, 'rt') as in_handle:
-                for record in SeqIO.parse(in_handle, "fasta"):
-                    rep_id = record.id.split("_")[1]
-                    if rep_id in mapping:
-                        rhea_id = mapping[rep_id]
-                        record.description += f' RheaID="{rhea_id}"'
-                        SeqIO.write(record, out_handle, "fasta")
+                filter_fasta(in_handle, out_handle, mapping)
         else:
-            for record in SeqIO.parse(input_fasta, "fasta"):
-                rep_id = record.id.split("_")[1]
-                if rep_id in mapping:
-                    rhea_id = mapping[rep_id]
-                    record.description += f' RheaID="{rhea_id}"'
-                    SeqIO.write(record, out_handle, "fasta")
+            filter_fasta(input_fasta, out_handle, mapping)
 
 def main():
     parser = argparse.ArgumentParser(description="Filter FASTA by RepID and add RheaID to the header.")
@@ -50,7 +53,7 @@ def main():
     
     mapping = load_mapping(args.mapping_file)
     
-    filter_fasta(args.input_fasta, args.output_fasta, mapping)
+    processing_handle(args.input_fasta, args.output_fasta, mapping)
 
 if __name__ == '__main__':
     main()
