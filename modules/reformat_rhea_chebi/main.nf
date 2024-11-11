@@ -1,6 +1,6 @@
 process REFORMAT_RHEA_CHEBI {
     label 'light'
-    container ''
+    container 'quay.io/biocontainers/python:3.10'
 
     input:
     path rhea_rheactions_gz
