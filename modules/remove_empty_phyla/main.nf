@@ -12,6 +12,7 @@ process REMOVE_EMPTY_PHYLA {
     output:
     path ("*-tax.txt"), emit: tax
 
+    script:
     """
     grep -v "p__;" $taxid > ${label}-tax.txt
     """

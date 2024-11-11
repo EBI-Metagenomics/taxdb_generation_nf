@@ -10,6 +10,7 @@ process UNCOMPRESS_FILE {
     output:
     path("${uncmp_name}"), emit: uncmp_file
 
+    script:
     """
     gunzip -c -f $cmp_file > $uncmp_name
     """

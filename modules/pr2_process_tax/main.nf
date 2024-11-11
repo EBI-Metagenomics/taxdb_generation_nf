@@ -14,6 +14,7 @@ process PR2_PROCESS_TAX {
     output:
     path("PR2-tax.txt"), emit: tax
 
+    script:
     """
     sed 's/;/\t/g' $tax > tab-tax.txt
     pr2_process_tax.py -t tab-tax.txt -o processed_tax.txt

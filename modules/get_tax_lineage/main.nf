@@ -12,6 +12,7 @@ process GET_TAX_LINEAGE {
     output:
     path("*tax_lineage.txt"), emit: tax_lineage
 
+    script:
     """
     grep ">" $fasta | cut -d"|" -f2 > itsonedb.sliced_taxids
     unzip $taxdump 

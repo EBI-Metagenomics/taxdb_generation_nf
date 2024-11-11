@@ -2,7 +2,7 @@
 process CLEAN_FASTA {
 
     label 'light'
-    container = '/hps/nobackup/rdf/metagenomics/service-team/singularity-cache/quay.io_biocontainers_seqtk:1.3.sif'
+    container '/hps/nobackup/rdf/metagenomics/service-team/singularity-cache/quay.io_biocontainers_seqtk:1.3.sif'
     publishDir "${params.outdir}/${label}/${version}/", mode: 'copy'
 
     input:
@@ -14,6 +14,7 @@ process CLEAN_FASTA {
     output:
     path("${label}.fasta"), includeInputs: true, emit: cleaned_fasta
 
+    script:
     """
     case $label in
 

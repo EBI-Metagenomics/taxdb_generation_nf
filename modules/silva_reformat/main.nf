@@ -15,6 +15,7 @@ process SILVA_REFORMAT {
     path("*.fasta.uplift"), emit: uplift
     path("*.fasta.taxid"), emit: taxid
 
+    script:
     """
     silva-reformat.pl -f $fasta -t $taxdump -v $version -s $subunit --out ./
     """

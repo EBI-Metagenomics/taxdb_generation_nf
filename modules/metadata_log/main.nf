@@ -9,6 +9,7 @@ process METADATA_LOG {
     output:
     path("log.txt"), emit: log
 
+    script:
     """
     dt=\$(date)
     echo 'params:\t${JsonOutput.toJson(params)}' > log.txt

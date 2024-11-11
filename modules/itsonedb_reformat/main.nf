@@ -12,6 +12,7 @@ process ITSONEDB_REFORMAT {
     path("uplift"), emit: uplift
     path("itsonedb.taxid"), emit: taxid
 
+    script:
     """
     format_ITSone_for_mapseq.pl -i $tax_lineage  --out ./
     """

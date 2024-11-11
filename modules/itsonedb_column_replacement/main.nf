@@ -15,6 +15,7 @@ process ITSONEDB_COLUMN_REPLACEMENT {
     path("*-tax.txt"), emit: tax
     path("itsonedb.final.taxid"), emit: taxid
 
+    script:
     """
     awk 'BEGIN {FS=OFS="\t"}NR == FNR {a[FNR] = \$B;next}{\$A = a[FNR];print \$0}' B=1 A=1 $uplift $taxid > itsonedb.final.temp.taxid
     grep -v ";p__;" $uplift > uplift.final.filt.txt

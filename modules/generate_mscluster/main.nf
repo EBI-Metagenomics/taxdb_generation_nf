@@ -17,6 +17,7 @@ process GENERATE_MSCLUSTER {
     output:
     path("*.mscluster"), emit: mscluster
 
+    script:
     """
     mapseq -nthreads $task.cpus -seed 12 -tophits 80 -topotus 40 -outfmt simple $dummy $fasta $tax
     """

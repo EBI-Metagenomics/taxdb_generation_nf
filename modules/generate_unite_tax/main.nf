@@ -13,6 +13,7 @@ process GENERATE_UNITE_TAX {
     output:
     path("*-tax.txt"), emit: tax
 
+    script:
     """
     # Split the header_ids and the taxonomy into tab-separated .taxid fileq
     grep ">" $fasta | cut -d"|" -f1-2 | sed 's/|/\t/g' | sed 's/>//' | sed 's/k__/sk__Eukaryota;k__/g' > temp_unite.tax

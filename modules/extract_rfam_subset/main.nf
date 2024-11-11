@@ -14,6 +14,7 @@ process EXTRACT_RFAM_SUBSET {
     path("ribo.cm"), emit: ribo_cm
     path("ribo.clan_info"), includeInputs: true, emit: ribo_claninfo
 
+    script:
     """
     extract_rfam_subset.py -ci $rfam_claninfo -cm $rfam_cm -o ./ribo.cm
     cp $rfam_claninfo ribo.clan_info

@@ -13,6 +13,7 @@ process MAKE_OTU_FILE {
     output:
     path("*.otu"), emit: otu
 
+    script:
     """
     case $label in
 
