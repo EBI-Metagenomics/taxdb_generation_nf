@@ -9,7 +9,6 @@ workflow UNIREF90_GENERATION {
     main:
         uniref90_fasta       = file(params.uniref90_download_fasta)
         uniprot_rhea_mapping = file(params.uniprot_rhea_mapping)
-        rhea_chebi_mapping   = file(params.rhea_chebi_download_mapping)
 
         UNIREF90_RHEA_FILTER(
             uniref90_fasta,
@@ -37,7 +36,7 @@ workflow UNIREF90_GENERATION {
         DIAMOND_MAKEDB_TAXA(diamond_makedb_taxa_ch, [], [], [])
 
         REFORMAT_RHEA_CHEBI(
-            rhea_chebi_mapping
+            params.rhea_chebi_download_mapping
         )
 
     emit:
