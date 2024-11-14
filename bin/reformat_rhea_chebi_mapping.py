@@ -5,11 +5,9 @@ import gzip
 import re
 from pathlib import Path
 
-def convert_to_tsv(gz_file_path: Path) -> Path:
 
-    output_file_path = "rhea_chebi_mapping.tsv"
-
-    with gzip.open(gz_file_path, "rt") as file_in, open(output_file_path, "w") as file_out:
+def convert_to_tsv(gz_file_path: Path, output_file_name: Path) -> Path:
+    with gzip.open(gz_file_path, "rt") as file_in, open(output_file_name, "w") as file_out:
         input_text = file_in.read()
         pattern = re.compile(
             r"ENTRY\s+(\S+)\nDEFINITION\s+(.+?)\nEQUATION\s+(.+?)(?:\nENZYME\s+(.+?))?\n///",
@@ -22,12 +20,13 @@ def convert_to_tsv(gz_file_path: Path) -> Path:
             enzyme = " ".join(enzyme.strip().split()) if enzyme else ""
             file_out.write(f"{entry}\t{definition}\t{equation}\t{enzyme}\n")
 
-    gz_file_path.unlink()
-    return output_file_path
+    return output_file_name
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Convert rhea-reactions.txt.gz to Rhea-CHEBI mapping in TSV format.')
     parser.add_argument('input_file', type=Path, help='Path to the rhea-reactions.txt.gz file')
+    parser.add_argument('output_file', type=Path, help='Name of the output TSV file')
     args = parser.parse_args()
     
-    convert_to_tsv(args.input_file)
+    convert_to_tsv(args.input_file, args.output_file)
+
