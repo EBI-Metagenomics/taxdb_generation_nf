@@ -4,9 +4,9 @@
             [
                 [
                     {
-                        "id": "2024_05"
+                        "id": "uniref90_rhea_2024_05_2024-07-31"
                     },
-                    "2024_05.dmnd:md5,24d32b7dfd8efa693ddb182d34465070"
+                    "uniref90_rhea_2024_05_2024-07-31.dmnd:md5,24d32b7dfd8efa693ddb182d34465070"
                 ]
             ]
         ],
@@ -14,16 +14,16 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-11T12:20:09.439962"
+        "timestamp": "2024-11-14T13:35:37.721122"
     },
     "taxonomy_db": {
         "content": [
             [
                 [
                     {
-                        "id": "2024_05"
+                        "id": "uniref90_taxa_2024_05"
                     },
-                    "2024_05.dmnd:md5,d0d7be70ac6d182ba5da21602b3aa566"
+                    "uniref90_taxa_2024_05.dmnd:md5,d0d7be70ac6d182ba5da21602b3aa566"
                 ]
             ]
         ],
@@ -31,18 +31,18 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-11T12:20:09.447161"
+        "timestamp": "2024-11-14T13:35:37.731581"
     },
     "rhea_chebi_mapping": {
         "content": [
             [
-                "rhea_chebi_mapping.tsv:md5,509e2f6d4c088073284e6639e71b19f7"
+                "rhea_chebi_mapping_135.tsv:md5,509e2f6d4c088073284e6639e71b19f7"
             ]
         ],
         "meta": {
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-11T12:20:09.453307"
+        "timestamp": "2024-11-14T13:35:37.74051"
     }
 }
