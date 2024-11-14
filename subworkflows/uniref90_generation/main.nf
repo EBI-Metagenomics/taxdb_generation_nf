@@ -18,7 +18,7 @@ workflow UNIREF90_GENERATION {
 
         UNIREF90_RHEA_FILTER.out.filtered_fasta
             .map { filepath -> 
-                [[id: params.uniref90_version], filepath]
+                [[id: "uniref90_rhea_${params.uniref90_version}_${params.uniprotKB_access_date}"], filepath]
             }
             .set { diamond_makedb_rhea_ch }
         DIAMOND_MAKEDB_RHEA(diamond_makedb_rhea_ch, [], [], [])
@@ -31,7 +31,7 @@ workflow UNIREF90_GENERATION {
         UNIREF90_NON_VIRAL_FILTER.out.filtered_fasta
             .collectFile(name: 'uniref90_non_viral.fasta')
             .map { filepath ->
-                [[id: params.uniref90_version], filepath]
+                [[id: "uniref90_taxa_${params.uniref90_version}"], filepath]
             }
             .set { diamond_makedb_taxa_ch }
         DIAMOND_MAKEDB_TAXA(diamond_makedb_taxa_ch, [], [], [])

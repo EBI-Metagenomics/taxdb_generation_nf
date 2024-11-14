@@ -6,8 +6,8 @@ process REFORMAT_RHEA_CHEBI {
     path rhea_rheactions_gz
 
     output:
-    path 'rhea_chebi_mapping.tsv', emit: tsv_rhea_chebi_mapping
+    path 'rhea_chebi_mapping_*.tsv', emit: tsv_rhea_chebi_mapping
 
     script:
-    "reformat_rhea_chebi_mapping.py ${rhea_rheactions_gz}"
+    "reformat_rhea_chebi_mapping.py ${rhea_rheactions_gz} rhea_chebi_mapping_${params.rheadb_version}.tsv"
 }
