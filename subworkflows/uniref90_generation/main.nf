@@ -7,9 +7,9 @@ include { DIAMOND_MAKEDB as DIAMOND_MAKEDB_TAXA } from '../../modules/nf-core/di
 workflow UNIREF90_GENERATION {
 
     main:
-        uniref90_fasta       = file(params.uniref90_download_fasta, checkIfExists: true)
-        uniprot_rhea_mapping = file(params.uniprot_rhea_mapping, checkIfExists: true)
-        rhea_chebi_mapping   = file(params.rhea_chebi_download_mapping, checkIfExists: true)
+        uniref90_fasta       = file(params.uniref90_download_fasta)
+        uniprot_rhea_mapping = file(params.uniprot_rhea_mapping)
+        rhea_chebi_mapping   = file(params.rhea_chebi_download_mapping)
 
         UNIREF90_RHEA_FILTER(
             uniref90_fasta,
