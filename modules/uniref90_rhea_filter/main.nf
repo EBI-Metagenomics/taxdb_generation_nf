@@ -1,5 +1,5 @@
 process UNIREF90_RHEA_FILTER {
-    label 'light'
+    label 'process_single'
     container 'quay.io/biocontainers/biopython:1.78'
 
     input:

@@ -1,5 +1,5 @@
 process UNIREF90_NON_VIRAL_FILTER {
-    label 'light'
+    label 'process_single'
     container 'community.wave.seqera.io/library/biopython_pip_taxoniq:61a7ad516ddf4b95'
 
     input:
