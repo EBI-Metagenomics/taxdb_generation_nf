@@ -10,5 +10,7 @@ process UNIREF90_RHEA_FILTER {
     path 'uniref90_with_rhea.fasta', emit: filtered_fasta
 
     script:
-    "uniref90_rhea_filter.py ${uniref90_fasta} ${uniprot_rhea_mapping} uniref90_with_rhea.fasta"
+    """
+    uniref90_rhea_filter.py ${uniref90_fasta} ${uniprot_rhea_mapping} uniref90_with_rhea.fasta
+    """
 }
