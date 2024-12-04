@@ -22,7 +22,7 @@ workflow UNIREF90_GENERATION {
             .set { diamond_makedb_rhea_ch }
         DIAMOND_MAKEDB_RHEA(diamond_makedb_rhea_ch, [], [], [])
 
-        uniref90_batches_ch = Channel.fromPath(uniref90_fasta).splitFasta(by: 1000000, file: 'uniref90')
+        uniref90_batches_ch = Channel.fromPath(uniref90_fasta).splitFasta(by: params.uniref90_batch_size, file: 'uniref90')
         UNIREF90_NON_VIRAL_FILTER(
             uniref90_batches_ch,
         )
