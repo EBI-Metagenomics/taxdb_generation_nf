@@ -35,9 +35,7 @@ workflow UNIREF90_GENERATION {
             .set { diamond_makedb_taxa_ch }
         DIAMOND_MAKEDB_TAXA(diamond_makedb_taxa_ch, [], [], [])
 
-        REFORMAT_RHEA_CHEBI(
-            params.rhea_chebi_download_mapping
-        )
+        REFORMAT_RHEA_CHEBI()
 
     emit:
         rhea_db            = DIAMOND_MAKEDB_RHEA.out.db
