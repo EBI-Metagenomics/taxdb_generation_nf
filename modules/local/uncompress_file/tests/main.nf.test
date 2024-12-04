@@ -1,0 +1,57 @@
+nextflow_process {
+
+    name "Test Process UNCOMPRESS_FILE"
+    script "modules/local/uncompress_file/main.nf"
+    process "UNCOMPRESS_FILE"
+    tag "modules"
+    tag "uncompress_file"
+
+    test("Test a local file to uncompress") {
+        tag "uncompress_file_local"
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('${projectDir}/modules/local/uncompress_file/tests/data/test.fasta.gz', checkIfExists: true)
+                input[1] = "test.fasta"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.uncmp_file).match("local_uncmp_file") }
+            )
+        }
+
+    }
+
+    test("Test a remote file to uncompress") {
+        tag "uncompress_file_remote"
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists: true)
+                input[1] = "test.fasta"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.uncmp_file).match("remote_uncmp_file") }
+            )
+        }
+
+    }
+
+}

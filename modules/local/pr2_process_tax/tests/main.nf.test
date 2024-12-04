@@ -1,0 +1,34 @@
+nextflow_process {
+
+    name "Test Process PR2_PROCESS_TAX"
+    script "modules/local/pr2_process_tax/main.nf"
+    process "PR2_PROCESS_TAX"
+    tag "modules"
+    tag "pr2_process_tax"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('${projectDir}/modules/local/pr2_process_tax/tests/data/test.tax', checkIfExists: true)
+                input[1] = file('${projectDir}/modules/local/pr2_process_tax/tests/data/pr2_tax_header.txt', checkIfExists: true)
+                input[2] = params.pr2_version
+                input[3] = params.pr2_label
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.tax).match("tax") }
+            )
+        }
+
+    }
+
+}

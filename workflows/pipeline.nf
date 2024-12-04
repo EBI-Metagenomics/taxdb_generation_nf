@@ -9,7 +9,7 @@ include { ITSONEBD_GENERATION } from "../subworkflows/itsonedb_generation/main.n
 include { RFAM_GENERATION } from "../subworkflows/rfam_generation/main.nf"
 include { UNIREF90_GENERATION } from "../subworkflows/uniref90_generation/main.nf"
 
-include { METADATA_LOG } from '../modules/metadata_log/main.nf'
+include { METADATA_LOG } from '../modules/local/metadata_log/main.nf'
 
 workflow TAXDB_GENERATION_PIPELINE_V6 {
     if (params.generate_amplicon_db) {

@@ -1,6 +1,6 @@
-include { UNIREF90_RHEA_FILTER                  } from '../../modules/uniref90_rhea_filter/main.nf'
-include { UNIREF90_NON_VIRAL_FILTER             } from '../../modules/uniref90_non_viral_filter/main.nf'
-include { REFORMAT_RHEA_CHEBI                   } from '../../modules/reformat_rhea_chebi/main.nf'
+include { UNIREF90_RHEA_FILTER                  } from '../../modules/local/uniref90_rhea_filter/main.nf'
+include { UNIREF90_NON_VIRAL_FILTER             } from '../../modules/local/uniref90_non_viral_filter/main.nf'
+include { REFORMAT_RHEA_CHEBI                   } from '../../modules/local/reformat_rhea_chebi/main.nf'
 include { DIAMOND_MAKEDB as DIAMOND_MAKEDB_RHEA } from '../../modules/nf-core/diamond/makedb/main.nf'
 include { DIAMOND_MAKEDB as DIAMOND_MAKEDB_TAXA } from '../../modules/nf-core/diamond/makedb/main.nf'
 

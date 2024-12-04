@@ -1,0 +1,36 @@
+nextflow_process {
+
+    name "Test Process ITSONEDB_COLUMN_REPLACEMENT"
+    script "modules/local/itsonedb_column_replacement/main.nf"
+    process "ITSONEDB_COLUMN_REPLACEMENT"
+    tag "modules"
+    tag "itsonedb_column_replacement"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('${projectDir}/modules/local/itsonedb_column_replacement/tests/data/test.uplift.txt', checkIfExists: true)
+                input[1] = file('${projectDir}/modules/local/itsonedb_column_replacement/tests/data/test.taxid', checkIfExists: true)
+                input[2] = file('${projectDir}/modules/local/itsonedb_column_replacement/tests/data/itsonedb_tax_header.txt', checkIfExists: true)
+                input[3] = params.itsonedb_version
+                input[4] = params.itsonedb_label
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.tax).match("tax") },
+                { assert snapshot(process.out.taxid).match("taxid") }
+            )
+        }
+
+    }
+
+}
