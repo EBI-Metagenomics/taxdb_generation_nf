@@ -25,7 +25,6 @@ def is_virus_entrez(taxid):
     Check if taxa id is virus using slower approach with
     Entrez quering
     """
-    Entrez.email = "sofia@ebi.ac.uk"
     handle = Entrez.efetch(db="taxonomy", id=taxid, retmode="xml")
     records = Entrez.read(handle)
     handle.close()
