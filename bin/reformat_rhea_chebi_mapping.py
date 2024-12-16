@@ -28,11 +28,12 @@ def convert_to_tsv(gz_file_path: Path, output_file_name: Path) -> Path:
             re.DOTALL
         )
         matches = pattern.findall(input_text)
-        file_out.write("ENTRY\tDEFINITION\tEQUATION\tENZYME\n")
-        for match in matches:
-            entry, definition, equation, enzyme = match
-            enzyme = " ".join(enzyme.strip().split()) if enzyme else ""
-            file_out.write(f"{entry}\t{definition}\t{equation}\t{enzyme}\n")
+          writer = csv.writer(file_out, delimiter='\t')
+          writer.writerow(['ENTRY', 'DEFINITION', 'EQUATION', 'ENZYME'])
+          for match in matches:
+              entry, definition, equation, enzyme = match
+              enzyme = " ".join(enzyme.strip().split()) if enzyme else ""
+              writer.writerow([entry, definition, equation, enzyme])
 
     return output_file_name
 
