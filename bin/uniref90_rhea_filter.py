@@ -15,6 +15,7 @@
 # limitations under the License.
 
 import argparse
+import csv
 import gzip
 
 from Bio import SeqIO
@@ -26,9 +27,10 @@ def load_mapping(tsv_file):
     Returns a dictionary with RepID as the key and RheaID as the value.
     """
     mapping = {}
-    with open(tsv_file, 'r') as file:
-        for line in file:
-            rep_id, rhea_id = line.strip().split('\t')
+    with open(tsv_file) as file:
+        reader = csv.reader(file, delimiter='\t')
+        for row in reader:
+            rep_id, rhea_id = row
             rhea_id = " ".join(sorted(set(rhea_id.split())))
             mapping[rep_id] = rhea_id
     return mapping
