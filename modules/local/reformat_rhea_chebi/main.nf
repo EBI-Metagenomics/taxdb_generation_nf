@@ -1,6 +1,9 @@
 process REFORMAT_RHEA_CHEBI {
-    label 'light'
+    label 'process_single'
     container 'quay.io/biocontainers/python:3.10'
+
+    input:
+    path txt_rhea_chebi_mapping 
 
     output:
     path 'rhea_chebi_mapping_*.tsv', emit: tsv_rhea_chebi_mapping
@@ -8,15 +11,6 @@ process REFORMAT_RHEA_CHEBI {
     script:
     
     """
-        # Check if params.rhea_chebi_download_mapping is a URL or a file
-    if [[ "${params.rhea_chebi_download_mapping}" =~ ^https?:// ]]; then
-        # If it's a URL, download the file
-        wget ${params.rhea_chebi_download_mapping} -O rhea-reactions.txt.gz
-    else
-        # Otherwise, create a symbolic link in the current directory
-        ln -s ${params.rhea_chebi_download_mapping} rhea-reactions.txt.gz
-    fi
-
-    reformat_rhea_chebi_mapping.py rhea-reactions.txt.gz rhea_chebi_mapping_${params.rheadb_version}.tsv
+    reformat_rhea_chebi_mapping.py ${txt_rhea_chebi_mapping} rhea_chebi_mapping_${params.rheadb_version}.tsv
     """
 }
