@@ -54,6 +54,7 @@ def filter_fasta(in_handle, out_handle, err_handle):
     """
     for record in SeqIO.parse(in_handle, "fasta"):
         tax_id = record.description.split("TaxID=")[1].split()[0]
+        is_viral_protein = False
         try:
             try:
                 is_viral_protein = is_virus_taxoniq(tax_id)
