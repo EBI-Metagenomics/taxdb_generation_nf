@@ -15,6 +15,7 @@
 # limitations under the License.
 
 import argparse
+import csv
 import gzip
 import re
 from pathlib import Path
@@ -28,12 +29,12 @@ def convert_to_tsv(gz_file_path: Path, output_file_name: Path) -> Path:
             re.DOTALL
         )
         matches = pattern.findall(input_text)
-          writer = csv.writer(file_out, delimiter='\t')
-          writer.writerow(['ENTRY', 'DEFINITION', 'EQUATION', 'ENZYME'])
-          for match in matches:
-              entry, definition, equation, enzyme = match
-              enzyme = " ".join(enzyme.strip().split()) if enzyme else ""
-              writer.writerow([entry, definition, equation, enzyme])
+        writer = csv.writer(file_out, delimiter='\t')
+        writer.writerow(['ENTRY', 'DEFINITION', 'EQUATION', 'ENZYME'])
+        for match in matches:
+            entry, definition, equation, enzyme = match
+            enzyme = " ".join(enzyme.strip().split()) if enzyme else ""
+            writer.writerow([entry, definition, equation, enzyme])
 
     return output_file_name
 
