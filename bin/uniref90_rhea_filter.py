@@ -23,17 +23,18 @@ from Bio import SeqIO
 
 def load_mapping(tsv_file):
     """
-    Load mapping of UniRef90 proteins to Rhea IDs from a TSV file.
-    Returns a dictionary with RepID as the key and RheaID as the value.
+    Load mapping of UniProtKB proteins to Rhea IDs from a TSV file.
+    The TSV file should have a header.
+    Returns a dictionary with Protein ID as the key and RheaIDs as the value.
     """
     mapping = {}
     with open(tsv_file) as file:
         reader = csv.reader(file, delimiter='\t')
         next(reader) # skip the header
         for row in reader:
-            rep_id, rhea_id = row
+            prot_id, rhea_id = row
             rhea_id = " ".join(sorted(set(rhea_id.split())))
-            mapping[rep_id] = rhea_id
+            mapping[prot_id] = rhea_id
     return mapping
 
 
@@ -69,9 +70,11 @@ def processing_handle(input_fasta, output_fasta, mapping):
             filter_fasta(input_fasta, out_handle, mapping)
 
 def main():
-    parser = argparse.ArgumentParser(description="Filter FASTA by RepID and add RheaID to the header.")
-    parser.add_argument('input_fasta', type=str, help='Input FASTA file to be cleaned (can be .fasta or .fasta.gz).')
-    parser.add_argument('mapping_file', type=str, help='TSV file mapping UniRef90 proteins to Rhea IDs.')
+    parser = argparse.ArgumentParser(
+        description="Filter FASTA keeping only proteins that have RheaIDs and add RheaID to the header."
+        )
+    parser.add_argument('input_fasta', type=str, help='Input FASTA file to be filtered (can be .fasta or .fasta.gz).')
+    parser.add_argument('mapping_file', type=str, help='TSV file mapping UniProtKB proteins to Rhea IDs.')
     parser.add_argument('output_fasta', type=str, help='Output FASTA file with filtered records.')
     
     args = parser.parse_args()
