@@ -1,7 +1,7 @@
 
 process ITSONEDB_REFORMAT {
 
-    label 'heavy'
+    label 'process_low'
 
     input:
     path tax_lineage

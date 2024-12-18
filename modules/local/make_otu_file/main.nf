@@ -1,7 +1,7 @@
 
 process MAKE_OTU_FILE {
 
-    label 'heavy'
+    label 'process_low'
     publishDir "${params.outdir}/${label}/${version}/", mode: 'copy'
 
     input:

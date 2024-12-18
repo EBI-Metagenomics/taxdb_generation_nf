@@ -1,7 +1,7 @@
 
 process SILVA_REFORMAT {
 
-    label 'heavy'
+    label 'process_low'
 
     input:
     path fasta
