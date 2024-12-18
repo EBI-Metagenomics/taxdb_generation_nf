@@ -1,7 +1,7 @@
 
 process CLEAN_FASTA {
 
-    label 'light'
+    label 'process_single'
     container '/hps/nobackup/rdf/metagenomics/service-team/singularity-cache/quay.io_biocontainers_seqtk:1.3.sif'
     publishDir "${params.outdir}/${label}/${version}/", mode: 'copy'
 

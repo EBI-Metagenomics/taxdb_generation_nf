@@ -1,7 +1,7 @@
 
 process GENERATE_ITSONEDB_TAX {
 
-    label 'light'
+    label 'process_single'
 
     input:
     path fasta

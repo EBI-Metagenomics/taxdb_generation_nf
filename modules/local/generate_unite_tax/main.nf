@@ -1,7 +1,7 @@
 
 process GENERATE_UNITE_TAX {
 
-    label 'light'
+    label 'process_single'
     publishDir "${params.outdir}/${label}/${version}/", mode: 'copy'
 
     input:

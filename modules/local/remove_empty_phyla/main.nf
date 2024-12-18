@@ -1,7 +1,7 @@
 
 process REMOVE_EMPTY_PHYLA {
 
-    label 'light'
+    label 'process_single'
     publishDir "${params.outdir}/${label}/${version}/", mode: 'copy'
     
     input:

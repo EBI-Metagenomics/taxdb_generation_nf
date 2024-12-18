@@ -3,7 +3,7 @@ import groovy.json.JsonOutput
 
 process METADATA_LOG {
 
-    label 'light'
+    label 'process_single'
     publishDir "${params.outdir}/", mode: 'copy'
 
     output:

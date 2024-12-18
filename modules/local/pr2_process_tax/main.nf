@@ -1,7 +1,7 @@
 
 process PR2_PROCESS_TAX {
 
-    label 'light'
+    label 'process_single'
 
     input:
     publishDir "${params.outdir}/${label}/${version}/", mode: 'copy'

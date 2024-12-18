@@ -1,7 +1,7 @@
 
 process ITSONEDB_COLUMN_REPLACEMENT {
 
-    label 'light'
+    label 'process_single'
     publishDir "${params.outdir}/${label}/${version}/", pattern : "*-tax.txt", mode: 'copy'
 
     input:

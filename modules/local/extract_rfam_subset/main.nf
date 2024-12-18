@@ -1,7 +1,7 @@
 
 process EXTRACT_RFAM_SUBSET {
 
-    label 'light'
+    label 'process_single'
     publishDir "${params.outdir}/${label}/${version}/", mode: 'copy'
 
     input:

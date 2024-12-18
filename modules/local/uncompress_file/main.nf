@@ -1,7 +1,7 @@
 
 process UNCOMPRESS_FILE {
 
-    label 'light'
+    label 'process_single'
 
     input:
     path cmp_file
