@@ -29,6 +29,7 @@ def load_mapping(tsv_file):
     mapping = {}
     with open(tsv_file) as file:
         reader = csv.reader(file, delimiter='\t')
+        next(reader) # skip the header
         for row in reader:
             rep_id, rhea_id = row
             rhea_id = " ".join(sorted(set(rhea_id.split())))
