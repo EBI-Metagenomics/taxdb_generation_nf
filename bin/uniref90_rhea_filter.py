@@ -38,12 +38,20 @@ def load_mapping(tsv_file):
 
 def filter_fasta(in_handle, out_handle, mapping):
     """
-    Filter the FASTA file based on the mapping and add RheaID to the header.
+    Filter the FASTA file based on the mapping and add RheaID to the FASTA header.
+    Raise an exception if the header is not in the format UniRef90_<prot_id>.
     """
+    class InvalidProteinIDException(Exception):
+        pass
+
     for record in SeqIO.parse(in_handle, "fasta"):
-        rep_id = record.id.split("_")[1]
-        if rep_id in mapping:
-            rhea_id = mapping[rep_id]
+        if not record.id.startswith("UniRef90_") or len(record.id.split("_")) != 2:
+            raise InvalidProteinIDException(
+                f"Invalid protein ID format: {record.id}"
+                )
+        prot_id = record.id.split("_")[1]
+        if prot_id in mapping:
+            rhea_id = mapping[prot_id]
             record.description += f' RheaID="{rhea_id}"'
             SeqIO.write(record, out_handle, "fasta")
 
