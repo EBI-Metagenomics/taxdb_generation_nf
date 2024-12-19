@@ -5,15 +5,21 @@
                 "0": [
                     "uniref90_non_viral.fasta:md5,e5ee4d75d12e9dd95fd7f7ffe9f32208"
                 ],
+                "1": [
+                    "versions.yml:md5,a0308ad1d93f43cd429d07fc9f93f61f"
+                ],
                 "filtered_fasta": [
                     "uniref90_non_viral.fasta:md5,e5ee4d75d12e9dd95fd7f7ffe9f32208"
+                ],
+                "versions": [
+                    "versions.yml:md5,a0308ad1d93f43cd429d07fc9f93f61f"
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.04.4"
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T12:08:11.280031"
+        "timestamp": "2024-12-19T15:49:17.506071"
     }
 }

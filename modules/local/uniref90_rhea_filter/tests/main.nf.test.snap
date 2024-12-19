@@ -5,8 +5,14 @@
                 "0": [
                     "uniref90_with_rhea.fasta:md5,e0be31822a0d13f2a5dc1fb2afb59bd1"
                 ],
+                "1": [
+                    "versions.yml:md5,d3ae03838bac6ec1a0cb89f4b5f622f2"
+                ],
                 "filtered_fasta": [
                     "uniref90_with_rhea.fasta:md5,e0be31822a0d13f2a5dc1fb2afb59bd1"
+                ],
+                "versions": [
+                    "versions.yml:md5,d3ae03838bac6ec1a0cb89f4b5f622f2"
                 ]
             }
         ],
@@ -14,6 +20,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-07T13:10:18.637478"
+        "timestamp": "2024-12-19T15:56:27.112552"
     }
 }

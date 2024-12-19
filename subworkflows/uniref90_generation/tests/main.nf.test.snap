@@ -6,7 +6,7 @@
                     {
                         "id": "uniref90_rhea_2024_05_2024-07-31"
                     },
-                    "uniref90_rhea_2024_05_2024-07-31.dmnd:md5,e74b5546b9cb926ca5f8583239358235"
+                    "uniref90_rhea_2024_05_2024-07-31.dmnd:md5,24d32b7dfd8efa693ddb182d34465070"
                 ]
             ]
         ],
@@ -14,7 +14,7 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-12-18T15:15:49.248827"
+        "timestamp": "2024-12-19T15:56:15.881724"
     },
     "taxonomy_db": {
         "content": [
