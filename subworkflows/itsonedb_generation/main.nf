@@ -1,12 +1,12 @@
 
-include { UNCOMPRESS_FILE } from '../../modules/uncompress_file/main.nf'
-include { GET_TAX_LINEAGE } from '../../modules/get_tax_lineage/main.nf'
-include { ITSONEDB_REFORMAT } from '../../modules/itsonedb_reformat/main.nf'
-include { GENERATE_ITSONEDB_TAX } from '../../modules/generate_itsonedb_tax/main.nf'
-include { ITSONEDB_COLUMN_REPLACEMENT } from '../../modules/itsonedb_column_replacement/main.nf'
-include { CLEAN_FASTA } from '../../modules/clean_fasta/main.nf'
-include { MAKE_OTU_FILE } from '../../modules/make_otu_file/main.nf'
-include { GENERATE_MSCLUSTER } from '../../modules/generate_mscluster/main.nf'
+include { UNCOMPRESS_FILE } from '../../modules/local/uncompress_file/main.nf'
+include { GET_TAX_LINEAGE } from '../../modules/local/get_tax_lineage/main.nf'
+include { ITSONEDB_REFORMAT } from '../../modules/local/itsonedb_reformat/main.nf'
+include { GENERATE_ITSONEDB_TAX } from '../../modules/local/generate_itsonedb_tax/main.nf'
+include { ITSONEDB_COLUMN_REPLACEMENT } from '../../modules/local/itsonedb_column_replacement/main.nf'
+include { CLEAN_FASTA } from '../../modules/local/clean_fasta/main.nf'
+include { MAKE_OTU_FILE } from '../../modules/local/make_otu_file/main.nf'
+include { GENERATE_MSCLUSTER } from '../../modules/local/generate_mscluster/main.nf'
 
 
 workflow ITSONEBD_GENERATION {

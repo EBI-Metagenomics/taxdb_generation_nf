@@ -1,0 +1,87 @@
+nextflow_process {
+
+    name "Test Process CLEAN_FASTA"
+    script "modules/local/clean_fasta/main.nf"
+    process "CLEAN_FASTA"
+    tag "modules"
+    tag "clean_fasta"
+
+    test("Test clean_fasta process for SILVA") {
+        tag "clean_fasta_silva"
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('${projectDir}/modules/local/clean_fasta/tests/data/SILVA/test.fasta', checkIfExists: true)
+                input[1] = file('${projectDir}/modules/local/clean_fasta/tests/data/SILVA/test-tax.txt', checkIfExists: true)
+                input[2] = params.silva_version
+                input[3] = params.silva_ssu_label
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.cleaned_fasta).match("silva_cleaned_fasta") }
+            )
+        }
+
+    }
+
+    test("Test clean_fasta process for UNITE") {
+        tag "clean_fasta_unite"
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('${projectDir}/modules/local/clean_fasta/tests/data/UNITE/test.fasta', checkIfExists: true)
+                input[1] = file('${projectDir}/modules/local/clean_fasta/tests/data/UNITE/test-tax.txt', checkIfExists: true)
+                input[2] = params.unite_version
+                input[3] = params.unite_label
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.cleaned_fasta).match("unite_cleaned_fasta") }
+            )
+        }
+
+    }
+
+    test("Test clean_fasta process for ITSONEdb") {
+        tag "clean_fasta_itsonedb"
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('${projectDir}/modules/local/clean_fasta/tests/data/ITSONEdb/test.fasta', checkIfExists: true)
+                input[1] = file('${projectDir}/modules/local/clean_fasta/tests/data/ITSONEdb/test-tax.txt', checkIfExists: true)
+                input[2] = params.itsonedb_version
+                input[3] = params.itsonedb_label
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.cleaned_fasta).match("itsonedb_cleaned_fasta") }
+            )
+        }
+
+    }
+
+}

@@ -1,10 +1,10 @@
 
-include { UNCOMPRESS_FILE as UNCOMPRESS_FASTA} from '../../modules/uncompress_file/main.nf'
-include { UNCOMPRESS_FILE as UNCOMPRESS_TAX} from '../../modules/uncompress_file/main.nf'
-include { PR2_PROCESS_TAX } from '../../modules/pr2_process_tax/main.nf'
-include { MAKE_OTU_FILE } from '../../modules/make_otu_file/main.nf'
-include { CLEAN_FASTA } from '../../modules/clean_fasta/main.nf'
-include { GENERATE_MSCLUSTER } from '../../modules/generate_mscluster/main.nf'
+include { UNCOMPRESS_FILE as UNCOMPRESS_FASTA} from '../../modules/local/uncompress_file/main.nf'
+include { UNCOMPRESS_FILE as UNCOMPRESS_TAX} from '../../modules/local/uncompress_file/main.nf'
+include { PR2_PROCESS_TAX } from '../../modules/local/pr2_process_tax/main.nf'
+include { MAKE_OTU_FILE } from '../../modules/local/make_otu_file/main.nf'
+include { CLEAN_FASTA } from '../../modules/local/clean_fasta/main.nf'
+include { GENERATE_MSCLUSTER } from '../../modules/local/generate_mscluster/main.nf'
 
 workflow PR2_GENERATION {
 

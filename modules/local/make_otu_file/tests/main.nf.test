@@ -1,0 +1,87 @@
+nextflow_process {
+
+    name "Test Process MAKE_OTU_FILE"
+    script "modules/local/make_otu_file/main.nf"
+    process "MAKE_OTU_FILE"
+    tag "modules"
+    tag "make_otu_file"
+
+    test("Test make_otu_file process for SILVA/ITSone type input") {
+        tag "make_otu_file_silva-itsone"
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('${projectDir}/modules/local/make_otu_file/tests/data/SILVA-ITSone/SILVA-ITSone-test-tax.txt', checkIfExists: true)
+                input[1] = file('${projectDir}/modules/local/make_otu_file/tests/data/SILVA-ITSone/SILVA-ITSone-test.taxid', checkIfExists: true)
+                input[2] = params.silva_version
+                input[3] = params.silva_ssu_label
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.otu).match("silva-itsone_otu") }
+            )
+        }
+
+    }
+
+    test("Test make_otu_file process for UNITE type input") {
+        tag "make_otu_file_unite"
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('${projectDir}/modules/local/make_otu_file/tests/data/UNITE/UNITE-test-tax.txt', checkIfExists: true)
+                input[1] = file('${projectDir}/modules/local/make_otu_file/tests/data/UNITE/EMPTY.txt', checkIfExists: true)
+                input[2] = params.unite_version
+                input[3] = params.unite_label
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.otu).match("unite_otu") }
+            )
+        }
+
+    }
+
+    test("Test make_otu_file process for PR2 type input") {
+        tag "make_otu_file_pr2"
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('${projectDir}/modules/local/make_otu_file/tests/data/PR2/PR2-test-tax.txt', checkIfExists: true)
+                input[1] = file('${projectDir}/modules/local/make_otu_file/tests/data/PR2/EMPTY.txt', checkIfExists: true)
+                input[2] = params.pr2_version
+                input[3] = params.pr2_label
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.otu).match("pr2_otu") }
+            )
+        }
+
+    }
+
+}

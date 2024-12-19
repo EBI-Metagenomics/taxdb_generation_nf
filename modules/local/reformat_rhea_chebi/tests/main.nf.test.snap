@@ -1,0 +1,25 @@
+{
+    "Convert test file to TSV format": {
+        "content": [
+            {
+                "0": [
+                    "rhea_chebi_mapping_135.tsv:md5,52d55d130ac9e9329e6e32d88b335f58"
+                ],
+                "1": [
+                    "versions.yml:md5,1fe56da75cf247da6549287a99658476"
+                ],
+                "tsv_rhea_chebi_mapping": [
+                    "rhea_chebi_mapping_135.tsv:md5,52d55d130ac9e9329e6e32d88b335f58"
+                ],
+                "versions": [
+                    "versions.yml:md5,1fe56da75cf247da6549287a99658476"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-12-19T15:50:00.476298"
+    }
+}

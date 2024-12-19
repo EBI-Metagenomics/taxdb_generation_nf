@@ -1,6 +1,6 @@
 
-include { UNCOMPRESS_FILE } from '../../modules/uncompress_file/main.nf'
-include { EXTRACT_RFAM_SUBSET } from '../../modules/extract_rfam_subset/main.nf'
+include { UNCOMPRESS_FILE } from '../../modules/local/uncompress_file/main.nf'
+include { EXTRACT_RFAM_SUBSET } from '../../modules/local/extract_rfam_subset/main.nf'
 
 workflow RFAM_GENERATION {
 

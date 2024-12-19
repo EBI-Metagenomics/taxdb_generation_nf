@@ -1,0 +1,34 @@
+nextflow_process {
+
+    name "Test Process GENERATE_ITSONEDB_TAX"
+    script "modules/local/generate_itsonedb_tax/main.nf"
+    process "GENERATE_ITSONEDB_TAX"
+    tag "modules"
+    tag "generate_itsonedb_tax"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file('${projectDir}/modules/local/generate_itsonedb_tax/tests/data/test.fasta', checkIfExists: true)
+                input[1] = file('${projectDir}/modules/local/generate_itsonedb_tax/tests/data/test.uplift', checkIfExists: true)
+                input[2] = params.itsonedb_version
+                input[3] = params.itsonedb_label
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.uplift_final).match("uplift_final") }
+            )
+        }
+
+    }
+
+}

@@ -1,9 +1,9 @@
 
-include { SILVA_REFORMAT } from '../../modules/silva_reformat/main.nf'
-include { REMOVE_EMPTY_PHYLA } from '../../modules/remove_empty_phyla/main.nf'
-include { MAKE_OTU_FILE } from '../../modules/make_otu_file/main.nf'
-include { CLEAN_FASTA } from '../../modules/clean_fasta/main.nf'
-include { GENERATE_MSCLUSTER } from '../../modules/generate_mscluster/main.nf'
+include { SILVA_REFORMAT } from '../../modules/local/silva_reformat/main.nf'
+include { REMOVE_EMPTY_PHYLA } from '../../modules/local/remove_empty_phyla/main.nf'
+include { MAKE_OTU_FILE } from '../../modules/local/make_otu_file/main.nf'
+include { CLEAN_FASTA } from '../../modules/local/clean_fasta/main.nf'
+include { GENERATE_MSCLUSTER } from '../../modules/local/generate_mscluster/main.nf'
 
 workflow SILVA_GENERATION {
 
