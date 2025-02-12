@@ -84,7 +84,7 @@ def filter_fasta(fasta, err_handle):
     
     return output_buffer
 
-def processing_handle(input_fasta, output_fasta):
+def processing_handle(input_fasta, output_prefix):
     """
     Enable processing of both regular and gzipped FASTA files.
     Filter the data and then write all output at once at the end.
@@ -93,18 +93,23 @@ def processing_handle(input_fasta, output_fasta):
         fasta = pyfastx.Fasta(input_fasta)
         output_buffer = filter_fasta(fasta, err_handle)
 
-    with open(output_fasta, 'w') as out_handle:
+    with open(f"{output_prefix}.filtered.fasta", 'w') as out_handle, open(f"{output_prefix}.protid2taxid", 'w') as mapping_handle:
+        mapping_handle.write("accession.version\ttaxid\n")
         for seq in output_buffer:
             out_handle.write(seq.raw)
+
+            tax_id = seq.description.split("TaxID=")[1].split()[0]
+            mapping_handle.write(f"{seq.name}\t{tax_id}\n")
+
 
 def main():
     parser = argparse.ArgumentParser(description="Remove viral proteins from FASTA using TaxID field")
     parser.add_argument('input_fasta', type=str, help='Input FASTA file to be cleaned (can be .fasta or .fasta.gz)')
-    parser.add_argument('output_fasta', type=str, help='Output FASTA file with filtered records')
+    parser.add_argument('output_prefix', type=str, help='Prefix for the output FASTA file with filtered records and mapping of proteins to taxids')
 
     args = parser.parse_args()
     
-    processing_handle(args.input_fasta, args.output_fasta)
+    processing_handle(args.input_fasta, args.output_prefix)
 
 if __name__ == '__main__':
     main()
