@@ -19,6 +19,7 @@ process UNIREF90_NON_VIRAL_FILTER {
         python: \$(python --version 2>&1 | sed 's/Python //g')
         biopython: \$(python -c "import importlib.metadata; print(importlib.metadata.version('biopython'))")
         taxoniq: \$(python -c "import importlib.metadata; print(importlib.metadata.version('taxoniq'))")
+        pyfastx: \$(python -c "import importlib.metadata; print(importlib.metadata.version('pyfastx'))")
         uniref90_db: ${params.uniref90_version}
     END_VERSIONS
     """
