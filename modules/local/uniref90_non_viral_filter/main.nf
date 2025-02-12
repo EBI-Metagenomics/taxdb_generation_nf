@@ -1,6 +1,6 @@
 process UNIREF90_NON_VIRAL_FILTER {
     label 'process_single'
-    container 'community.wave.seqera.io/library/biopython_pip_taxoniq:61a7ad516ddf4b95'
+    container 'community.wave.seqera.io/library/pip_biopython_pyfastx_taxoniq:c440284a61b91ed0'
 
     input:
     path uniref90_fasta
