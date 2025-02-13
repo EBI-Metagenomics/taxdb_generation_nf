@@ -16,9 +16,8 @@
 
 import argparse
 import csv
-import gzip
 
-from Bio import SeqIO
+import pyfastx
 
 
 def load_mapping(tsv_file):
@@ -38,36 +37,39 @@ def load_mapping(tsv_file):
     return mapping
 
 
-def filter_fasta(in_handle, out_handle, mapping):
+def filter_fasta(fasta, mapping):
     """
     Filter the FASTA file based on the mapping and add RheaID to the FASTA header.
     Raise an exception if the header is not in the format UniRef90_<prot_id>.
     """
+    output_buffer = []
+
     class InvalidProteinIDException(Exception):
         pass
 
-    for record in SeqIO.parse(in_handle, "fasta"):
-        if not record.id.startswith("UniRef90_") or len(record.id.split("_")) != 2:
+    for seq in fasta:
+        if not seq.name.startswith("UniRef90_") or len(seq.name.split("_")) != 2:
             raise InvalidProteinIDException(
-                f"Invalid protein ID format: {record.id}"
+                f"Invalid protein ID format: {seq.name}"
                 )
-        prot_id = record.id.split("_")[1]
-        if prot_id in mapping:
+        prot_id = seq.name.split("_")[1]
+        if not prot_id.startswith("UPI") and prot_id in mapping:
             rhea_id = mapping[prot_id]
-            record.description += f' RheaID="{rhea_id}"'
-            SeqIO.write(record, out_handle, "fasta")
+            updated_description = f'{seq.description} RheaID="{rhea_id}"'
+            output_buffer.append(f">{seq.name} {updated_description}\n{seq.seq}\n")
+            
+    return output_buffer
 
 
 def processing_handle(input_fasta, output_fasta, mapping):
     """
-    Enable processing of both regular and gzipped FASTA files.
+    Filter the data and then write all output at once at the end.
     """
+    fasta = pyfastx.Fasta(input_fasta)
+    output_buffer = filter_fasta(fasta, mapping)
     with open(output_fasta, 'w') as out_handle:
-        if input_fasta.endswith('.gz'):
-            with gzip.open(input_fasta, 'rt') as in_handle:
-                filter_fasta(in_handle, out_handle, mapping)
-        else:
-            filter_fasta(input_fasta, out_handle, mapping)
+        for seq in output_buffer:
+            out_handle.write(seq)
 
 def main():
     parser = argparse.ArgumentParser(

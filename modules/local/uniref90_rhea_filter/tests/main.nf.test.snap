@@ -3,16 +3,16 @@
         "content": [
             {
                 "0": [
-                    "uniref90_with_rhea.fasta:md5,e0be31822a0d13f2a5dc1fb2afb59bd1"
+                    "uniref90_with_rhea.fasta:md5,ea439d1696ec3999c4656e3466dcae73"
                 ],
                 "1": [
-                    "versions.yml:md5,7ccfd1ba7191faa2479162dd9296ce8c"
+                    "versions.yml:md5,da987f317a3708a4d75a4d3ff84d5465"
                 ],
                 "filtered_proteins": [
-                    "uniref90_with_rhea.fasta:md5,e0be31822a0d13f2a5dc1fb2afb59bd1"
+                    "uniref90_with_rhea.fasta:md5,ea439d1696ec3999c4656e3466dcae73"
                 ],
                 "versions": [
-                    "versions.yml:md5,7ccfd1ba7191faa2479162dd9296ce8c"
+                    "versions.yml:md5,da987f317a3708a4d75a4d3ff84d5465"
                 ]
             }
         ],
@@ -20,6 +20,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2025-02-13T11:50:14.17324"
+        "timestamp": "2025-02-13T16:28:49.007878"
     }
 }

@@ -7,6 +7,12 @@ nextflow_process {
     test("Remove from protein fasta proteins without Rhea annotation") {
 
         when {
+            params {
+                uniref90_version = "2024_05"
+                rheadb_version = "135"
+                uniprotKB_access_date = "2024-07-31"
+                outdir = "${outputDir}"
+            }
             process {
                 """
                 input[0] = Channel.fromPath("${moduleDir}/tests/data/uniref90.test.fasta", checkIfExists: true)

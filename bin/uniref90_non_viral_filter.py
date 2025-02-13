@@ -78,7 +78,7 @@ def filter_fasta(fasta, err_handle):
             tax_id = seq.description.split("TaxID=")[1].split()[0]
             is_viral_protein = is_virus(tax_id)
             if not is_viral_protein:
-                output_buffer.append((seq))
+                output_buffer.append(seq)
         except Exception as e:
             err_handle.write(f"Error while processing {tax_id}: {e}\n")
     
@@ -86,7 +86,6 @@ def filter_fasta(fasta, err_handle):
 
 def processing_handle(input_fasta, output_prefix):
     """
-    Enable processing of both regular and gzipped FASTA files.
     Filter the data and then write all output at once at the end.
     """
     with open("failed.txt", "w") as err_handle:
