@@ -3,16 +3,22 @@
         "content": [
             {
                 "0": [
-                    "uniref90_non_viral.fasta:md5,e5ee4d75d12e9dd95fd7f7ffe9f32208"
+                    "uniref90.filtered.fasta:md5,e5ee4d75d12e9dd95fd7f7ffe9f32208"
                 ],
                 "1": [
-                    "versions.yml:md5,a0308ad1d93f43cd429d07fc9f93f61f"
+                    "uniref90.protid2taxid:md5,c05d080f20acf5d54afdcd0c3c40463d"
                 ],
-                "filtered_fasta": [
-                    "uniref90_non_viral.fasta:md5,e5ee4d75d12e9dd95fd7f7ffe9f32208"
+                "2": [
+                    "versions.yml:md5,9b068ffc6c693687058cf056b56baefe"
+                ],
+                "filtered_proteins": [
+                    "uniref90.filtered.fasta:md5,e5ee4d75d12e9dd95fd7f7ffe9f32208"
+                ],
+                "protid2taxid": [
+                    "uniref90.protid2taxid:md5,c05d080f20acf5d54afdcd0c3c40463d"
                 ],
                 "versions": [
-                    "versions.yml:md5,a0308ad1d93f43cd429d07fc9f93f61f"
+                    "versions.yml:md5,9b068ffc6c693687058cf056b56baefe"
                 ]
             }
         ],
@@ -20,6 +26,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-12-19T15:49:17.506071"
+        "timestamp": "2025-02-13T11:51:22.398479"
     }
 }

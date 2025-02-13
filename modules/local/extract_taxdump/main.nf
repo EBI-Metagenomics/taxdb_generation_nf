@@ -2,7 +2,7 @@ process EXTRACT_TAXDUMP {
     label 'process_single'
 
     input:
-    path taxdump_download
+    path taxdump_link
 
     output:
     path 'nodes.dmp', emit: tax_nodes
@@ -10,6 +10,6 @@ process EXTRACT_TAXDUMP {
 
     script:
     """
-    tar -xvzf ${taxdump_download} nodes.dmp names.dmp
+    tar -xvzf ${taxdump_link} nodes.dmp names.dmp
     """
 }

@@ -1,0 +1,36 @@
+nextflow_workflow {
+
+    name "Test workflow RHEA_AND_TAXONOMY_GENERATION"
+    script "../main.nf"
+    workflow "RHEA_AND_TAXONOMY_GENERATION"
+
+    test("Run the workflow on the test dataset") {
+
+        when {
+            workflow {
+                """
+                input[0] = "${moduleDir}/tests/data/uniref90.test.fasta"
+                input[1] = "${moduleDir}/tests/data/uniprot_rhea_mapping.test.tsv"
+                input[2] = "${moduleDir}/tests/data/rhea-reactions.txt.gz"
+                input[3] = "${moduleDir}/tests/data/taxdump.tar.gz"
+                """
+            }
+            params {
+                    uniref90_version = "2024_05"
+                    rheadb_version = "135"
+                    uniprotKB_access_date = "2024-07-31"
+                    outdir = "${outputDir}"
+            }
+        }
+
+        then {
+            assertAll(
+            { assert workflow.success },
+            { assert snapshot(workflow.out.rhea_db).match("rhea_db") },
+            { assert snapshot(workflow.out.cat_diamond_db).match("cat_diamond_db") },
+            { assert snapshot(workflow.out.cat_taxonomy_db).match("cat_taxonomy_db") },
+            { assert snapshot(workflow.out.rhea_chebi_mapping).match("rhea_chebi_mapping") }
+            )
+        }
+    }
+}

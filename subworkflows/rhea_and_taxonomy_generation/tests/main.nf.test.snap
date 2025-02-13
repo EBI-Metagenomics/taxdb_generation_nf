@@ -1,0 +1,72 @@
+{
+    "rhea_db": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "uniref90_rhea_2024_05_2024-07-31"
+                    },
+                    "uniref90_rhea_2024_05_2024-07-31.dmnd:md5,24d32b7dfd8efa693ddb182d34465070"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2025-02-13T11:37:09.175032"
+    },
+    "cat_taxonomy_db": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "uniref90_taxonomy_2024_05"
+                    },
+                    [
+                        "names.dmp:md5,c471c27a4ce85ae74d2c63633c9ce1e3",
+                        "nodes.dmp:md5,130f9132095562e09c732679c562f5e9"
+                    ]
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2025-02-13T15:09:30.441085"
+    },
+    "cat_diamond_db": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "uniref90_taxonomy_2024_05"
+                    },
+                    [
+                        "2025-02-13_CAT_pack.dmnd:md5,b72362dc62c390ea34714d48430dfd59",
+                        "2025-02-13_CAT_pack.fastaid2LCAtaxid:md5,d41d8cd98f00b204e9800998ecf8427e",
+                        "2025-02-13_CAT_pack.taxids_with_multiple_offspring:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2025-02-13T15:09:30.428836"
+    },
+    "rhea_chebi_mapping": {
+        "content": [
+            [
+                "rhea_chebi_mapping_135.tsv:md5,52d55d130ac9e9329e6e32d88b335f58"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2025-02-13T11:37:09.19346"
+    }
+}

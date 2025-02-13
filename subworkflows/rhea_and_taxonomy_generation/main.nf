@@ -5,7 +5,7 @@ include { EXTRACT_TAXDUMP           } from '../../modules/local/extract_taxdump/
 include { DIAMOND_MAKEDB            } from '../../modules/nf-core/diamond/makedb/main.nf'
 include { CATPACK_PREPARE           } from '../../modules/nf-core/catpack/prepare/main.nf'
 
-workflow UNIREF90_GENERATION {
+workflow RHEA_AND_TAXONOMY_GENERATION {
     take:
         uniref90_fasta
         uniprot_rhea_mapping
