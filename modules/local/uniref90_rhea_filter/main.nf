@@ -7,7 +7,7 @@ process UNIREF90_RHEA_FILTER {
     path uniprot_rhea_mapping
 
     output:
-    path 'uniref90_with_rhea.fasta', emit: filtered_fasta
+    path 'uniref90_with_rhea.fasta', emit: filtered_proteins
     path "versions.yml"            , emit: versions
 
     script:
