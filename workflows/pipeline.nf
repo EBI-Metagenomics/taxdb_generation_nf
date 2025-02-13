@@ -41,6 +41,11 @@ workflow TAXDB_GENERATION_PIPELINE_V6 {
     }
     
     if (params.generate_uniref90_db) {
-        UNIREF90_GENERATION()
+        UNIREF90_GENERATION(      
+            file(params.uniref90_download_fasta),
+            file(params.uniprot_rhea_mapping),
+            file(params.rhea_chebi_download_mapping),
+            file(params.taxdump_download)
+        )
     }
 }
