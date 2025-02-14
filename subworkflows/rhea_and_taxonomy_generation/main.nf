@@ -32,7 +32,7 @@ workflow RHEA_AND_TAXONOMY_GENERATION {
         UNIREF90_NON_VIRAL_FILTER.out.filtered_proteins
             .collectFile(name: 'uniref90_non_viral.fasta')
             .map { filepath ->
-                [[id: "uniref90_taxonomy_${params.uniref90_version}"], filepath]
+                [[id: "${params.uniref90_version}"], filepath]
             }
             .set { uniref90_non_viral_ch }
 

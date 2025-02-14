@@ -30,7 +30,7 @@
                 "1": [
                     [
                         {
-                            "id": "uniref90_taxonomy_2024_05"
+                            "id": "2024_05"
                         },
                         [
                             "2025-02-14_CAT_pack.dmnd:md5,b72362dc62c390ea34714d48430dfd59",
@@ -42,7 +42,7 @@
                 "2": [
                     [
                         {
-                            "id": "uniref90_taxonomy_2024_05"
+                            "id": "2024_05"
                         },
                         [
                             "names.dmp:md5,c471c27a4ce85ae74d2c63633c9ce1e3",
@@ -56,7 +56,7 @@
                 "cat_diamond_db": [
                     [
                         {
-                            "id": "uniref90_taxonomy_2024_05"
+                            "id": "2024_05"
                         },
                         [
                             "2025-02-14_CAT_pack.dmnd:md5,b72362dc62c390ea34714d48430dfd59",
@@ -68,7 +68,7 @@
                 "cat_taxonomy_db": [
                     [
                         {
-                            "id": "uniref90_taxonomy_2024_05"
+                            "id": "2024_05"
                         },
                         [
                             "names.dmp:md5,c471c27a4ce85ae74d2c63633c9ce1e3",
@@ -93,7 +93,7 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2025-02-14T12:02:45.687117"
+        "timestamp": "2025-02-14T15:48:28.618029"
     },
     "cat_taxonomy_db": {
         "content": [
