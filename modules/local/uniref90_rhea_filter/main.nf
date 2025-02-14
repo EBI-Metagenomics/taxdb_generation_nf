@@ -1,6 +1,6 @@
 process UNIREF90_RHEA_FILTER {
     label 'process_single'
-    container 'community.wave.seqera.io/library/pip_biopython_pyfastx_taxoniq:c440284a61b91ed0'
+    container 'quay.io/biocontainers/pyfastx:2.2.0--py39h0699b22_0'
 
     input:
     path uniref90_fasta
