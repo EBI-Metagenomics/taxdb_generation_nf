@@ -42,10 +42,10 @@ workflow TAXDB_GENERATION_PIPELINE_V6 {
     
     if (params.generate_uniref90_db) {
         RHEA_AND_TAXONOMY_GENERATION(      
-            file(params.uniref90_fasta_link),
-            file(params.uniprot_rhea_mapping),
-            file(params.rhea_chebi_mapping_link),
-            file(params.ncbi_taxdump_link)
+            file(params.uniref90_fasta_link, checkIfExists: true),
+            file(params.uniprot_rhea_mapping, checkIfExists: true),
+            file(params.rhea_chebi_mapping_link, checkIfExists: true),
+            file(params.ncbi_taxdump_link, checkIfExists: true)
         )
     }
 }
