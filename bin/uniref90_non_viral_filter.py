@@ -71,35 +71,32 @@ def filter_fasta(fasta, err_handle):
     Filter viral proteins from FASTA using TaxID field.
     Returns a list of records that are non-viral.
     """
-    output_buffer = []
-    
     for seq in fasta:
         try:
             tax_id = seq.description.split("TaxID=")[1].split()[0]
             is_viral_protein = is_virus(tax_id)
             if not is_viral_protein:
-                output_buffer.append(seq)
+                yield seq, tax_id
         except Exception as e:
             err_handle.write(f"Error while processing {tax_id}: {e}\n")
-    
-    return output_buffer
 
 def processing_handle(input_fasta, output_prefix):
     """
-    Filter the data and then write all output at once at the end.
+    Filter the proteins in the input fasta and write output.
+    Also write a mapping of protein id to taxid.
     """
-    with open("failed.txt", "w") as err_handle:
-        fasta = pyfastx.Fasta(input_fasta)
-        output_buffer = filter_fasta(fasta, err_handle)
-
-    with open(f"{output_prefix}.filtered.fasta", 'w') as out_handle, open(f"{output_prefix}.protid2taxid", 'w') as mapping_handle:
+    with (
+        open("failed.txt", "w") as err_handle,
+        open(f"{output_prefix}.filtered.fasta", 'w') as out_handle,
+        open(f"{output_prefix}.protid2taxid", 'w') as mapping_handle
+        ):
         mapping_handle.write("accession.version\ttaxid\n")
-        for seq in output_buffer:
+
+        fasta = pyfastx.Fasta(input_fasta)
+        for seq, tax_id in filter_fasta(fasta, err_handle):
             out_handle.write(seq.raw)
 
-            tax_id = seq.description.split("TaxID=")[1].split()[0]
             mapping_handle.write(f"{seq.name}\t{tax_id}\n")
-
 
 def main():
     parser = argparse.ArgumentParser(description="Remove viral proteins from FASTA using TaxID field")

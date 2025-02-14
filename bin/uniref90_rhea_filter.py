@@ -42,8 +42,6 @@ def filter_fasta(fasta, mapping):
     Filter the FASTA file based on the mapping and add RheaID to the FASTA header.
     Raise an exception if the header is not in the format UniRef90_<prot_id>.
     """
-    output_buffer = []
-
     class InvalidProteinIDException(Exception):
         pass
 
@@ -56,19 +54,16 @@ def filter_fasta(fasta, mapping):
         if not prot_id.startswith("UPI") and prot_id in mapping:
             rhea_id = mapping[prot_id]
             updated_description = f'{seq.description} RheaID="{rhea_id}"'
-            output_buffer.append(f">{seq.name} {updated_description}\n{seq.seq}\n")
+            yield f">{seq.name} {updated_description}\n{seq.seq}\n"
             
-    return output_buffer
-
 
 def processing_handle(input_fasta, output_fasta, mapping):
     """
-    Filter the data and then write all output at once at the end.
+    Filter the data and  write the output.
     """
     fasta = pyfastx.Fasta(input_fasta)
-    output_buffer = filter_fasta(fasta, mapping)
     with open(output_fasta, 'w') as out_handle:
-        for seq in output_buffer:
+        for seq in filter_fasta(fasta, mapping):
             out_handle.write(seq)
 
 def main():
