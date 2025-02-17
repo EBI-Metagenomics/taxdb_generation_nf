@@ -3,11 +3,11 @@
 
 include { SILVA_GENERATION as SILVA_SSU_GENERATION } from '../subworkflows/silva_generation/main.nf'
 include { SILVA_GENERATION as SILVA_LSU_GENERATION } from '../subworkflows/silva_generation/main.nf'
-include { PR2_GENERATION } from "../subworkflows/pr2_generation/main.nf"
-include { UNITE_GENERATION } from "../subworkflows/unite_generation/main.nf"
-include { ITSONEBD_GENERATION } from "../subworkflows/itsonedb_generation/main.nf"
-include { RFAM_GENERATION } from "../subworkflows/rfam_generation/main.nf"
-include { UNIREF90_GENERATION } from "../subworkflows/uniref90_generation/main.nf"
+include { PR2_GENERATION                           } from "../subworkflows/pr2_generation/main.nf"
+include { UNITE_GENERATION                         } from "../subworkflows/unite_generation/main.nf"
+include { ITSONEBD_GENERATION                      } from "../subworkflows/itsonedb_generation/main.nf"
+include { RFAM_GENERATION                          } from "../subworkflows/rfam_generation/main.nf"
+include { RHEA_AND_TAXONOMY_GENERATION             } from "../subworkflows/rhea_and_taxonomy_generation/main.nf"
 
 include { METADATA_LOG } from '../modules/local/metadata_log/main.nf'
 
@@ -41,6 +41,11 @@ workflow TAXDB_GENERATION_PIPELINE_V6 {
     }
     
     if (params.generate_uniref90_db) {
-        UNIREF90_GENERATION()
+        RHEA_AND_TAXONOMY_GENERATION(      
+            file(params.uniref90_fasta_link, checkIfExists: true),
+            file(params.uniprot_rhea_mapping, checkIfExists: true),
+            file(params.rhea_chebi_mapping_link, checkIfExists: true),
+            file(params.ncbi_taxdump_link, checkIfExists: true)
+        )
     }
 }

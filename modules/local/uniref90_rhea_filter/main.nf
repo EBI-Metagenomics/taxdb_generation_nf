@@ -1,13 +1,13 @@
 process UNIREF90_RHEA_FILTER {
     label 'process_single'
-    container 'quay.io/biocontainers/biopython:1.78'
+    container 'quay.io/biocontainers/pyfastx:2.2.0--py39h0699b22_0'
 
     input:
     path uniref90_fasta
     path uniprot_rhea_mapping
 
     output:
-    path 'uniref90_with_rhea.fasta', emit: filtered_fasta
+    path 'uniref90_with_rhea.fasta', emit: filtered_proteins
     path "versions.yml"            , emit: versions
 
     script:

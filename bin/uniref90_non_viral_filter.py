@@ -15,11 +15,13 @@
 # limitations under the License.
 
 import argparse
-import gzip
 
-from Bio import SeqIO, Entrez
+from Bio import Entrez
+import pyfastx
 import taxoniq
 
+# Global cache to store TaxID search results
+taxid_cache = {}
 
 def is_virus_taxoniq(tax_id):
     """
@@ -33,11 +35,9 @@ def is_virus_taxoniq(tax_id):
             return highest_taxon.scientific_name == "Viruses"
     raise ValueError("No information about the lineage in taxoniq")
 
-
 def is_virus_entrez(taxid):
     """
-    Check if taxa id is virus using slower approach with
-    Entrez quering
+    Check if taxa id is virus using slower approach with Entrez querying
     """
     handle = Entrez.efetch(db="taxonomy", id=taxid, retmode="xml")
     records = Entrez.read(handle)
@@ -47,44 +47,65 @@ def is_virus_entrez(taxid):
     highest_taxon = lineage.split("; ")[0]
     return highest_taxon == "Viruses"
 
+def is_virus(tax_id):
+    """
+    Wrapper function that checks cache before querying taxoniq or Entrez.
+    Caches the result to avoid redundant queries.
+    """
+    if tax_id in taxid_cache:
+        return taxid_cache[tax_id]
 
-def filter_fasta(in_handle, out_handle, err_handle):
+    is_viral = False
+    try:
+        is_viral = is_virus_taxoniq(tax_id)
+    except (KeyError, ValueError):
+        # If taxoniq fails, fallback to Entrez
+        is_viral = is_virus_entrez(tax_id)
+
+    # Cache the result
+    taxid_cache[tax_id] = is_viral
+    return is_viral
+
+def filter_fasta(fasta, err_handle):
     """
     Filter viral proteins from FASTA using TaxID field.
+    Returns a list of records that are non-viral.
     """
-    for record in SeqIO.parse(in_handle, "fasta"):
-        tax_id = record.description.split("TaxID=")[1].split()[0]
-        is_viral_protein = False
+    for seq in fasta:
         try:
-            try:
-                is_viral_protein = is_virus_taxoniq(tax_id)
-            except (KeyError, ValueError):
-                is_viral_protein = is_virus_entrez(tax_id)
-            if is_viral_protein is False:
-                SeqIO.write(record, out_handle, "fasta")
+            tax_id = seq.description.split("TaxID=")[1].split()[0]
+            is_viral_protein = is_virus(tax_id)
+            if not is_viral_protein:
+                yield seq, tax_id
         except Exception as e:
             err_handle.write(f"Error while processing {tax_id}: {e}\n")
 
+def processing_handle(input_fasta, output_prefix):
+    """
+    Filter the proteins in the input fasta and write output.
+    Also write a mapping of protein id to taxid.
+    """
+    with (
+        open("failed.txt", "w") as err_handle,
+        open(f"{output_prefix}.filtered.fasta", 'w') as out_handle,
+        open(f"{output_prefix}.protid2taxid", 'w') as mapping_handle
+        ):
+        mapping_handle.write("accession.version\ttaxid\n")
 
-def processing_handle(input_fasta, output_fasta):
-    """
-    Enable processing of both regular and gzipped FASTA files.
-    """
-    with open(output_fasta, 'w') as out_handle, open("failed.txt", "w") as err_handle:
-        if input_fasta.endswith('.gz'):
-            with gzip.open(input_fasta, 'rt') as in_handle:
-                filter_fasta(in_handle, out_handle, err_handle)
-        else:
-            filter_fasta(input_fasta, out_handle, err_handle)
+        fasta = pyfastx.Fasta(input_fasta)
+        for seq, tax_id in filter_fasta(fasta, err_handle):
+            out_handle.write(seq.raw)
+
+            mapping_handle.write(f"{seq.name}\t{tax_id}\n")
 
 def main():
     parser = argparse.ArgumentParser(description="Remove viral proteins from FASTA using TaxID field")
     parser.add_argument('input_fasta', type=str, help='Input FASTA file to be cleaned (can be .fasta or .fasta.gz)')
-    parser.add_argument('output_fasta', type=str, help='Output FASTA file with filtered records')
-    
+    parser.add_argument('output_prefix', type=str, help='Prefix for the output FASTA file with filtered records and mapping of proteins to taxids')
+
     args = parser.parse_args()
     
-    processing_handle(args.input_fasta, args.output_fasta)
+    processing_handle(args.input_fasta, args.output_prefix)
 
 if __name__ == '__main__':
     main()
