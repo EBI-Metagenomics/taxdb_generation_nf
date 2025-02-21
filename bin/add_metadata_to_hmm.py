@@ -83,13 +83,13 @@ def modify_hmm_profile(hmm_file: Path, ko_data: dict[str, dict[str, str]]):
     # Find the KO id from the 'NAME' line
     name_line = next((line for line in lines if line.startswith('NAME')), None)
     if name_line:
-        knum = name_line.split()[1]
-        if knum not in ko_data:
-            logging.warning(f"KO {knum} not found in KO data, skipping.")
+        ko_id = name_line.split()[1]
+        if ko_id not in ko_data:
+            logging.warning(f"KO {ko_id} not found in KO data, skipping.")
             return
         
-        desc_line = create_desc_line(knum, ko_data)
-        ga_line = create_ga_line(knum, ko_data)
+        desc_line = create_desc_line(ko_id, ko_data)
+        ga_line = create_ga_line(ko_id, ko_data)
 
         # Insert DESC line between NAME and LENG
         for i, line in enumerate(lines):
