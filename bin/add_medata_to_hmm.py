@@ -17,13 +17,21 @@
 import argparse
 import csv
 import gzip
+import logging
 from pathlib import Path
 
-# Step 1: Read KO list and store relevant data using csv module
-def parse_ko_list(ko_list_file):
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+
+def parse_ko_list(ko_list_file: Path) -> dict[str, dict[str, str]]:
+    """
+    Parses the KO list TSV file and returns a dictionary with KO ids as keys and associated data
+    (threshold, profile_type, definition).
+    """
     ko_data = {}
-    
     open_func = gzip.open if ko_list_file.suffix == '.gz' else open
+    
+    logging.info(f"Parsing KO list file: {ko_list_file}")
     
     with open_func(ko_list_file, 'rt') as f:
         reader = csv.DictReader(f, delimiter='\t')
@@ -40,15 +48,16 @@ def parse_ko_list(ko_list_file):
                     'definition': definition
                 }
     
+    logging.info(f"Parsed {len(ko_data)} KO entries.")
     return ko_data
 
 
-def create_desc_line(knum, ko_data):
+def create_desc_line(knum: str, ko_data: dict[str, dict[str, str]]) -> str:
     """Generate DESC line for the given KO number."""
     return f"DESC  {ko_data[knum]['definition']}\n"
 
 
-def create_ga_line(knum, ko_data):
+def create_ga_line(knum: str, ko_data: dict[str, dict[str, str]]) -> str:
     """Generate GA line based on profile type for the given KO number."""
     threshold = ko_data[knum]['threshold']
     profile_type = ko_data[knum]['profile_type']
@@ -61,8 +70,12 @@ def create_ga_line(knum, ko_data):
         raise ValueError(f"Unknown profile type {profile_type} for KO {knum}.")
 
 
-# Step 2: Modify the HMM profile
-def modify_hmm_profile(hmm_file, ko_data):
+def modify_hmm_profile(hmm_file: Path, ko_data: dict[str, dict[str, str]]):
+    """
+    Modifies an HMM profile by adding DESC and GA lines.
+    """
+    logging.info(f"Modifying HMM profile: {hmm_file}")
+
     # Read the content of the HMM profile
     with hmm_file.open('r') as f:
         lines = f.readlines()
@@ -72,7 +85,8 @@ def modify_hmm_profile(hmm_file, ko_data):
     if name_line:
         knum = name_line.split()[1]
         if knum not in ko_data:
-            return  # Skip profiles not listed in the KO data
+            logging.warning(f"KO {knum} not found in KO data, skipping.")
+            return
         
         desc_line = create_desc_line(knum, ko_data)
         ga_line = create_ga_line(knum, ko_data)
@@ -93,15 +107,23 @@ def modify_hmm_profile(hmm_file, ko_data):
         with hmm_file.open('w') as f:
             f.writelines(lines)
 
-# Step 3: Process the directory or single file
-def process_hmm_files(hmm_input, ko_data):
+    logging.info(f"Successfully modified: {hmm_file}")
+
+
+def process_hmm_files(hmm_input: Path, ko_data: dict[str, dict[str, str]]):
+    """
+    Processes a directory or a single HMM file and modifies them according to the KO data.
+    """
     if hmm_input.is_dir():
+        logging.info(f"Processing HMM files in directory: {hmm_input}")
         for hmm_file in hmm_input.glob('*.hmm'):
             modify_hmm_profile(hmm_file, ko_data)
     elif hmm_input.is_file() and hmm_input.suffix == '.hmm':
+        logging.info(f"Processing single HMM file: {hmm_input}")
         modify_hmm_profile(hmm_input, ko_data)
     else:
-        print(f"Invalid input: {hmm_input} is not a directory or a .hmm file")
+        logging.error(f"Invalid input: {hmm_input} is not a directory or a .hmm file")
+
 
 def main():
     parser = argparse.ArgumentParser(description="Modify HMM profiles with KO data")
@@ -116,7 +138,8 @@ def main():
     # Step 2: Process and modify HMM profiles
     process_hmm_files(args.hmm_input, ko_data)
     
-    print("Modification complete!")
+    logging.info("Modification complete!")
+
 
 if __name__ == '__main__':
     main()
