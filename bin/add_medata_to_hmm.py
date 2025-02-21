@@ -43,7 +43,7 @@ def parse_ko_list(ko_list_file: Path) -> dict[str, dict[str, str]]:
             # Only include entries that have valid 'domain' or 'full' profile type
             if profile_type in ['domain', 'full']:
                 ko_data[knum] = {
-                    'threshold': float(threshold),
+                    'threshold': threshold,
                     'profile_type': profile_type,
                     'definition': definition
                 }
@@ -53,12 +53,12 @@ def parse_ko_list(ko_list_file: Path) -> dict[str, dict[str, str]]:
 
 
 def create_desc_line(knum: str, ko_data: dict[str, dict[str, str]]) -> str:
-    """Generate DESC line for the given KO number."""
+    """Generate DESC line for the given KO id."""
     return f"DESC  {ko_data[knum]['definition']}\n"
 
 
 def create_ga_line(knum: str, ko_data: dict[str, dict[str, str]]) -> str:
-    """Generate GA line based on profile type for the given KO number."""
+    """Generate GA line based on profile type for the given KO id."""
     threshold = ko_data[knum]['threshold']
     profile_type = ko_data[knum]['profile_type']
     
@@ -72,7 +72,7 @@ def create_ga_line(knum: str, ko_data: dict[str, dict[str, str]]) -> str:
 
 def modify_hmm_profile(hmm_file: Path, ko_data: dict[str, dict[str, str]]):
     """
-    Modifies an HMM profile by adding DESC and GA lines.
+    Modifies an HMM profile by adding DESC and GA lines and writes to a new file.
     """
     logging.info(f"Modifying HMM profile: {hmm_file}")
 
@@ -80,7 +80,7 @@ def modify_hmm_profile(hmm_file: Path, ko_data: dict[str, dict[str, str]]):
     with hmm_file.open('r') as f:
         lines = f.readlines()
 
-    # Find the KO number from the 'NAME' line
+    # Find the KO id from the 'NAME' line
     name_line = next((line for line in lines if line.startswith('NAME')), None)
     if name_line:
         knum = name_line.split()[1]
@@ -103,11 +103,13 @@ def modify_hmm_profile(hmm_file: Path, ko_data: dict[str, dict[str, str]]):
                 lines.insert(i, ga_line)
                 break
 
-        # Write the modified content back to the file
-        with hmm_file.open('w') as f:
+        # Write the modified content to the new output file
+        output_file = hmm_file.with_suffix('.modified.hmm')
+        with output_file.open('w') as f:
             f.writelines(lines)
 
-    logging.info(f"Successfully modified: {hmm_file}")
+    logging.info(f"Successfully modified and saved to: {output_file}")
+
 
 
 def process_hmm_files(hmm_input: Path, ko_data: dict[str, dict[str, str]]):
@@ -126,19 +128,19 @@ def process_hmm_files(hmm_input: Path, ko_data: dict[str, dict[str, str]]):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Modify HMM profiles with KO data")
+    parser = argparse.ArgumentParser(description="Add metadata (description and threshold) from ko_list file to the given HMM profiles")
     parser.add_argument('ko_list', type=Path, help='Path to the ko_list or ko_list.gz file')
-    parser.add_argument('hmm_input', type=Path, help='Path to a directory of HMM profiles or a single HMM profile')
+    parser.add_argument('hmm_input', type=Path, help='Path to a directory of HMM profiles or a single HMM profile (expected *.hmm file(s))')
 
     args = parser.parse_args()
 
     # Step 1: Parse the KO list
     ko_data = parse_ko_list(args.ko_list)
     
-    # Step 2: Process and modify HMM profiles
+    # Step 2: Modify HMM profiles
     process_hmm_files(args.hmm_input, ko_data)
     
-    logging.info("Modification complete!")
+    logging.info("Processing complete!")
 
 
 if __name__ == '__main__':
