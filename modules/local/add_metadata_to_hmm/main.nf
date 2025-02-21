@@ -5,7 +5,7 @@ process ADD_METADATA_TO_HMM {
     val ko_list
 
     output:
-    path "kofam_modified.hmm", emit: kofam_modified
+    path "kofam_modified", emit: kofam_modified
 
     script:
     def is_compressed = ko_hmm_dir.getExtension() == "gz" ? true : false
@@ -18,6 +18,6 @@ process ADD_METADATA_TO_HMM {
 
     add_metadata_to_hmm.py ${ko_list} ${ko_hmm_input}
 
-    cat *.modified.hmm > kofam_modified.hmm
+    cat *.modified.hmm > kofam_modified
     """
 }
