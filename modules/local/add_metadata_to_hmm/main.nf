@@ -1,4 +1,5 @@
 process ADD_METADATA_TO_HMM {
+    label 'process_single'
 
     input:
     path ko_hmm_dir

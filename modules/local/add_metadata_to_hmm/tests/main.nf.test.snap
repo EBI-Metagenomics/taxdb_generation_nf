@@ -1,0 +1,36 @@
+{
+    "Run module on the uncompressed test data": {
+        "content": [
+            {
+                "0": [
+                    "kofam_modified:md5,b209e0e2fb52685c67889e3dcaff14ff"
+                ],
+                "kofam_modified": [
+                    "kofam_modified:md5,b209e0e2fb52685c67889e3dcaff14ff"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2025-02-21T20:26:39.76835"
+    },
+    "Run module on the compressed test data": {
+        "content": [
+            {
+                "0": [
+                    "kofam_modified:md5,b209e0e2fb52685c67889e3dcaff14ff"
+                ],
+                "kofam_modified": [
+                    "kofam_modified:md5,b209e0e2fb52685c67889e3dcaff14ff"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2025-02-21T20:26:37.386622"
+    }
+}

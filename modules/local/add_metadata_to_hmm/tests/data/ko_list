@@ -1,0 +1,4 @@
+knum	threshold	score_type	profile_type	F-measure	nseq	nseq_used	alen	mlen	eff_nseq	re/pos	definition
+K00001	340.20	domain	all	0.438754	1959	1682	1748	504	12.24	0.590	alcohol dehydrogenase [EC:1.1.1.1]
+K00002	433.83	domain	all	0.446042	3076	2946	7275	418	6.26	0.590	alcohol dehydrogenase (NADP+) [EC:1.1.1.2]
+K00003	285.10	domain	all	0.946731	7630	6643	3392	615	7.09	0.590	homoserine dehydrogenase [EC:1.1.1.3]
