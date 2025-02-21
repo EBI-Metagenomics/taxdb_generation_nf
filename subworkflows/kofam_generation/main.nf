@@ -14,7 +14,6 @@ workflow KOFAM_GENERATION {
         }
         .set { hmmer_input}
     HMMER_HMMPRESS(hmmer_input)
-    HMMER_HMMPRESS.out.compressed_db.view()
 
     emit:
     kofam_db = HMMER_HMMPRESS.out.compressed_db

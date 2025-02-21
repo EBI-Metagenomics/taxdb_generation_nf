@@ -1,5 +1,8 @@
 process ADD_METADATA_TO_HMM {
     label 'process_single'
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/python:3.12' :
+        'biocontainers/python:3.12' }"
 
     input:
     path ko_hmm_dir
