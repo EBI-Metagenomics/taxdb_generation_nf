@@ -26,7 +26,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def parse_ko_list(ko_list_file: Path) -> dict[str, dict[str, str]]:
     """
     Parses the KO list TSV file and returns a dictionary with KO ids as keys and associated data
-    (threshold, profile_type, definition).
+    (threshold, score_type, definition).
     """
     ko_data = {}
     open_func = gzip.open if ko_list_file.suffix == '.gz' else open
@@ -38,13 +38,13 @@ def parse_ko_list(ko_list_file: Path) -> dict[str, dict[str, str]]:
         for row in reader:
             knum = row['knum']
             threshold = row['threshold']
-            profile_type = row['profile_type']
+            score_type = row['score_type']
             definition = row['definition']
             # Only include entries that have valid 'domain' or 'full' profile type
-            if profile_type in ['domain', 'full']:
+            if score_type in ['domain', 'full']:
                 ko_data[knum] = {
                     'threshold': threshold,
-                    'profile_type': profile_type,
+                    'score_type': score_type,
                     'definition': definition
                 }
     
@@ -60,14 +60,14 @@ def create_desc_line(knum: str, ko_data: dict[str, dict[str, str]]) -> str:
 def create_ga_line(knum: str, ko_data: dict[str, dict[str, str]]) -> str:
     """Generate GA line based on profile type for the given KO id."""
     threshold = ko_data[knum]['threshold']
-    profile_type = ko_data[knum]['profile_type']
+    score_type = ko_data[knum]['score_type']
     
-    if profile_type == 'domain':
+    if score_type == 'domain':
         return f"GA    {threshold} {threshold}\n"
-    elif profile_type == 'full':
+    elif score_type == 'full':
         return f"GA    {threshold} 25.00\n"
     else:
-        raise ValueError(f"Unknown profile type {profile_type} for KO {knum}.")
+        raise ValueError(f"Unknown profile type {score_type} for KO {knum}.")
 
 
 def modify_hmm_profile(hmm_file: Path, ko_data: dict[str, dict[str, str]]):
@@ -104,7 +104,7 @@ def modify_hmm_profile(hmm_file: Path, ko_data: dict[str, dict[str, str]]):
                 break
 
         # Write the modified content to the new output file
-        output_file = hmm_file.with_suffix('.modified.hmm')
+        output_file = Path(hmm_file.stem + '.modified.hmm')
         with output_file.open('w') as f:
             f.writelines(lines)
 
