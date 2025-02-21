@@ -1,5 +1,4 @@
 include { ADD_METADATA_TO_HMM } from '../../modules/local/add_metadata_to_hmm/main.nf'
-include { CAT_CAT             } from '../../modules/nf-core/cat/cat/main.nf'
 include { HMMER_HMMPRESS      } from '../../modules/local/hmmer/hmmpress/main.nf'
 
 workflow KOFAM_GENERATION {
@@ -9,8 +8,13 @@ workflow KOFAM_GENERATION {
 
     main:
     ADD_METADATA_TO_HMM(ko_hmm_dir, ko_list)
-    CAT_CAT(ADD_METADATA_TO_HMM.out.modified_ko_hmm.flatten())
-    HMMER_HMMPRESS(ADD_METADATA_TO_HMM.out.modified_ko_hmm)
+    ADD_METADATA_TO_HMM.out.kofam_modified
+        .map { db_file ->
+            [[id: "KOFAM_db"], db_file]
+        }
+        .set { hmmer_input}
+    HMMER_HMMPRESS(hmmer_input)
+    HMMER_HMMPRESS.out.compressed_db.view()
 
     emit:
     kofam_db = HMMER_HMMPRESS.out.compressed_db
