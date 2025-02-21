@@ -1,0 +1,56 @@
+
+nextflow_process {
+
+    name "Test Process HMMER_HMMPRESS"
+    script "../main.nf"
+    process "HMMER_HMMPRESS"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "hmmer"
+    tag "hmmer/hmmpress"
+
+    test("test-hmmer-hmmpress") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id:'test' ],
+                    file("${moduleDir}/tests/data/profiles.hmm", checkIfExists: true),
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("test-hmmer-hmmpress-stub") {
+        options '-stub'
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id:'test' ],
+                    file('https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/delete_me/hmmer/bac.16S_rRNA.hmm.gz', checkIfExists: true),
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+}

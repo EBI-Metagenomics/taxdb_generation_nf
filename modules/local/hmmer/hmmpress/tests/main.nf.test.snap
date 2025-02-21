@@ -1,0 +1,88 @@
+{
+    "test-hmmer-hmmpress": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        [
+                            "profiles.hmm.h3f:md5,972a29c1c1c783f2016b83437f76adad",
+                            "profiles.hmm.h3i:md5,e11925c741a1799d54e2f2be58726797",
+                            "profiles.hmm.h3m:md5,3196ccc515883d4c4ce264fc75c7d148",
+                            "profiles.hmm.h3p:md5,6e1e1c56020046cd43de0a6520fc2170"
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,f5473ee4ad53142d92c79b5a0fe94bf6"
+                ],
+                "compressed_db": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        [
+                            "profiles.hmm.h3f:md5,972a29c1c1c783f2016b83437f76adad",
+                            "profiles.hmm.h3i:md5,e11925c741a1799d54e2f2be58726797",
+                            "profiles.hmm.h3m:md5,3196ccc515883d4c4ce264fc75c7d148",
+                            "profiles.hmm.h3p:md5,6e1e1c56020046cd43de0a6520fc2170"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,f5473ee4ad53142d92c79b5a0fe94bf6"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2025-02-21T17:00:20.421917"
+    },
+    "test-hmmer-hmmpress-stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        [
+                            "stub.h3f:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "stub.h3i:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "stub.h3m:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "stub.h3p:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,f5473ee4ad53142d92c79b5a0fe94bf6"
+                ],
+                "compressed_db": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        [
+                            "stub.h3f:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "stub.h3i:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "stub.h3m:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "stub.h3p:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,f5473ee4ad53142d92c79b5a0fe94bf6"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2025-02-21T17:00:25.389552"
+    }
+}
