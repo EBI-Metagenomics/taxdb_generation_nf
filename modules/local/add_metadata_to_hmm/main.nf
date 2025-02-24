@@ -10,6 +10,7 @@ process ADD_METADATA_TO_HMM {
 
     output:
     path "kofam_modified", emit: kofam_modified
+    path "versions.yml"            , emit: versions
 
     script:
     def is_compressed = ko_hmm_dir.getExtension() == "gz" ? true : false
@@ -23,5 +24,20 @@ process ADD_METADATA_TO_HMM {
     add_metadata_to_hmm.py ${ko_list} ${ko_hmm_input}
 
     cat *.modified.hmm > kofam_modified
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python --version 2>&1 | sed 's/Python //g')
+    END_VERSIONS
+    """
+
+    stub:
+    """
+    touch kofam_modified
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python --version 2>&1 | sed 's/Python //g')
+    END_VERSIONS
     """
 }

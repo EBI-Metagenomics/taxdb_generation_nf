@@ -42,4 +42,24 @@ nextflow_process {
 
     }
 
+    test("Stub mode") {
+        options '-stub'
+
+        when {
+            process {
+                """
+                input[0] = file("${moduleDir}/tests/data/profiles.tar.gz", checkIfExists: true)
+                input[1] = file("${moduleDir}/tests/data/ko_list.gz", checkIfExists: true)
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
 }
