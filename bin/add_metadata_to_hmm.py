@@ -23,6 +23,9 @@ from pathlib import Path
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
+GA_THRESHOLD = 25.00
+
+
 def parse_ko_list(ko_list_file: Path) -> dict[str, dict[str, str]]:
     """
     Parses the KO list TSV file and returns a dictionary with KO ids as keys and associated data
@@ -65,7 +68,7 @@ def create_ga_line(knum: str, ko_data: dict[str, dict[str, str]]) -> str:
     if score_type == 'domain':
         return f"GA    {threshold} {threshold}\n"
     elif score_type == 'full':
-        return f"GA    {threshold} 25.00\n"
+        return f"GA    {threshold} {GA_THRESHOLD}\n"
     else:
         raise ValueError(f"Unknown profile type {score_type} for KO {knum}.")
 
@@ -82,31 +85,32 @@ def modify_hmm_profile(hmm_file: Path, ko_data: dict[str, dict[str, str]]):
 
     # Find the KO id from the 'NAME' line
     name_line = next((line for line in lines if line.startswith('NAME')), None)
-    if name_line:
-        ko_id = name_line.split()[1]
-        if ko_id not in ko_data:
-            logging.warning(f"KO {ko_id} not found in KO data, skipping.")
-            return
-        
-        desc_line = create_desc_line(ko_id, ko_data)
-        ga_line = create_ga_line(ko_id, ko_data)
+    if not name_line:
+        raise ValueError(f"HMM {hmm_file} is missing the 'NAME' line")
+    ko_id = name_line.split()[1]
+    if ko_id not in ko_data:
+        logging.warning(f"KO {ko_id} not found in KO list, skipping.")
+        return
+    
+    desc_line = create_desc_line(ko_id, ko_data)
+    ga_line = create_ga_line(ko_id, ko_data)
 
-        # Insert DESC line between NAME and LENG
-        for i, line in enumerate(lines):
-            if line.startswith('LENG'):
-                lines.insert(i, desc_line)
-                break
-        
-        # Insert GA line between CKSUM and STATS
-        for i, line in enumerate(lines):
-            if line.startswith('STATS'):
-                lines.insert(i, ga_line)
-                break
+    # Insert DESC line between NAME and LENG
+    for i, line in enumerate(lines):
+        if line.startswith('LENG'):
+            lines.insert(i, desc_line)
+            break
+    
+    # Insert GA line between CKSUM and STATS
+    for i, line in enumerate(lines):
+        if line.startswith('STATS'):
+            lines.insert(i, ga_line)
+            break
 
-        # Write the modified content to the new output file
-        output_file = Path(hmm_file.stem + '.modified.hmm')
-        with output_file.open('w') as f:
-            f.writelines(lines)
+    # Write the modified content to the new output file
+    output_file = Path(hmm_file.stem + '.modified.hmm')
+    with output_file.open('w') as f:
+        f.writelines(lines)
 
     logging.info(f"Successfully modified and saved to: {output_file}")
 
