@@ -4,7 +4,7 @@ nextflow_workflow {
     script "../main.nf"
     workflow "KOFAM_GENERATION"
 
-    test("Run the workflow on the compressed input") {
+    test("Run KOFAM_GENERATION subwf on compressed input") {
 
         when {
             workflow {
@@ -27,7 +27,7 @@ nextflow_workflow {
         }
     }
 
-    test("Run the workflow on the uncompressed input") {
+    test("Run KOFAM_GENERATION subwf on uncompressed input") {
 
         when {
             workflow {

@@ -1,5 +1,5 @@
 {
-    "Run module on the uncompressed test data": {
+    "Run ADD_METADATA_TO_HMM module on uncompressed test data": {
         "content": [
             {
                 "0": [
@@ -18,9 +18,9 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.4"
         },
-        "timestamp": "2025-02-24T16:07:57.541194"
+        "timestamp": "2025-02-25T15:41:19.195888"
     },
     "Stub mode": {
         "content": [
@@ -41,11 +41,11 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.4"
         },
-        "timestamp": "2025-02-24T16:11:30.525215"
+        "timestamp": "2025-02-25T15:41:22.015144"
     },
-    "Run module on the compressed test data": {
+    "Run ADD_METADATA_TO_HMM module on compressed test data": {
         "content": [
             {
                 "0": [
@@ -64,8 +64,8 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.4"
         },
-        "timestamp": "2025-02-24T16:07:54.447476"
+        "timestamp": "2025-02-25T15:41:16.352569"
     }
 }

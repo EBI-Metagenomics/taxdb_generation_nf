@@ -4,7 +4,7 @@ nextflow_process {
     script "../main.nf"
     process "ADD_METADATA_TO_HMM"
 
-    test("Run module on the compressed test data") {
+    test("Run ADD_METADATA_TO_HMM module on compressed test data") {
 
         when {
             process {
@@ -23,7 +23,7 @@ nextflow_process {
 
     }
 
-    test("Run module on the uncompressed test data") {
+    test("Run ADD_METADATA_TO_HMM module on uncompressed test data") {
 
         when {
             process {
