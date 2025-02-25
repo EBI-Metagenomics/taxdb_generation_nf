@@ -1,5 +1,5 @@
 {
-    "test-hmmer-hmmpress": {
+    "sarscov2 - proteome - hmm - gz": {
         "content": [
             {
                 "0": [
@@ -8,10 +8,10 @@
                             "id": "test"
                         },
                         [
-                            "profiles.hmm.h3f:md5,972a29c1c1c783f2016b83437f76adad",
-                            "profiles.hmm.h3i:md5,e11925c741a1799d54e2f2be58726797",
-                            "profiles.hmm.h3m:md5,3196ccc515883d4c4ce264fc75c7d148",
-                            "profiles.hmm.h3p:md5,6e1e1c56020046cd43de0a6520fc2170"
+                            "proteome.hmm.h3f:md5,d0640e710a5eec56aa95a64e6dcb9971",
+                            "proteome.hmm.h3i:md5,1e68ee61bfe47697e3df24b5551dbb82",
+                            "proteome.hmm.h3m:md5,9fa27bd2fda0e8c037852301245dcbfb",
+                            "proteome.hmm.h3p:md5,e73ab76f194340b797e8485464caa369"
                         ]
                     ]
                 ],
@@ -24,10 +24,10 @@
                             "id": "test"
                         },
                         [
-                            "profiles.hmm.h3f:md5,972a29c1c1c783f2016b83437f76adad",
-                            "profiles.hmm.h3i:md5,e11925c741a1799d54e2f2be58726797",
-                            "profiles.hmm.h3m:md5,3196ccc515883d4c4ce264fc75c7d148",
-                            "profiles.hmm.h3p:md5,6e1e1c56020046cd43de0a6520fc2170"
+                            "proteome.hmm.h3f:md5,d0640e710a5eec56aa95a64e6dcb9971",
+                            "proteome.hmm.h3i:md5,1e68ee61bfe47697e3df24b5551dbb82",
+                            "proteome.hmm.h3m:md5,9fa27bd2fda0e8c037852301245dcbfb",
+                            "proteome.hmm.h3p:md5,e73ab76f194340b797e8485464caa369"
                         ]
                     ]
                 ],
@@ -38,11 +38,11 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.4"
         },
-        "timestamp": "2025-02-21T17:00:20.421917"
+        "timestamp": "2025-02-25T14:43:13.712539"
     },
-    "test-hmmer-hmmpress-stub": {
+    "sarscov2 - proteome - hmm - gz - stub": {
         "content": [
             {
                 "0": [
@@ -81,8 +81,8 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.4"
         },
-        "timestamp": "2025-02-21T17:00:25.389552"
+        "timestamp": "2025-02-25T14:43:19.740161"
     }
 }
