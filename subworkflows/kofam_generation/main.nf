@@ -1,5 +1,5 @@
 include { ADD_METADATA_TO_HMM } from '../../modules/local/add_metadata_to_hmm/main.nf'
-include { HMMER_HMMPRESS      } from '../../modules/local/hmmer/hmmpress/main.nf'
+include { HMMER_HMMPRESS      } from '../../modules/nf-core/hmmer/hmmpress/main.nf'
 
 workflow KOFAM_GENERATION {
     take:
