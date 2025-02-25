@@ -3,8 +3,9 @@ nextflow_workflow {
     name "Test workflow RHEA_AND_TAXONOMY_GENERATION"
     script "../main.nf"
     workflow "RHEA_AND_TAXONOMY_GENERATION"
+    config './nextflow.config'
 
-    test("Run the workflow on the test dataset") {
+    test("Run RHEA_AND_TAXONOMY_GENERATION module on test dataset") {
 
         when {
             workflow {
