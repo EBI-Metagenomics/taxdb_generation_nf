@@ -13,7 +13,7 @@ tools:
       tool_dev_url: "https://github.com/EddyRivasLab/hmmer"
       doi: "10.1371/journal.pcbi.1002195"
       licence: ["BSD"]
-      identifier: ""
+      identifier: biotools:hmmer
 input:
   - - meta:
         type: map
