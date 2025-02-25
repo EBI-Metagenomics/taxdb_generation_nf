@@ -39,7 +39,7 @@ process HMMER_HMMPRESS {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        hmmer: \$(echo \$(hmmbuild -h | grep HMMER | sed 's/# HMMER //' | sed 's/ .*//' 2>&1))
+        hmmer: \$(echo \$(hmmpress -h | grep HMMER | sed 's/# HMMER //' | sed 's/ .*//' 2>&1))
     END_VERSIONS
     """
 }
