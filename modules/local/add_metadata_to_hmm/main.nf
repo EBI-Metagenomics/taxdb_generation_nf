@@ -10,7 +10,7 @@ process ADD_METADATA_TO_HMM {
 
     output:
     path "kofam_modified", emit: kofam_modified
-    path "versions.yml"            , emit: versions
+    path "versions.yml"  , emit: versions
 
     script:
     def is_compressed = ko_hmm_dir.getExtension() == "gz" ? true : false
