@@ -5,6 +5,7 @@ keywords:
   - HMM
   - hmmer
   - hmmpress
+  - hmmscan
 tools:
   - "hmmer":
       description: "Biosequence analysis using profile hidden Markov models"
