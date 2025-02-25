@@ -1,0 +1,71 @@
+{
+    "Run ADD_METADATA_TO_HMM module on uncompressed test data": {
+        "content": [
+            {
+                "0": [
+                    "kofam_modified:md5,b209e0e2fb52685c67889e3dcaff14ff"
+                ],
+                "1": [
+                    "versions.yml:md5,8f88ca94440f324703ce2f8126af124d"
+                ],
+                "kofam_modified": [
+                    "kofam_modified:md5,b209e0e2fb52685c67889e3dcaff14ff"
+                ],
+                "versions": [
+                    "versions.yml:md5,8f88ca94440f324703ce2f8126af124d"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.4"
+        },
+        "timestamp": "2025-02-25T15:41:19.195888"
+    },
+    "Stub mode": {
+        "content": [
+            {
+                "0": [
+                    "kofam_modified:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "1": [
+                    "versions.yml:md5,8f88ca94440f324703ce2f8126af124d"
+                ],
+                "kofam_modified": [
+                    "kofam_modified:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "versions": [
+                    "versions.yml:md5,8f88ca94440f324703ce2f8126af124d"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.4"
+        },
+        "timestamp": "2025-02-25T15:41:22.015144"
+    },
+    "Run ADD_METADATA_TO_HMM module on compressed test data": {
+        "content": [
+            {
+                "0": [
+                    "kofam_modified:md5,b209e0e2fb52685c67889e3dcaff14ff"
+                ],
+                "1": [
+                    "versions.yml:md5,8f88ca94440f324703ce2f8126af124d"
+                ],
+                "kofam_modified": [
+                    "kofam_modified:md5,b209e0e2fb52685c67889e3dcaff14ff"
+                ],
+                "versions": [
+                    "versions.yml:md5,8f88ca94440f324703ce2f8126af124d"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.4"
+        },
+        "timestamp": "2025-02-25T15:41:16.352569"
+    }
+}

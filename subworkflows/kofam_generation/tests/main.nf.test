@@ -1,0 +1,52 @@
+nextflow_workflow {
+
+    name "Test workflow KOFAM_GENERATION"
+    script "../main.nf"
+    workflow "KOFAM_GENERATION"
+
+    test("Run KOFAM_GENERATION subwf on compressed input") {
+
+        when {
+            workflow {
+                """
+                input[0] = file("${moduleDir}/tests/data/profiles.tar.gz", checkIfExists: true)
+                input[1] = file("${moduleDir}/tests/data/ko_list.gz", checkIfExists: true)
+                """
+            }
+            params {
+                    kofam_version = "2025-01-22"
+                    outdir = "${outputDir}"
+            }
+        }
+
+        then {
+            assertAll(
+            { assert workflow.success },
+            { assert snapshot(workflow.out).match() },
+            )
+        }
+    }
+
+    test("Run KOFAM_GENERATION subwf on uncompressed input") {
+
+        when {
+            workflow {
+                """
+                input[0] = "${moduleDir}/tests/data/profiles"
+                input[1] = "${moduleDir}/tests/data/ko_list"
+                """
+            }
+            params {
+                    kofam_version = "2025-01-22"
+                    outdir = "${outputDir}"
+            }
+        }
+
+        then {
+            assertAll(
+            { assert workflow.success },
+            { assert snapshot(workflow.out).match() },
+            )
+        }
+    }
+}

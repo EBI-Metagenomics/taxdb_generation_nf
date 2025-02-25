@@ -1,0 +1,76 @@
+{
+    "Run KOFAM_GENERATION subwf on uncompressed input": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "KOFAM_db"
+                        },
+                        [
+                            "kofam_modified.h3f:md5,e813d5b0c879f6a14dd116e6a5ac9bc4",
+                            "kofam_modified.h3i:md5,ea7b9f29dade1fd6982ae10ec9c28ce1",
+                            "kofam_modified.h3m:md5,639f42269e97bf96d2d7818977c87ea0",
+                            "kofam_modified.h3p:md5,a0e0d29a29562f0656f7f3f0d955c4b3"
+                        ]
+                    ]
+                ],
+                "kofam_db": [
+                    [
+                        {
+                            "id": "KOFAM_db"
+                        },
+                        [
+                            "kofam_modified.h3f:md5,e813d5b0c879f6a14dd116e6a5ac9bc4",
+                            "kofam_modified.h3i:md5,ea7b9f29dade1fd6982ae10ec9c28ce1",
+                            "kofam_modified.h3m:md5,639f42269e97bf96d2d7818977c87ea0",
+                            "kofam_modified.h3p:md5,a0e0d29a29562f0656f7f3f0d955c4b3"
+                        ]
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.4"
+        },
+        "timestamp": "2025-02-25T15:38:10.288193"
+    },
+    "Run KOFAM_GENERATION subwf on compressed input": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "KOFAM_db"
+                        },
+                        [
+                            "kofam_modified.h3f:md5,e813d5b0c879f6a14dd116e6a5ac9bc4",
+                            "kofam_modified.h3i:md5,ea7b9f29dade1fd6982ae10ec9c28ce1",
+                            "kofam_modified.h3m:md5,639f42269e97bf96d2d7818977c87ea0",
+                            "kofam_modified.h3p:md5,a0e0d29a29562f0656f7f3f0d955c4b3"
+                        ]
+                    ]
+                ],
+                "kofam_db": [
+                    [
+                        {
+                            "id": "KOFAM_db"
+                        },
+                        [
+                            "kofam_modified.h3f:md5,e813d5b0c879f6a14dd116e6a5ac9bc4",
+                            "kofam_modified.h3i:md5,ea7b9f29dade1fd6982ae10ec9c28ce1",
+                            "kofam_modified.h3m:md5,639f42269e97bf96d2d7818977c87ea0",
+                            "kofam_modified.h3p:md5,a0e0d29a29562f0656f7f3f0d955c4b3"
+                        ]
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.4"
+        },
+        "timestamp": "2025-02-25T15:38:06.201299"
+    }
+}
