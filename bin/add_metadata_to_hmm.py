@@ -26,35 +26,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 GA_THRESHOLD = 25.00
 
 
-def parse_ko_list(ko_list_file: Path) -> dict[str, dict[str, str]]:
-    """
-    Parses the KO list TSV file and returns a dictionary with KO ids as keys and associated data
-    (threshold, score_type, definition).
-    """
-    ko_data = {}
-    open_func = gzip.open if ko_list_file.suffix == '.gz' else open
-    
-    logging.info(f"Parsing KO list file: {ko_list_file}")
-    
-    with open_func(ko_list_file, 'rt') as f:
-        reader = csv.DictReader(f, delimiter='\t')
-        for row in reader:
-            knum = row['knum']
-            threshold = row['threshold']
-            score_type = row['score_type']
-            definition = row['definition']
-            # Only include entries that have valid 'domain' or 'full' profile type
-            if score_type in ['domain', 'full']:
-                ko_data[knum] = {
-                    'threshold': threshold,
-                    'score_type': score_type,
-                    'definition': definition
-                }
-    
-    logging.info(f"Parsed {len(ko_data)} KO entries.")
-    return ko_data
-
-
 def create_desc_line(knum: str, ko_data: dict[str, dict[str, str]]) -> str:
     """Generate DESC line for the given KO id."""
     return f"DESC  {ko_data[knum]['definition']}\n"
@@ -135,11 +106,27 @@ def main():
     parser = argparse.ArgumentParser(description="Add metadata (description and threshold) from ko_list file to the given HMM profiles")
     parser.add_argument('ko_list', type=Path, help='Path to the ko_list or ko_list.gz file')
     parser.add_argument('hmm_input', type=Path, help='Path to a directory of HMM profiles or a single HMM profile (expected *.hmm file(s))')
-
     args = parser.parse_args()
 
     # Step 1: Parse the KO list
-    ko_data = parse_ko_list(args.ko_list)
+    logging.info(f"Parsing KO list file: {args.ko_list}")
+    open_func = gzip.open if args.ko_list.suffix == '.gz' else open
+    ko_data = {}
+    with open_func(args.ko_list, 'rt') as f:
+        reader = csv.DictReader(f, delimiter='\t')
+        for row in reader:
+            knum = row['knum']
+            threshold = row['threshold']
+            score_type = row['score_type']
+            definition = row['definition']
+            # Only include entries that have valid 'domain' or 'full' profile type
+            if score_type in ['domain', 'full']:
+                ko_data[knum] = {
+                    'threshold': threshold,
+                    'score_type': score_type,
+                    'definition': definition
+                }
+    logging.info(f"Parsed {len(ko_data)} KO entries.")
     
     # Step 2: Modify HMM profiles
     process_hmm_files(args.hmm_input, ko_data)
