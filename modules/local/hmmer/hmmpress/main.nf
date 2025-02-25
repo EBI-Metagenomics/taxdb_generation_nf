@@ -29,7 +29,7 @@ process HMMER_HMMPRESS {
     """
 
     stub:
-    def prefix    = task.ext.prefix ?: "stub"
+    def prefix = task.ext.prefix ?: "stub"
 
     """
     touch ${prefix}.h3m
