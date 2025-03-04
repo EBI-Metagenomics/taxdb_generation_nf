@@ -18,9 +18,14 @@ Nextflow workflow used to preprocess various reference database files in use by 
 
 Run this command with the flags for generation of the databases you need:
 
-`nextflow run main.nf --generate_amplicon_db true --generate_uniref90_db true --generate_kofam_db true`
+```
+nextflow run main.nf \
+    --generate_amplicon_db true \
+    --generate_uniref90_db true \
+    --generate_kofam_db true
+```
 
-`--generate_amplicon_db true` enable preprocessing of ITSone, PR2, RFAM, SILVA-LSU, SILVA-SSU and UNITE databases, required for taxonomic analysis in MGnify amplicon pipeline. It generate output like this, one subdirectory for each database:
+`--generate_amplicon_db true` enable preprocessing of ITSone, PR2, RFAM, SILVA-LSU, SILVA-SSU and UNITE databases, required for taxonomic analysis in MGnify amplicon pipeline. It generates output like this, one subdirectory for each database:
 
 ```
 ├── ITSone
@@ -54,7 +59,7 @@ Run this command with the flags for generation of the databases you need:
         └── UNITE-tax.txt
 ```
 
-`--generate_rhea_tax_db true` enable preprocessing of UniRef90, RHEA and NCBI taxonomy databases to produce MGnify custom DB for RHEA reactions annotation and CAT_pack database for taxonomic classification of contigs. It will generate the following output structure:
+`--generate_rhea_tax_db true` enable preprocessing of UniRef90 and RHEA database to produce MGnify custom DB for RHEA reactions annotation, and also UniRef90 and NCBI taxonomy to generate CAT_pack database for taxonomic classification of contigs. It generates the following output structure:
 ```
 ├── uniref90_rhea
 │   └── 2024_05
